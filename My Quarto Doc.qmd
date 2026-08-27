@@ -1,0 +1,40 @@
+---
+title: "Step3"
+format: html
+editor: visual
+---
+
+# Thoughts on Data Science
+
+Being a data scientist is about:
+
+- solving real-world problems  
+- helping people make informed decisions using data
+
+Predictive modeling can be such a helpful tool for us in so many situations. It is so important that our models (as data scientists) are built off of representative data sets, and are defined correctly.
+
+Data scientists and statisticians both work with data, use statistical methods, and draw conclusions from analyses. Data scientists typically spend more time programming and building machine learning models, while statisticians focus more on experimental design, statistical theory, and inference.
+
+I see myself somewhere between these two fields, leaning more towards data science. My mathematics background has given me a good understanding of statistical concepts, but my graduate studies and work as a solar engineer have allowed me to explore programming and data analysis quite a bit. I find it super satisfying to be able to explain/predict outcomes using numbers.
+
+# Exploring the Density Object
+
+The following code creates a density estimate for the Petal Width variable from the iris dataset.
+
+```{r}
+y <- density(iris$Petal.Width)
+```
+Now we examine the object y to understand it better.
+
+```{r}
+class(y)
+typeof(y)
+str(y)
+```
+The output above shows the class, underlying type, and internal structure of the density object.
+
+Now we make a plot of the density estimate.
+
+```{r echo=FALSE}
+plot(y)
+```
