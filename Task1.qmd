@@ -1,0 +1,181 @@
+---
+title: "Task1"
+---
+
+# Task 1
+
+Vector creation for both pre and post data
+
+```{r}
+pre_data <- c(130, 128, 116, 124, 133, 134, 118, 126, 114, 127, 141, 138, 128, 140, 137, 131, 120, 128, 139, 135)
+
+post_data <- c(114, 98, 113, 99, 107, 116, 113, 111, 119, 117, 101, 119, 130, 122, 106, 106, 124, 102, 117, 113)
+
+
+```
+
+Assigning names for both pre and post data
+
+```{r}
+names(pre_data) <- paste("Subject", 1:20, sep="_")
+names(post_data) <- paste("Subject", 1:20, sep="_")
+```
+
+Creating a vector that holds the difference between pre and post data
+
+```{r}
+diff_bp <- pre_data - post_data
+```
+
+Finding an average of differences between pre and post data
+
+```{r}
+avg <- mean(diff_bp)
+```
+
+Which function to determine which of the differences are positive
+
+```{r}
+which(diff_bp > 0)
+```
+
+New Vector that stores only positive differences
+
+```{r}
+positive_bp <- diff_bp[which(diff_bp > 0)]
+```
+
+Finding average of only the positive differences
+
+```{r}
+positive_avg <- mean(positive_bp)
+```
+
+# Task 2
+
+Creating a data frame to hold all the data
+
+```{r}
+bp_df <- data.frame(
+  patient = names(pre_data),
+  pre_bp = pre_data,
+  post_bp = post_data,
+  diff_bp = diff_bp
+)
+```
+
+Creating a vector that only holds negative difference values
+
+```{r}
+subset(bp_df, diff_bp < 0)
+```
+
+Column that holds only values under 120 for post data is added
+
+```{r}
+bp_df$post_bp_under120 <- bp_df$post_bp < 120
+bp_df
+```
+
+```{r}
+knitr::kable(bp_df)
+```
+
+# Task 3
+
+New data for placebo pre and post created along with a difference vector
+
+```{r}
+placebo_pre <- c(138, 135, 147, 117, 152, 134, 114, 121, 131, 130)
+placebo_post <- c(105, 136, 123, 130, 134, 143, 135, 139, 120, 124)
+placebo_diff <- placebo_pre - placebo_post
+
+```
+
+Assigning names
+
+```{r}
+names(placebo_pre) <- paste("Subject", 1:10, sep = "_")
+names(placebo_post) <- paste("Subject", 1:10, sep = "_")
+
+```
+
+Data frame similar that holds all the data
+
+```{r}
+placebo_df <- data.frame(
+  patient = names(placebo_pre),
+  pre_bp = placebo_pre,
+  post_bp = placebo_post,
+  diff_bp = placebo_diff
+)
+```
+
+A column is added to the data frame that depicts if post data is under 120
+
+```{r}
+placebo_df$post_bp_under120 <- placebo_df$post_bp < 120
+placebo_df
+```
+
+Creation of a list that holds previous and current data
+
+```{r}
+bp_list <- list(
+  treatment = bp_df,
+  placebo = placebo_df
+)
+```
+
+Accessing the first element of the list in three ways
+
+```{r}
+bp_list$treatment
+bp_list[["treatment"]]
+bp_list[[1]]
+```
+
+```{r}
+bp_list$placebo$pre_bp
+```
+
+# Task 4
+
+Creation of a status column that holds characters based on length of list
+
+```{r}
+bp_list$treatment$status <- character(20)
+bp_list$placebo$status <- character(10)
+```
+
+For loops and if conditions to assign values based on post values
+
+```{r}
+for (i in 1:20){
+  if(bp_list$treatment$post_bp[i] <= 120){
+    bp_list$treatment$status[i] <- "optimal"
+  }
+  else if(bp_list$treatment$post_bp[i] <= 130 ){
+        bp_list$treatment$status[i] <- "borderline"
+  }
+  else {
+        bp_list$treatment$status[i] <- "high"
+
+  }
+}
+
+for (i in 1:10){
+  if(bp_list$placebo$post_bp[i] <= 120){
+    bp_list$placebo$status[i] <- "optimal"
+  }
+  else if (bp_list$placebo$post_bp[i] <= 130){
+        bp_list$placebo$status[i] <- "borderline"
+  }
+  else{
+        bp_list$placebo$status[i] <- "high"
+  }
+}
+
+bp_list$treatment
+bp_list$placebo
+```
