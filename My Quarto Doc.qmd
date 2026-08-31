@@ -1,9 +1,3 @@
----
-title: "Step3"
-format: html
-editor: visual
----
-
 # Thoughts on Data Science
 
 Being a data scientist is about:
