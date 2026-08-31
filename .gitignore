@@ -2,6 +2,9 @@
 .Rhistory
 .RData
 .Ruserdata
+<<<<<<< HEAD
 
 /.quarto/
 **/*.quarto_ipynb
+=======
+>>>>>>> 3d209773def501027ed74219c4b0df8f3657a989
