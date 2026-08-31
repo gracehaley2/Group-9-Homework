@@ -1,0 +1,144 @@
+---
+title: "hw2"
+---
+
+```         
+```
+
+# Task 1
+
+This block of code imports the initial BP data, adds identifiers to each data point (Subject_N),
+
+```{r}
+#| echo: true
+pre_bp = c(130, 128, 116, 124, 133, 134, 118, 126, 114, 127, 141, 138, 128, 140, 137, 131, 120, 128, 139, 135)  
+post_bp =c(114, 98, 113, 99, 107, 116, 113, 111, 119, 117,101, 119, 130, 122, 106, 106, 124, 102, 117, 113)  
+pre_bp
+post_bp
+
+subjects=paste("Subject", 1:20, sep = "_")
+
+
+names(pre_bp)=subjects
+names(post_bp)=subjects
+
+pre_bp
+
+bp_difference=pre_bp-post_bp
+mean_bp=mean(bp_difference)
+mean_bp
+
+
+decreased = which(bp_difference > 0)
+decreased
+
+positive_diff = bp_difference[decreased]
+mean(positive_diff)
+
+
+
+
+```
+
+# Task 2
+
+in this task we are simply creating a dataframe for the BP dataset that we have, it just combines all of the data into a singular object that is much easier to manipulate. We also do some filtering of the data, like putting TRUE if the subjects post treatment blood pressure is under 120
+
+```{r}
+bp_df = data.frame(
+  patient = subjects,
+  pre_bp  = pre_bp,
+  post_bp = post_bp,
+  diff_bp = bp_difference,
+  stringsAsFactors = FALSE
+)
+rownames(bp_df) = NULL
+#filters the dataframe for values less than 0, basically the same as using subset
+bp_df[bp_df$diff_bp< 0, ]
+bp_df$under_120 = bp_df$post_bp < 120
+bp_df
+knitr::kable(bp_df)
+
+```
+
+# Task 3
+
+Here we are creating a new table with placebo values, formatting it the same format as the blood pressure table. We also place both dataframes in a list, with treatment being the first item in the list and placebo being the second item in the list.
+
+```{r}
+#| echo: true
+placebo_pre  = c(138, 135, 147, 117, 152, 134, 114, 121, 131, 130)
+placebo_post = c(105, 136, 123, 130, 134, 143, 135, 139, 120, 124)
+
+placebo_names = paste("Subject", 1:10, sep = "_")
+
+placebo_df = data.frame(
+  patient   = placebo_names,
+  pre_bp    = placebo_pre,
+  post_bp   = placebo_post,
+  diff_bp   = placebo_pre - placebo_post,
+  stringsAsFactors = FALSE
+)
+placebo_df$under_120 = placebo_df$post_bp < 120
+
+placebo_df
+
+
+bp_list <- list(treatment = bp_df, placebo = placebo_df)
+
+bp_list
+
+
+#accessimg the first element using different types of syntax
+bp_list$treatment     
+bp_list[["treatment"]] 
+bp_list[[1]]          
+
+
+bp_list$placebo$pre_bp
+
+
+
+```
+
+# Task 4
+
+first we are placing the subjects in three different groups based on blood pressure, **optimal** is less than 121, **borderline** is from 121 to 130 inclusive, and **high** is above 130. This is done for both the treatment and the placebo groups.
+
+```{r}
+
+bp_list$treatment$status= character(20)
+bp_list$placebo$status= character(10)
+#nrow just gets the number of rows, easier than remembering how many rows it has
+
+for (i in 1:nrow(bp_list$treatment)) {
+  if (bp_list$treatment$post_bp[i] <= 120) {
+    bp_list$treatment$status[i] <- "optimal"
+  } else if (bp_list$treatment$post_bp[i] <= 130) {
+    bp_list$treatment$status[i] <- "borderline"
+  } else {
+    bp_list$treatment$status[i] <- "high"
+  }
+}
+bp_list$treatment
+
+
+#nrow just gets the number of rows, easier than remembering how many rows it has
+for (i in 1:nrow(bp_list$placebo)) {
+  if (bp_list$placebo$post_bp[i] <= 120) {
+    bp_list$placebo$status[i] <- "optimal"
+  } else if (bp_list$placebo$post_bp[i] <= 130) {
+    bp_list$placebo$status[i] <- "borderline"
+  } else {
+    bp_list$placebo$status[i] <- "high"
+  }
+}
+
+bp_list$placebo
+```
+
+```{}
+```
+
+```{}
+```
