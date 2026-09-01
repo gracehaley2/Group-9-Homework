@@ -218,4 +218,73 @@ Access the pre-treatment blood pressure column from the placebo data frame
 bp_list$placebo$pre_bp
 
 ```
+
+# Task 4
+
+## Question 1
+
+Create a new `status` column in each data frame stored in the list.
+
+Add an empty status column to the treatment data frame
+```{r}
+bp_list$treatment$status <- character(nrow(bp_list$treatment))
+```
+Add an empty status column to the placebo data frame
+```{r}
+bp_list$placebo$status <- character(nrow(bp_list$placebo))
+```
+Display the updated list
+```{r}
+bp_list
+```
+
+## Question 2
+
+```{r}
+for (i in 1:nrow(bp_list$treatment)) {
+
+  current_bp <- bp_list$treatment$post_bp[i]
+
+  if (current_bp <= 120) {
+
+    bp_list$treatment$status[i] <- "optimal" 
+
+  } else if (current_bp > 120 & current_bp <= 130) {
+    
+    bp_list$treatment$status[i] <- "borderline"
+
+  } else {
+
+    bp_list$treatment$status[i] <- "high"
+
+  }
+}
+
+bp_list$treatment
+```
+
+## Question 3
+
+```{r}
+for (i in 1:nrow(bp_list$placebo)) {
+
+  current_bp <- bp_list$placebo$post_bp[i]
+
+  if (current_bp <= 120) {
+
+    bp_list$placebo$status[i] <- "optimal" 
+
+  } else if (current_bp > 120 & current_bp <= 130) {
+    
+    bp_list$placebo$status[i] <- "borderline"
+
+  } else {
+
+    bp_list$placebo$status[i] <- "high"
+
+  }
+}
+
+bp_list$placebo
+```
 ---
