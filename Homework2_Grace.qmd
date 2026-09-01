@@ -240,6 +240,8 @@ bp_list
 
 ## Question 2
 
+Assign a blood pressure status to each patient in the treatment group using a for loop.
+
 ```{r}
 for (i in 1:nrow(bp_list$treatment)) {
 
@@ -264,6 +266,8 @@ bp_list$treatment
 ```
 
 ## Question 3
+
+Assign a blood pressure status to each patient in the placebo group using a for loop.
 
 ```{r}
 for (i in 1:nrow(bp_list$placebo)) {
