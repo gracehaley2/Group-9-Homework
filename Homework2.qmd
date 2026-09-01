@@ -1,3 +1,136 @@
 ---
-title: "Homework2"
+title: "Homework 2"
+author: "AMJ"
 ---
+
+### Task 1:
+
+I am creating the two vectors here. One is for pre_treatment and one is for post_treatment and the vectors contain the blood pressure data.
+
+```{r}
+
+pre_treatment <- c(130, 128, 116, 124, 133, 134, 118, 126, 114, 127, 141, 138, 128, 140, 137, 131, 120, 128, 139, 135)
+
+post_treatment <- c(114, 98, 113, 99, 107, 116, 113, 111, 119, 117, 101, 119, 130, 122, 106, 106, 124, 102, 117, 113)
+
+# I am storing the created names into an object and applying the automatically generated names to the vector elements.
+
+subject_names <- paste("Subject", 1:20, sep = "_")
+names(pre_treatment) <- subject_names
+names(post_treatment) <- subject_names
+```
+
+The following code calculates the change in blood pressure for each patient and stores it in a new vector.
+```{r}
+bp_change <- pre_treatment - post_treatment
+```
+
+The following code calculates the average decrease in blood pressure across all patients.
+```{r}
+mean(bp_change)
+
+# This code looks at which patients had a decrease in blood pressure after treatment (a positive change).
+which(bp_change>0)
+# This code subsets the original change vector to capture only the patients which had a decrease in blood pressure after treatment.
+bp_change[bp_change>0]
+# And this code calculates the average decrease in blood pressure for that subset.
+mean(bp_change[bp_change>0])
+```
+
+### Task 2
+I am creating a data frame object with four columns as specified.
+```{r}
+bp_data <- data.frame(
+  patient = names(pre_treatment),
+  pre_bp = pre_treatment,
+  post_bp = post_treatment,
+  diff_bp = bp_change
+)
+bp_data
+```
+
+This code returns the rows where the difference in blood pressure is negative and adds a new column if the post_bp is less than 120. And lastly, it prints the data frame out.
+```{r}
+bp_data[bp_data$diff_bp < 0, ]
+bp_data$post_under_120 <- bp_data$post_bp < 120
+knitr::kable(bp_data)
+
+```
+
+### Task 3
+Here, I am creating the vectors for the placebo groups.
+```{r}
+placebo_pre <- c(138, 135, 147, 117, 152, 134, 114, 121, 131, 130)
+placebo_post <- c(105, 136, 123, 130, 134, 143, 135, 139, 120, 124)
+
+#The following code creates a data frame as specified with the placebo vectors.
+placebo_df <- data.frame(
+  patient = paste("Subject", 1:10, sep = "_"),
+  pre_bp = placebo_pre,
+  post_bp = placebo_post
+)
+#The following code creates a new column in the data frame as well.
+placebo_df$diff_bp <- placebo_df$pre_bp - placebo_df$post_bp
+
+placebo_df$post_under_120 <- placebo_df$post_bp < 120
+```
+
+Next, I am creating a list with both the data frames created so far.
+```{r}
+bp_list <- list(
+  treatment = bp_data,
+  placebo = placebo_df
+)
+```
+
+The following code accesses the first list elements in three different ways.
+```{r}
+bp_list[1]
+bp_list[[1]]
+bp_list$treatment
+```
+
+And finally, this code accesses the placebo data frame's pre_bp column.
+```{r}
+bp_list$placebo$pre_bp
+```
+
+### Task 4
+
+The following code creates a new column in both data frames called status.
+```{r}
+bp_list$treatment$status <- character(20)
+bp_list$placebo$status <- character(10)
+```
+
+The following code creates the new status column's values using a for loop in the placebo data frame.
+```{r}
+for (i in 1:20) {
+  
+  if (bp_list$treatment$post_bp[i] <= 120) {
+    bp_list$treatment$status[i] <- "optimal"
+    
+  } else if (bp_list$treatment$post_bp[i] <= 130) {
+    bp_list$treatment$status[i] <- "borderline"
+    
+  } else {
+    bp_list$treatment$status[i] <- "high"
+  }
+}
+```
+
+The following code does the same thing as the above block but for the non-placebo data frame.
+```{r}
+for (i in 1:10) {
+  
+  if (bp_list$placebo$post_bp[i] <= 120) {
+    bp_list$placebo$status[i] <- "optimal"
+    
+  } else if (bp_list$placebo$post_bp[i] <= 130) {
+    bp_list$placebo$status[i] <- "borderline"
+    
+  } else {
+    bp_list$placebo$status[i] <- "high"
+  }
+}
+```
