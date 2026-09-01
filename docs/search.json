@@ -12,5 +12,61 @@
     "title": "About",
     "section": "",
     "text": "About this site\n\n1 + 1\n\n[1] 2"
+  },
+  {
+    "objectID": "Homework2_Grace.html",
+    "href": "Homework2_Grace.html",
+    "title": "Homework 2 - Grace Haley",
+    "section": "",
+    "text": "Create vectors for the pre-treatment and post-treatment blood pressure measurements.\n\npre_bp &lt;- c(\n  130, 128, 116, 124, 133,\n  134, 118, 126, 114, 127,\n  141, 138, 128, 140, 137,\n  131, 120, 128, 139, 135\n)\n\npost_bp &lt;- c(\n  114, 98, 113, 99, 107,\n  116, 113, 111, 119, 117,\n  101, 119, 130, 122, 106,\n  106, 124, 102, 117, 113\n)\n\n\n\n\nAssign subject names to each vector.\n\npatient_names &lt;- paste(\"Subject\", 1:20, sep = \"_\")\n\nnames(pre_bp) &lt;- patient_names\nnames(post_bp) &lt;- patient_names\n\npre_bp\n\n Subject_1  Subject_2  Subject_3  Subject_4  Subject_5  Subject_6  Subject_7 \n       130        128        116        124        133        134        118 \n Subject_8  Subject_9 Subject_10 Subject_11 Subject_12 Subject_13 Subject_14 \n       126        114        127        141        138        128        140 \nSubject_15 Subject_16 Subject_17 Subject_18 Subject_19 Subject_20 \n       137        131        120        128        139        135 \n\npost_bp\n\n Subject_1  Subject_2  Subject_3  Subject_4  Subject_5  Subject_6  Subject_7 \n       114         98        113         99        107        116        113 \n Subject_8  Subject_9 Subject_10 Subject_11 Subject_12 Subject_13 Subject_14 \n       111        119        117        101        119        130        122 \nSubject_15 Subject_16 Subject_17 Subject_18 Subject_19 Subject_20 \n       106        106        124        102        117        113 \n\n\n\n\n\nCalculate the change in blood pressure for each patient by subtracting the post-treatment measurements from the pre-treatment measurements.\n\ndiff_bp &lt;- pre_bp - post_bp\ndiff_bp\n\n Subject_1  Subject_2  Subject_3  Subject_4  Subject_5  Subject_6  Subject_7 \n        16         30          3         25         26         18          5 \n Subject_8  Subject_9 Subject_10 Subject_11 Subject_12 Subject_13 Subject_14 \n        15         -5         10         40         19         -2         18 \nSubject_15 Subject_16 Subject_17 Subject_18 Subject_19 Subject_20 \n        31         25         -4         26         22         22 \n\n\n\n\n\nCalculate the average decrease in blood pressure across all patients.\n\nmean(diff_bp)\n\n[1] 17\n\n\n\n\n\nDetermine which patients experienced a decrease in blood pressure after treatment using the which() function.\n\nwhich(diff_bp &gt; 0)\n\n Subject_1  Subject_2  Subject_3  Subject_4  Subject_5  Subject_6  Subject_7 \n         1          2          3          4          5          6          7 \n Subject_8 Subject_10 Subject_11 Subject_12 Subject_14 Subject_15 Subject_16 \n         8         10         11         12         14         15         16 \nSubject_18 Subject_19 Subject_20 \n        18         19         20 \n\n\n\n\n\nSubset the vector of differences to return only those with a positive change.\n\npositive_changes &lt;- diff_bp[diff_bp &gt; 0]\n\npositive_changes\n\n Subject_1  Subject_2  Subject_3  Subject_4  Subject_5  Subject_6  Subject_7 \n        16         30          3         25         26         18          5 \n Subject_8 Subject_10 Subject_11 Subject_12 Subject_14 Subject_15 Subject_16 \n        15         10         40         19         18         31         25 \nSubject_18 Subject_19 Subject_20 \n        26         22         22 \n\n\n\n\n\nCalculate the average decrease in blood pressure for only those patients whose blood pressure decreased.\n\nmean(positive_changes)\n\n[1] 20.64706"
+  },
+  {
+    "objectID": "Homework2_Grace.html#question-1",
+    "href": "Homework2_Grace.html#question-1",
+    "title": "Homework 2 - Grace Haley",
+    "section": "",
+    "text": "Create vectors for the pre-treatment and post-treatment blood pressure measurements.\n\npre_bp &lt;- c(\n  130, 128, 116, 124, 133,\n  134, 118, 126, 114, 127,\n  141, 138, 128, 140, 137,\n  131, 120, 128, 139, 135\n)\n\npost_bp &lt;- c(\n  114, 98, 113, 99, 107,\n  116, 113, 111, 119, 117,\n  101, 119, 130, 122, 106,\n  106, 124, 102, 117, 113\n)"
+  },
+  {
+    "objectID": "Homework2_Grace.html#question-2",
+    "href": "Homework2_Grace.html#question-2",
+    "title": "Homework 2 - Grace Haley",
+    "section": "",
+    "text": "Assign subject names to each vector.\n\npatient_names &lt;- paste(\"Subject\", 1:20, sep = \"_\")\n\nnames(pre_bp) &lt;- patient_names\nnames(post_bp) &lt;- patient_names\n\npre_bp\n\n Subject_1  Subject_2  Subject_3  Subject_4  Subject_5  Subject_6  Subject_7 \n       130        128        116        124        133        134        118 \n Subject_8  Subject_9 Subject_10 Subject_11 Subject_12 Subject_13 Subject_14 \n       126        114        127        141        138        128        140 \nSubject_15 Subject_16 Subject_17 Subject_18 Subject_19 Subject_20 \n       137        131        120        128        139        135 \n\npost_bp\n\n Subject_1  Subject_2  Subject_3  Subject_4  Subject_5  Subject_6  Subject_7 \n       114         98        113         99        107        116        113 \n Subject_8  Subject_9 Subject_10 Subject_11 Subject_12 Subject_13 Subject_14 \n       111        119        117        101        119        130        122 \nSubject_15 Subject_16 Subject_17 Subject_18 Subject_19 Subject_20 \n       106        106        124        102        117        113"
+  },
+  {
+    "objectID": "Homework2_Grace.html#question-3",
+    "href": "Homework2_Grace.html#question-3",
+    "title": "Homework 2 - Grace Haley",
+    "section": "",
+    "text": "Calculate the change in blood pressure for each patient by subtracting the post-treatment measurements from the pre-treatment measurements.\n\ndiff_bp &lt;- pre_bp - post_bp\ndiff_bp\n\n Subject_1  Subject_2  Subject_3  Subject_4  Subject_5  Subject_6  Subject_7 \n        16         30          3         25         26         18          5 \n Subject_8  Subject_9 Subject_10 Subject_11 Subject_12 Subject_13 Subject_14 \n        15         -5         10         40         19         -2         18 \nSubject_15 Subject_16 Subject_17 Subject_18 Subject_19 Subject_20 \n        31         25         -4         26         22         22"
+  },
+  {
+    "objectID": "Homework2_Grace.html#question-4",
+    "href": "Homework2_Grace.html#question-4",
+    "title": "Homework 2 - Grace Haley",
+    "section": "",
+    "text": "Calculate the average decrease in blood pressure across all patients.\n\nmean(diff_bp)\n\n[1] 17"
+  },
+  {
+    "objectID": "Homework2_Grace.html#question-5",
+    "href": "Homework2_Grace.html#question-5",
+    "title": "Homework 2 - Grace Haley",
+    "section": "",
+    "text": "Determine which patients experienced a decrease in blood pressure after treatment using the which() function.\n\nwhich(diff_bp &gt; 0)\n\n Subject_1  Subject_2  Subject_3  Subject_4  Subject_5  Subject_6  Subject_7 \n         1          2          3          4          5          6          7 \n Subject_8 Subject_10 Subject_11 Subject_12 Subject_14 Subject_15 Subject_16 \n         8         10         11         12         14         15         16 \nSubject_18 Subject_19 Subject_20 \n        18         19         20"
+  },
+  {
+    "objectID": "Homework2_Grace.html#question-6",
+    "href": "Homework2_Grace.html#question-6",
+    "title": "Homework 2 - Grace Haley",
+    "section": "",
+    "text": "Subset the vector of differences to return only those with a positive change.\n\npositive_changes &lt;- diff_bp[diff_bp &gt; 0]\n\npositive_changes\n\n Subject_1  Subject_2  Subject_3  Subject_4  Subject_5  Subject_6  Subject_7 \n        16         30          3         25         26         18          5 \n Subject_8 Subject_10 Subject_11 Subject_12 Subject_14 Subject_15 Subject_16 \n        15         10         40         19         18         31         25 \nSubject_18 Subject_19 Subject_20 \n        26         22         22"
+  },
+  {
+    "objectID": "Homework2_Grace.html#question-7",
+    "href": "Homework2_Grace.html#question-7",
+    "title": "Homework 2 - Grace Haley",
+    "section": "",
+    "text": "Calculate the average decrease in blood pressure for only those patients whose blood pressure decreased.\n\nmean(positive_changes)\n\n[1] 20.64706"
   }
 ]

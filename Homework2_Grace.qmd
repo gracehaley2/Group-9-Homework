@@ -3,5 +3,79 @@ title: "Homework 2 - Grace Haley"
 format: html
 ---
 
-# Homework 2
+## Question 1
+
+Create vectors for the pre-treatment and post-treatment blood pressure measurements.
+
+```{r}
+pre_bp <- c(
+  130, 128, 116, 124, 133,
+  134, 118, 126, 114, 127,
+  141, 138, 128, 140, 137,
+  131, 120, 128, 139, 135
+)
+
+post_bp <- c(
+  114, 98, 113, 99, 107,
+  116, 113, 111, 119, 117,
+  101, 119, 130, 122, 106,
+  106, 124, 102, 117, 113
+)
+```
+
+## Question 2
+
+Assign subject names to each vector.
+
+```{r}
+patient_names <- paste("Subject", 1:20, sep = "_")
+
+names(pre_bp) <- patient_names
+names(post_bp) <- patient_names
+
+pre_bp
+post_bp
+```
+## Question 3
+
+Calculate the change in blood pressure for each patient by subtracting the post-treatment measurements from the pre-treatment measurements.
+
+```{r}
+diff_bp <- pre_bp - post_bp
+diff_bp
+```
+
+## Question 4
+
+Calculate the average decrease in blood pressure across all patients.
+
+```{r}
+mean(diff_bp)
+```
+
+## Question 5
+
+Determine which patients experienced a decrease in blood pressure after treatment using the `which()` function.
+
+```{r}
+which(diff_bp > 0)
+```
+
+## Question 6
+
+Subset the vector of differences to return only those with a positive change.
+
+```{r}
+positive_changes <- diff_bp[diff_bp > 0]
+
+positive_changes
+```
+
+## Question 7
+
+Calculate the average decrease in blood pressure for only those patients whose blood pressure decreased.
+
+```{r}
+mean(positive_changes)
+```
 ---
