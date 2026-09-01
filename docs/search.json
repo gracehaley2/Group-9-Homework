@@ -25,7 +25,7 @@
     "href": "Homework2_Grace.html",
     "title": "Homework 2 - Grace Haley",
     "section": "",
-    "text": "Create vectors for the pre-treatment and post-treatment blood pressure measurements.\n\npre_bp &lt;- c(\n  130, 128, 116, 124, 133,\n  134, 118, 126, 114, 127,\n  141, 138, 128, 140, 137,\n  131, 120, 128, 139, 135\n)\n\npost_bp &lt;- c(\n  114, 98, 113, 99, 107,\n  116, 113, 111, 119, 117,\n  101, 119, 130, 122, 106,\n  106, 124, 102, 117, 113\n)"
+    "text": "Create vectors for the pre-treatment and post-treatment blood pressure measurements.\n\npre_bp &lt;- c(\n  130, 128, 116, 124, 133,\n  134, 118, 126, 114, 127,\n  141, 138, 128, 140, 137,\n  131, 120, 128, 139, 135\n)\n\npost_bp &lt;- c(\n  114, 98, 113, 99, 107,\n  116, 113, 111, 119, 117,\n  101, 119, 130, 122, 106,\n  106, 124, 102, 117, 113\n)\n\n\n\n\nAssign subject names to each vector.\n\npatient_names &lt;- paste(\"Subject\", 1:20, sep = \"_\")\n\nnames(pre_bp) &lt;- patient_names\nnames(post_bp) &lt;- patient_names\n\npre_bp\n\n Subject_1  Subject_2  Subject_3  Subject_4  Subject_5  Subject_6  Subject_7 \n       130        128        116        124        133        134        118 \n Subject_8  Subject_9 Subject_10 Subject_11 Subject_12 Subject_13 Subject_14 \n       126        114        127        141        138        128        140 \nSubject_15 Subject_16 Subject_17 Subject_18 Subject_19 Subject_20 \n       137        131        120        128        139        135 \n\npost_bp\n\n Subject_1  Subject_2  Subject_3  Subject_4  Subject_5  Subject_6  Subject_7 \n       114         98        113         99        107        116        113 \n Subject_8  Subject_9 Subject_10 Subject_11 Subject_12 Subject_13 Subject_14 \n       111        119        117        101        119        130        122 \nSubject_15 Subject_16 Subject_17 Subject_18 Subject_19 Subject_20 \n       106        106        124        102        117        113 \n\n\n\n\n\nCalculate the change in blood pressure for each patient by subtracting the post-treatment measurements from the pre-treatment measurements.\n\ndiff_bp &lt;- pre_bp - post_bp\ndiff_bp\n\n Subject_1  Subject_2  Subject_3  Subject_4  Subject_5  Subject_6  Subject_7 \n        16         30          3         25         26         18          5 \n Subject_8  Subject_9 Subject_10 Subject_11 Subject_12 Subject_13 Subject_14 \n        15         -5         10         40         19         -2         18 \nSubject_15 Subject_16 Subject_17 Subject_18 Subject_19 Subject_20 \n        31         25         -4         26         22         22 \n\n\n\n\n\nCalculate the average decrease in blood pressure across all patients.\n\nmean(diff_bp)\n\n[1] 17\n\n\n\n\n\nDetermine which patients experienced a decrease in blood pressure after treatment using the which() function.\n\nwhich(diff_bp &gt; 0)\n\n Subject_1  Subject_2  Subject_3  Subject_4  Subject_5  Subject_6  Subject_7 \n         1          2          3          4          5          6          7 \n Subject_8 Subject_10 Subject_11 Subject_12 Subject_14 Subject_15 Subject_16 \n         8         10         11         12         14         15         16 \nSubject_18 Subject_19 Subject_20 \n        18         19         20 \n\n\n\n\n\nSubset the vector of differences to return only those with a positive change.\n\npositive_changes &lt;- diff_bp[diff_bp &gt; 0]\n\npositive_changes\n\n Subject_1  Subject_2  Subject_3  Subject_4  Subject_5  Subject_6  Subject_7 \n        16         30          3         25         26         18          5 \n Subject_8 Subject_10 Subject_11 Subject_12 Subject_14 Subject_15 Subject_16 \n        15         10         40         19         18         31         25 \nSubject_18 Subject_19 Subject_20 \n        26         22         22 \n\n\n\n\n\nCalculate the average decrease in blood pressure for only those patients whose blood pressure decreased.\n\nmean(positive_changes)\n\n[1] 20.64706"
   },
   {
     "objectID": "Homework2_Grace.html#question-1",
@@ -38,42 +38,98 @@
     "objectID": "Homework2_Grace.html#question-2",
     "href": "Homework2_Grace.html#question-2",
     "title": "Homework 2 - Grace Haley",
-    "section": "Question 2",
-    "text": "Question 2\nAssign subject names to each vector.\n\npatient_names &lt;- paste(\"Subject\", 1:20, sep = \"_\")\n\nnames(pre_bp) &lt;- patient_names\nnames(post_bp) &lt;- patient_names\n\npre_bp\n\n Subject_1  Subject_2  Subject_3  Subject_4  Subject_5  Subject_6  Subject_7 \n       130        128        116        124        133        134        118 \n Subject_8  Subject_9 Subject_10 Subject_11 Subject_12 Subject_13 Subject_14 \n       126        114        127        141        138        128        140 \nSubject_15 Subject_16 Subject_17 Subject_18 Subject_19 Subject_20 \n       137        131        120        128        139        135 \n\npost_bp\n\n Subject_1  Subject_2  Subject_3  Subject_4  Subject_5  Subject_6  Subject_7 \n       114         98        113         99        107        116        113 \n Subject_8  Subject_9 Subject_10 Subject_11 Subject_12 Subject_13 Subject_14 \n       111        119        117        101        119        130        122 \nSubject_15 Subject_16 Subject_17 Subject_18 Subject_19 Subject_20 \n       106        106        124        102        117        113"
+    "section": "",
+    "text": "Assign subject names to each vector.\n\npatient_names &lt;- paste(\"Subject\", 1:20, sep = \"_\")\n\nnames(pre_bp) &lt;- patient_names\nnames(post_bp) &lt;- patient_names\n\npre_bp\n\n Subject_1  Subject_2  Subject_3  Subject_4  Subject_5  Subject_6  Subject_7 \n       130        128        116        124        133        134        118 \n Subject_8  Subject_9 Subject_10 Subject_11 Subject_12 Subject_13 Subject_14 \n       126        114        127        141        138        128        140 \nSubject_15 Subject_16 Subject_17 Subject_18 Subject_19 Subject_20 \n       137        131        120        128        139        135 \n\npost_bp\n\n Subject_1  Subject_2  Subject_3  Subject_4  Subject_5  Subject_6  Subject_7 \n       114         98        113         99        107        116        113 \n Subject_8  Subject_9 Subject_10 Subject_11 Subject_12 Subject_13 Subject_14 \n       111        119        117        101        119        130        122 \nSubject_15 Subject_16 Subject_17 Subject_18 Subject_19 Subject_20 \n       106        106        124        102        117        113"
   },
   {
     "objectID": "Homework2_Grace.html#question-3",
     "href": "Homework2_Grace.html#question-3",
     "title": "Homework 2 - Grace Haley",
-    "section": "Question 3",
-    "text": "Question 3\nCalculate the change in blood pressure for each patient by subtracting the post-treatment measurements from the pre-treatment measurements.\n\ndiff_bp &lt;- pre_bp - post_bp\ndiff_bp\n\n Subject_1  Subject_2  Subject_3  Subject_4  Subject_5  Subject_6  Subject_7 \n        16         30          3         25         26         18          5 \n Subject_8  Subject_9 Subject_10 Subject_11 Subject_12 Subject_13 Subject_14 \n        15         -5         10         40         19         -2         18 \nSubject_15 Subject_16 Subject_17 Subject_18 Subject_19 Subject_20 \n        31         25         -4         26         22         22"
+    "section": "",
+    "text": "Calculate the change in blood pressure for each patient by subtracting the post-treatment measurements from the pre-treatment measurements.\n\ndiff_bp &lt;- pre_bp - post_bp\ndiff_bp\n\n Subject_1  Subject_2  Subject_3  Subject_4  Subject_5  Subject_6  Subject_7 \n        16         30          3         25         26         18          5 \n Subject_8  Subject_9 Subject_10 Subject_11 Subject_12 Subject_13 Subject_14 \n        15         -5         10         40         19         -2         18 \nSubject_15 Subject_16 Subject_17 Subject_18 Subject_19 Subject_20 \n        31         25         -4         26         22         22"
   },
   {
     "objectID": "Homework2_Grace.html#question-4",
     "href": "Homework2_Grace.html#question-4",
     "title": "Homework 2 - Grace Haley",
-    "section": "Question 4",
-    "text": "Question 4\nCalculate the average decrease in blood pressure across all patients.\n\nmean(diff_bp)\n\n[1] 17"
+    "section": "",
+    "text": "Calculate the average decrease in blood pressure across all patients.\n\nmean(diff_bp)\n\n[1] 17"
   },
   {
     "objectID": "Homework2_Grace.html#question-5",
     "href": "Homework2_Grace.html#question-5",
     "title": "Homework 2 - Grace Haley",
-    "section": "Question 5",
-    "text": "Question 5\nDetermine which patients experienced a decrease in blood pressure after treatment using the which() function.\n\nwhich(diff_bp &gt; 0)\n\n Subject_1  Subject_2  Subject_3  Subject_4  Subject_5  Subject_6  Subject_7 \n         1          2          3          4          5          6          7 \n Subject_8 Subject_10 Subject_11 Subject_12 Subject_14 Subject_15 Subject_16 \n         8         10         11         12         14         15         16 \nSubject_18 Subject_19 Subject_20 \n        18         19         20"
+    "section": "",
+    "text": "Determine which patients experienced a decrease in blood pressure after treatment using the which() function.\n\nwhich(diff_bp &gt; 0)\n\n Subject_1  Subject_2  Subject_3  Subject_4  Subject_5  Subject_6  Subject_7 \n         1          2          3          4          5          6          7 \n Subject_8 Subject_10 Subject_11 Subject_12 Subject_14 Subject_15 Subject_16 \n         8         10         11         12         14         15         16 \nSubject_18 Subject_19 Subject_20 \n        18         19         20"
   },
   {
     "objectID": "Homework2_Grace.html#question-6",
     "href": "Homework2_Grace.html#question-6",
     "title": "Homework 2 - Grace Haley",
-    "section": "Question 6",
-    "text": "Question 6\nSubset the vector of differences to return only those with a positive change.\n\npositive_changes &lt;- diff_bp[diff_bp &gt; 0]\n\npositive_changes\n\n Subject_1  Subject_2  Subject_3  Subject_4  Subject_5  Subject_6  Subject_7 \n        16         30          3         25         26         18          5 \n Subject_8 Subject_10 Subject_11 Subject_12 Subject_14 Subject_15 Subject_16 \n        15         10         40         19         18         31         25 \nSubject_18 Subject_19 Subject_20 \n        26         22         22"
+    "section": "",
+    "text": "Subset the vector of differences to return only those with a positive change.\n\npositive_changes &lt;- diff_bp[diff_bp &gt; 0]\n\npositive_changes\n\n Subject_1  Subject_2  Subject_3  Subject_4  Subject_5  Subject_6  Subject_7 \n        16         30          3         25         26         18          5 \n Subject_8 Subject_10 Subject_11 Subject_12 Subject_14 Subject_15 Subject_16 \n        15         10         40         19         18         31         25 \nSubject_18 Subject_19 Subject_20 \n        26         22         22"
   },
   {
     "objectID": "Homework2_Grace.html#question-7",
     "href": "Homework2_Grace.html#question-7",
     "title": "Homework 2 - Grace Haley",
-    "section": "Question 7",
-    "text": "Question 7\nCalculate the average decrease in blood pressure for only those patients whose blood pressure decreased.\n\nmean(positive_changes)\n\n[1] 20.64706"
+    "section": "",
+    "text": "Calculate the average decrease in blood pressure for only those patients whose blood pressure decreased.\n\nmean(positive_changes)\n\n[1] 20.64706"
+  },
+  {
+    "objectID": "Homework2_Grace.html#question-1-1",
+    "href": "Homework2_Grace.html#question-1-1",
+    "title": "Homework 2 - Grace Haley",
+    "section": "Question 1",
+    "text": "Question 1\nCreate a data frame containing the patient IDs, pre-treatment blood pressure, post-treatment blood pressure, and the blood pressure difference.\n\nbp_df &lt;- data.frame(\n  patient = names(pre_bp),\n  pre_bp = as.numeric(pre_bp),\n  post_bp = as.numeric(post_bp),\n  diff_bp = as.numeric(diff_bp)\n)\n\nbp_df\n\n      patient pre_bp post_bp diff_bp\n1   Subject_1    130     114      16\n2   Subject_2    128      98      30\n3   Subject_3    116     113       3\n4   Subject_4    124      99      25\n5   Subject_5    133     107      26\n6   Subject_6    134     116      18\n7   Subject_7    118     113       5\n8   Subject_8    126     111      15\n9   Subject_9    114     119      -5\n10 Subject_10    127     117      10\n11 Subject_11    141     101      40\n12 Subject_12    138     119      19\n13 Subject_13    128     130      -2\n14 Subject_14    140     122      18\n15 Subject_15    137     106      31\n16 Subject_16    131     106      25\n17 Subject_17    120     124      -4\n18 Subject_18    128     102      26\n19 Subject_19    139     117      22\n20 Subject_20    135     113      22"
+  },
+  {
+    "objectID": "Homework2_Grace.html#question-2-1",
+    "href": "Homework2_Grace.html#question-2-1",
+    "title": "Homework 2 - Grace Haley",
+    "section": "Question 2",
+    "text": "Question 2\nReturn only the patients whose blood pressure difference is negative.\n\nbp_df[bp_df$diff_bp &lt; 0, ]\n\n      patient pre_bp post_bp diff_bp\n9   Subject_9    114     119      -5\n13 Subject_13    128     130      -2\n17 Subject_17    120     124      -4"
+  },
+  {
+    "objectID": "Homework2_Grace.html#question-3-1",
+    "href": "Homework2_Grace.html#question-3-1",
+    "title": "Homework 2 - Grace Haley",
+    "section": "Question 3",
+    "text": "Question 3\nAdd a logical column indicating whether the post-treatment blood pressure is below 120.\n\nbp_df$post_under_120 &lt;- bp_df$post_bp &lt; 120\n\nbp_df\n\n      patient pre_bp post_bp diff_bp post_under_120\n1   Subject_1    130     114      16           TRUE\n2   Subject_2    128      98      30           TRUE\n3   Subject_3    116     113       3           TRUE\n4   Subject_4    124      99      25           TRUE\n5   Subject_5    133     107      26           TRUE\n6   Subject_6    134     116      18           TRUE\n7   Subject_7    118     113       5           TRUE\n8   Subject_8    126     111      15           TRUE\n9   Subject_9    114     119      -5           TRUE\n10 Subject_10    127     117      10           TRUE\n11 Subject_11    141     101      40           TRUE\n12 Subject_12    138     119      19           TRUE\n13 Subject_13    128     130      -2          FALSE\n14 Subject_14    140     122      18          FALSE\n15 Subject_15    137     106      31           TRUE\n16 Subject_16    131     106      25           TRUE\n17 Subject_17    120     124      -4          FALSE\n18 Subject_18    128     102      26           TRUE\n19 Subject_19    139     117      22           TRUE\n20 Subject_20    135     113      22           TRUE"
+  },
+  {
+    "objectID": "Homework2_Grace.html#question-4-1",
+    "href": "Homework2_Grace.html#question-4-1",
+    "title": "Homework 2 - Grace Haley",
+    "section": "Question 4",
+    "text": "Question 4\nDisplay the completed data frame as a formatted table.\n\nknitr::kable(bp_df)\n\n\n\n\npatient\npre_bp\npost_bp\ndiff_bp\npost_under_120\n\n\n\n\nSubject_1\n130\n114\n16\nTRUE\n\n\nSubject_2\n128\n98\n30\nTRUE\n\n\nSubject_3\n116\n113\n3\nTRUE\n\n\nSubject_4\n124\n99\n25\nTRUE\n\n\nSubject_5\n133\n107\n26\nTRUE\n\n\nSubject_6\n134\n116\n18\nTRUE\n\n\nSubject_7\n118\n113\n5\nTRUE\n\n\nSubject_8\n126\n111\n15\nTRUE\n\n\nSubject_9\n114\n119\n-5\nTRUE\n\n\nSubject_10\n127\n117\n10\nTRUE\n\n\nSubject_11\n141\n101\n40\nTRUE\n\n\nSubject_12\n138\n119\n19\nTRUE\n\n\nSubject_13\n128\n130\n-2\nFALSE\n\n\nSubject_14\n140\n122\n18\nFALSE\n\n\nSubject_15\n137\n106\n31\nTRUE\n\n\nSubject_16\n131\n106\n25\nTRUE\n\n\nSubject_17\n120\n124\n-4\nFALSE\n\n\nSubject_18\n128\n102\n26\nTRUE\n\n\nSubject_19\n139\n117\n22\nTRUE\n\n\nSubject_20\n135\n113\n22\nTRUE"
+  },
+  {
+    "objectID": "Homework2_Grace.html#question-1-2",
+    "href": "Homework2_Grace.html#question-1-2",
+    "title": "Homework 2 - Grace Haley",
+    "section": "Question 1",
+    "text": "Question 1\nCreate a new data frame for the placebo group that includes the patient ID, blood pressure measurements, blood pressure difference, and the post_under_120 column.\nCreate vectors for the placebo group\n\npre_bp_placebo &lt;- c(138, 135, 147, 117, 152, 134, 114, 121, 131, 130)\n\npost_bp_placebo &lt;- c(105, 136, 123, 130, 134, 143, 135, 139, 120, 124)\n\nCreate patient names\n\npatient_placebo &lt;- paste(\"Subject\", 1:10, sep = \"_\")\n\nCalculate blood pressure difference\n\ndiff_bp_placebo &lt;- pre_bp_placebo - post_bp_placebo\n\nCreate the placebo data frame\n\nplacebo_df &lt;- data.frame(\n\n  patient = patient_placebo,\n\n  pre_bp = pre_bp_placebo,\n\n  post_bp = post_bp_placebo,\n\n  diff_bp = diff_bp_placebo\n\n)\n\nAdd the post_under_120 column\n\nplacebo_df$post_under_120 &lt;- placebo_df$post_bp &lt; 120\n\nDisplay the data frame\n\nknitr::kable(placebo_df)\n\n\n\n\npatient\npre_bp\npost_bp\ndiff_bp\npost_under_120\n\n\n\n\nSubject_1\n138\n105\n33\nTRUE\n\n\nSubject_2\n135\n136\n-1\nFALSE\n\n\nSubject_3\n147\n123\n24\nFALSE\n\n\nSubject_4\n117\n130\n-13\nFALSE\n\n\nSubject_5\n152\n134\n18\nFALSE\n\n\nSubject_6\n134\n143\n-9\nFALSE\n\n\nSubject_7\n114\n135\n-21\nFALSE\n\n\nSubject_8\n121\n139\n-18\nFALSE\n\n\nSubject_9\n131\n120\n11\nFALSE\n\n\nSubject_10\n130\n124\n6\nFALSE"
+  },
+  {
+    "objectID": "Homework2_Grace.html#question-2-2",
+    "href": "Homework2_Grace.html#question-2-2",
+    "title": "Homework 2 - Grace Haley",
+    "section": "Question 2",
+    "text": "Question 2\nCreate a list containing both data frames\n\nbp_list &lt;- list(\n\n  treatment = bp_df,\n\n  placebo = placebo_df\n\n)\n\nbp_list\n\n$treatment\n      patient pre_bp post_bp diff_bp post_under_120\n1   Subject_1    130     114      16           TRUE\n2   Subject_2    128      98      30           TRUE\n3   Subject_3    116     113       3           TRUE\n4   Subject_4    124      99      25           TRUE\n5   Subject_5    133     107      26           TRUE\n6   Subject_6    134     116      18           TRUE\n7   Subject_7    118     113       5           TRUE\n8   Subject_8    126     111      15           TRUE\n9   Subject_9    114     119      -5           TRUE\n10 Subject_10    127     117      10           TRUE\n11 Subject_11    141     101      40           TRUE\n12 Subject_12    138     119      19           TRUE\n13 Subject_13    128     130      -2          FALSE\n14 Subject_14    140     122      18          FALSE\n15 Subject_15    137     106      31           TRUE\n16 Subject_16    131     106      25           TRUE\n17 Subject_17    120     124      -4          FALSE\n18 Subject_18    128     102      26           TRUE\n19 Subject_19    139     117      22           TRUE\n20 Subject_20    135     113      22           TRUE\n\n$placebo\n      patient pre_bp post_bp diff_bp post_under_120\n1   Subject_1    138     105      33           TRUE\n2   Subject_2    135     136      -1          FALSE\n3   Subject_3    147     123      24          FALSE\n4   Subject_4    117     130     -13          FALSE\n5   Subject_5    152     134      18          FALSE\n6   Subject_6    134     143      -9          FALSE\n7   Subject_7    114     135     -21          FALSE\n8   Subject_8    121     139     -18          FALSE\n9   Subject_9    131     120      11          FALSE\n10 Subject_10    130     124       6          FALSE"
+  },
+  {
+    "objectID": "Homework2_Grace.html#question-3-2",
+    "href": "Homework2_Grace.html#question-3-2",
+    "title": "Homework 2 - Grace Haley",
+    "section": "Question 3",
+    "text": "Question 3\nAccess the treatment data frame three different ways\n\nbp_list[[1]]\n\n      patient pre_bp post_bp diff_bp post_under_120\n1   Subject_1    130     114      16           TRUE\n2   Subject_2    128      98      30           TRUE\n3   Subject_3    116     113       3           TRUE\n4   Subject_4    124      99      25           TRUE\n5   Subject_5    133     107      26           TRUE\n6   Subject_6    134     116      18           TRUE\n7   Subject_7    118     113       5           TRUE\n8   Subject_8    126     111      15           TRUE\n9   Subject_9    114     119      -5           TRUE\n10 Subject_10    127     117      10           TRUE\n11 Subject_11    141     101      40           TRUE\n12 Subject_12    138     119      19           TRUE\n13 Subject_13    128     130      -2          FALSE\n14 Subject_14    140     122      18          FALSE\n15 Subject_15    137     106      31           TRUE\n16 Subject_16    131     106      25           TRUE\n17 Subject_17    120     124      -4          FALSE\n18 Subject_18    128     102      26           TRUE\n19 Subject_19    139     117      22           TRUE\n20 Subject_20    135     113      22           TRUE\n\nbp_list$treatment\n\n      patient pre_bp post_bp diff_bp post_under_120\n1   Subject_1    130     114      16           TRUE\n2   Subject_2    128      98      30           TRUE\n3   Subject_3    116     113       3           TRUE\n4   Subject_4    124      99      25           TRUE\n5   Subject_5    133     107      26           TRUE\n6   Subject_6    134     116      18           TRUE\n7   Subject_7    118     113       5           TRUE\n8   Subject_8    126     111      15           TRUE\n9   Subject_9    114     119      -5           TRUE\n10 Subject_10    127     117      10           TRUE\n11 Subject_11    141     101      40           TRUE\n12 Subject_12    138     119      19           TRUE\n13 Subject_13    128     130      -2          FALSE\n14 Subject_14    140     122      18          FALSE\n15 Subject_15    137     106      31           TRUE\n16 Subject_16    131     106      25           TRUE\n17 Subject_17    120     124      -4          FALSE\n18 Subject_18    128     102      26           TRUE\n19 Subject_19    139     117      22           TRUE\n20 Subject_20    135     113      22           TRUE\n\nbp_list[\"treatment\"]\n\n$treatment\n      patient pre_bp post_bp diff_bp post_under_120\n1   Subject_1    130     114      16           TRUE\n2   Subject_2    128      98      30           TRUE\n3   Subject_3    116     113       3           TRUE\n4   Subject_4    124      99      25           TRUE\n5   Subject_5    133     107      26           TRUE\n6   Subject_6    134     116      18           TRUE\n7   Subject_7    118     113       5           TRUE\n8   Subject_8    126     111      15           TRUE\n9   Subject_9    114     119      -5           TRUE\n10 Subject_10    127     117      10           TRUE\n11 Subject_11    141     101      40           TRUE\n12 Subject_12    138     119      19           TRUE\n13 Subject_13    128     130      -2          FALSE\n14 Subject_14    140     122      18          FALSE\n15 Subject_15    137     106      31           TRUE\n16 Subject_16    131     106      25           TRUE\n17 Subject_17    120     124      -4          FALSE\n18 Subject_18    128     102      26           TRUE\n19 Subject_19    139     117      22           TRUE\n20 Subject_20    135     113      22           TRUE"
+  },
+  {
+    "objectID": "Homework2_Grace.html#question-4-2",
+    "href": "Homework2_Grace.html#question-4-2",
+    "title": "Homework 2 - Grace Haley",
+    "section": "Question 4",
+    "text": "Question 4\nAccess the pre-treatment blood pressure column from the placebo data frame\n\nbp_list$placebo$pre_bp\n\n [1] 138 135 147 117 152 134 114 121 131 130"
   }
 ]

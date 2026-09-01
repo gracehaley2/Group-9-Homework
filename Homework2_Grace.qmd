@@ -2,6 +2,7 @@
 title: "Homework 2 - Grace Haley"
 format: html
 ---
+# Task 1
 
 ## Question 1
 
@@ -77,5 +78,144 @@ Calculate the average decrease in blood pressure for only those patients whose b
 
 ```{r}
 mean(positive_changes)
+```
+
+# Task 2
+
+## Question 1
+
+Create a data frame containing the patient IDs, pre-treatment blood pressure, post-treatment blood pressure, and the blood pressure difference.
+
+```{r}
+bp_df <- data.frame(
+  patient = names(pre_bp),
+  pre_bp = as.numeric(pre_bp),
+  post_bp = as.numeric(post_bp),
+  diff_bp = as.numeric(diff_bp)
+)
+
+bp_df
+```
+
+## Question 2
+
+Return only the patients whose blood pressure difference is negative.
+
+```{r}
+bp_df[bp_df$diff_bp < 0, ]
+```
+
+## Question 3
+
+Add a logical column indicating whether the post-treatment blood pressure is below 120.
+
+```{r}
+bp_df$post_under_120 <- bp_df$post_bp < 120
+
+bp_df
+```
+
+## Question 4
+
+Display the completed data frame as a formatted table.
+
+```{r}
+knitr::kable(bp_df)
+```
+
+# Task 3
+
+## Question 1
+
+Create a new data frame for the placebo group that includes the patient ID, blood pressure measurements, blood pressure difference, and the `post_under_120` column.
+
+Create vectors for the placebo group
+
+```{r}
+pre_bp_placebo <- c(138, 135, 147, 117, 152, 134, 114, 121, 131, 130)
+
+post_bp_placebo <- c(105, 136, 123, 130, 134, 143, 135, 139, 120, 124)
+```
+
+Create patient names
+
+```{r}
+patient_placebo <- paste("Subject", 1:10, sep = "_")
+```
+
+Calculate blood pressure difference
+
+```{r}
+diff_bp_placebo <- pre_bp_placebo - post_bp_placebo
+```
+
+Create the placebo data frame
+
+```{r}
+placebo_df <- data.frame(
+
+  patient = patient_placebo,
+
+  pre_bp = pre_bp_placebo,
+
+  post_bp = post_bp_placebo,
+
+  diff_bp = diff_bp_placebo
+
+)
+```
+
+Add the post_under_120 column
+
+```{r}
+placebo_df$post_under_120 <- placebo_df$post_bp < 120
+```
+
+Display the data frame
+
+```{r}
+knitr::kable(placebo_df)
+```
+## Question 2
+
+Create a list containing both data frames
+
+```{r}
+
+bp_list <- list(
+
+  treatment = bp_df,
+
+  placebo = placebo_df
+
+)
+
+bp_list
+
+```
+
+## Question 3
+
+Access the treatment data frame three different ways
+
+```{r}
+
+
+
+bp_list[[1]]
+
+bp_list$treatment
+
+bp_list["treatment"]
+
+```
+
+## Question 4
+Access the pre-treatment blood pressure column from the placebo data frame
+
+```{r}
+
+bp_list$placebo$pre_bp
+
 ```
 ---
