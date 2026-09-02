@@ -6,9 +6,9 @@ website:
   title: "Homework 2"
   navbar:
     left:
-      - href: Homework 2 Submission
-        text: Home Work 2 Submission
-      - Homework2_Combined.qmd
+      - href: Homework2_Combined.qmd
+        text: "Homework 2 Submission"
+      
 
 format:
   html:
