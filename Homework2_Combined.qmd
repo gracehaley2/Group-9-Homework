@@ -1,0 +1,184 @@
+---
+title: "Homework 2 (Combined)"
+format: html
+---
+
+# Task 1
+
+
+## Question 1
+
+Create vectors for the pre-treatment and post-treatment blood pressure measurements.
+
+```{r}
+pre_bp <- c(
+  130, 128, 116, 124, 133,
+  134, 118, 126, 114, 127,
+  141, 138, 128, 140, 137,
+  131, 120, 128, 139, 135
+)
+
+post_bp <- c(
+  114, 98, 113, 99, 107,
+  116, 113, 111, 119, 117,
+  101, 119, 130, 122, 106,
+  106, 124, 102, 117, 113
+)
+```
+
+## Question 2
+
+Assign subject names to each vector.
+
+```{r}
+patient_names <- paste("Subject", 1:20, sep = "_")
+
+names(pre_bp) <- patient_names
+names(post_bp) <- patient_names
+
+pre_bp
+post_bp
+```
+
+## Question 3
+
+Calculate the change in blood pressure for each patient by subtracting the post-treatment measurements from the pre-treatment measurements.
+
+```{r}
+diff_bp <- pre_bp - post_bp
+diff_bp
+```
+
+## Question 4
+
+Calculate the average decrease in blood pressure across all patients.
+
+```{r}
+mean(diff_bp)
+```
+
+## Question 5
+
+Determine which patients experienced a decrease in blood pressure after treatment using the `which()` function.
+
+```{r}
+which(diff_bp > 0)
+```
+
+## Question 6
+
+Subset the vector of differences to return only those with a positive change.
+
+```{r}
+positive_changes <- diff_bp[diff_bp > 0]
+positive_changes
+```
+
+## Question 7
+
+Calculate the average decrease in blood pressure for only those patients whose blood pressure decreased.
+
+```{r}
+mean(positive_changes)
+```
+
+# Task 2
+
+
+This task combines `patient`, `pre_bp`, `post_bp`, and `diff_bp` into a single data frame, pulls out the patients whose blood pressure difference is negative, and adds a logical column flagging whether `post_bp` is under 120.
+
+```{r}
+bp_df <- data.frame(
+  patient = patient_names,
+  pre_bp = as.numeric(pre_bp),
+  post_bp = as.numeric(post_bp),
+  diff_bp = as.numeric(diff_bp),
+  stringsAsFactors = FALSE
+)
+rownames(bp_df) <- NULL
+
+# patients whose blood pressure difference is negative
+bp_df[bp_df$diff_bp < 0, ]
+
+bp_df$post_under_120 <- bp_df$post_bp < 120
+bp_df
+
+knitr::kable(bp_df)
+```
+
+# Task 3
+
+
+
+The placebo group vectors are created and combined into a data frame with the same structure as `bp_df`. Both data frames are then stored together in a list.
+
+```{r}
+placebo_pre <- c(138, 135, 147, 117, 152, 134, 114, 121, 131, 130)
+placebo_post <- c(105, 136, 123, 130, 134, 143, 135, 139, 120, 124)
+placebo_names <- paste("Subject", 1:10, sep = "_")
+
+placebo_df <- data.frame(
+  patient = placebo_names,
+  pre_bp = placebo_pre,
+  post_bp = placebo_post
+)
+
+placebo_df$diff_bp <- placebo_df$pre_bp - placebo_df$post_bp
+placebo_df$post_under_120 <- placebo_df$post_bp < 120
+
+placebo_df
+```
+
+```{r}
+bp_list <- list(
+  treatment = bp_df,
+  placebo = placebo_df
+)
+```
+
+Accessing the treatment data frame three different ways.
+
+```{r}
+bp_list[1]
+bp_list[[1]]
+bp_list$treatment
+```
+
+Accessing the pre-treatment blood pressure column from the placebo data frame.
+
+```{r}
+bp_list$placebo$pre_bp
+```
+
+# Task 4
+
+
+A `status` column is added to each data frame in the list and filled in with a for loop: `"optimal"` when `post_bp <= 120`, `"borderline"` when `120 < post_bp <= 130`, and `"high"` when `post_bp > 130`.
+
+```{r}
+bp_list$treatment$status <- character(nrow(bp_list$treatment))
+bp_list$placebo$status <- character(nrow(bp_list$placebo))
+
+for (i in 1:nrow(bp_list$treatment)) {
+  if (bp_list$treatment$post_bp[i] <= 120) {
+    bp_list$treatment$status[i] <- "optimal"
+  } else if (bp_list$treatment$post_bp[i] <= 130) {
+    bp_list$treatment$status[i] <- "borderline"
+  } else {
+    bp_list$treatment$status[i] <- "high"
+  }
+}
+
+for (i in 1:nrow(bp_list$placebo)) {
+  if (bp_list$placebo$post_bp[i] <= 120) {
+    bp_list$placebo$status[i] <- "optimal"
+  } else if (bp_list$placebo$post_bp[i] <= 130) {
+    bp_list$placebo$status[i] <- "borderline"
+  } else {
+    bp_list$placebo$status[i] <- "high"
+  }
+}
+
+bp_list$treatment
+bp_list$placebo
+```
