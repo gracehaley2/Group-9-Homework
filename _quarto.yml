@@ -3,12 +3,12 @@ project:
   output-dir: docs
 
 website:
-  title: "Homework2"
+  title: "Homework 2"
   navbar:
     left:
-      - href: index.qmd
-        text: Home
-      - about.qmd
+      - href: Homework 2 Submission
+        text: Home Work 2 Submission
+      - Homework2_Combined.qmd
 
 format:
   html:
