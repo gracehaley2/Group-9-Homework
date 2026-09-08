@@ -1,0 +1,192 @@
+---
+title: "Homework 3"
+author: "AMJ"
+---
+
+### Task 1
+
+1.  I would use this path `../MyData.csv`.
+2.  The major benefits of using R projects include:
+
+- R projects keeps all my different project file types in one folder.
+- R projects is integrated with tools like Git so I can easily use the terminal to upload and share my work.
+- R projects provides a nice UI to keep up with all my project files and data in one place.
+
+3.  Git is a version control tool that allows you to track changes in your code on your computer. Github, on the other hand, is a website that allows you to upload these changes to share with others. You can also download (pull) other Github users' code.
+4.  A tibble doesn't show the entire dataset like a dataframe would when you print it, and it rather shows only rows that fit on the screen. When you access one column of a tibble, it will keep the tibble structure, but when you access one column of a dataframe, it will become a vector.
+
+### Task 2
+
+This code section is for the glass data.
+
+1.  
+
+```{r}
+# I am importing the tidyverse library
+library(tidyverse)
+# This code creates a tibble called glass from the specified URL for the glass data.
+# I assigned the column names just from the homework document. The delimiter is a comma.
+# Read_csv is used since the data is separated by commas. It's an excel style file.
+glass <- read_csv(
+  "https://www4.stat.ncsu.edu/~online/datasets/glass.data",
+  col_names = c(
+    "ID", "RI", "Na", "Mg", "Al", "Si",
+    "K", "Ca", "Ba", "Fe", "TypeGlass"
+  )
+)
+# This just prints the tibble object I just created called glass.
+glass
+```
+
+The next code section is for the yeast data.
+
+2.  
+
+```{r}
+# No need to import tidyverse again...
+# This code creates a tibble called yeast from the specified URL for the yeast data.
+# I assigned column names once again and I used read_table for the new space delimiter.
+yeast <- read_table(
+  "https://www4.stat.ncsu.edu/~online/datasets/yeast.data",
+  col_names = c(
+    "Sequence_Name", "mcg", "gvh", "alm",
+    "mit", "erl", "pox", "vac", "nuc", "Class"
+  )
+)
+# Printing the tibble object yeast...
+yeast
+```
+
+### Task 3
+
+3.  
+
+```{r}
+# I first downloaded the white-wine.xlsx file and placed it in this folder.
+# Importing readxl and dplyr library.
+library(readxl)
+library(dplyr)
+# Since the data is in an excel format delimited by commas, we use read_excel.
+white_wine <- read_excel("white-wine.xlsx", sheet = 1)
+# I am calling the white_wine tibble I just made.
+white_wine
+```
+
+4.  Next, I'm reading the second excel sheet and changing the column names to the ones from alternate column names from the second sheet.
+
+```{r}
+# I am reading the columns from the second sheet.
+wine_names <- read_excel("white-wine.xlsx", sheet = 2)
+# This replaces the column names in our tibble with the new wine_names column names.
+colnames(white_wine) <- wine_names[[1]]
+# (re)printing our tibble with the updated names. Now, the column names are a bit different.
+white_wine
+
+```
+
+5.  Next, I'm adding a column to indicate that these are all white wines so far.
+
+```{r}
+white_wine <- white_wine %>%
+  mutate(type = "white")
+# Printing object to see if it worked.
+white_wine
+```
+
+6.  Next, I will be adding the red wine data.
+
+```{r}
+# Reading the red_wine file which uses semicolon as a delimiter for data.
+red_wine <- read_delim(
+  "https://www4.stat.ncsu.edu/~online/datasets/red-wine.csv",
+  delim = ";"
+)
+# Printing object...
+red_wine
+# This indicates that this data is for red wine in a new column (like we just did for white).
+colnames(red_wine) <- wine_names[[1]]
+red_wine <- red_wine %>%
+  mutate(type = "red")
+# Printing object...
+red_wine
+```
+
+7.  Finally, I will combine the two data sets into one data set called "wine".
+
+```{r}
+# This is done using the dplyr::bind_rows() function.
+wine <-  bind_rows(white_wine, red_wine)
+# Printing final object...
+wine
+
+```
+
+### Task 4
+
+8.  This is my IQR function which which you can pass unnamed arguments to. IQR is 75th percentile minus 25th percentile.
+
+```{r}
+getIQR <- function(x, ...) {
+  q <- quantile(x, probs = c(0.25, 0.75), ...)
+  # This line removes the labels on the returned vector result.
+  unname(q[2] - q[1])
+}
+```
+
+9.  This code runs the getIQR function twice on the specified columns from my wine object and displays the results.
+
+```{r}
+getIQR(wine$fixed_acidity)
+getIQR(wine$citric_acid)
+```
+
+10. This is my getCoefVar function which you can pass unnamed arguments to. Coefficient of variation is standard deviation divided by the absolute value of mean.
+
+```{r}
+getCoefVar <- function(x, ...) {
+  sd(x, ...) / abs(mean(x, ...))
+}
+```
+
+11. This code runs the getCoefVar function twice on the specified columns from my wine object and displays the results.
+
+```{r}
+getCoefVar(wine$fixed_acidity)
+getCoefVar(wine$citric_acid)
+```
+
+12. Here, I'm creating a function called getSummaries which calls both the IQR and CoefVar functions. There's no need to rewrite them since we can just call them within this function.
+
+```{r}
+getSummaries <- function(x, ...) {
+  # Have to make sure to label them to not get confused.
+  c(
+    IQR = getIQR(x, ...),
+    CoefVar = getCoefVar(x, ...)
+  )
+}
+```
+
+13. This code runs the getSummaries function twice on the specified columns from my wine object and displays the results.
+
+```{r}
+getSummaries(wine$fixed_acidity)
+getSummaries(wine$citric_acid)
+```
+
+14. Finally, I am creating my own infix function which will be used instead of cbind. Cbind combines data from vectors, data frames, etc., via columns (so horizontally).
+
+```{r}
+# This is my new cbind infix function which takes two parameteres x and y.
+`%cbind%` <- function(x, y) {
+  cbind(x, y)
+}
+# This is just the code given in the homework page for us to test the new function...
+df1 <- data.frame(unif = runif(10), norm = rnorm(10))
+df2 <- data.frame(gamma = rgamma(10, shape = 1), beta = rbeta(10, shape1 = 5, shape2 = 1))
+vec1 <- rnorm(10, mean = 10)
+# Testing infix function with dataframe1 and dataframe2...
+df1 %cbind% df2
+# Testing infix function with dataframe1, dataframe2, and vector1...
+df1 %cbind% df2 %cbind% vec1
+```
