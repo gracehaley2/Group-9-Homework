@@ -1,0 +1,65 @@
+---
+title: "Homework 3"
+---
+
+# Task 1: Conceptual Questions
+
+1. If the working directory is `myfolder/homework/`, the relative path needed to access `myfolder/MyData.csv` is `../MyData.csv`. The `..` moves up one directory from the `homework` folder to the `myfolder` folder.
+
+2. Some major benefits of using R Projects are that they keep all files for a project organized in one location, which make relative file paths easier to use and provide a consistent working directory. This also makes it easier to use Git and GitHub for a project.
+
+3. Git is a version control system that tracks changes made to files and allows users to keep different versions of their work. GitHub is an online platform that hosts Git repositories and makes it easy to store, share, and collaborate on projects.
+
+4. Two main differences between a tibble and a data.frame are:
+   - Tibbles print only the rows and columns that fit on the screen instead of the entire data set
+   - Tibbles are more strict about how they handle variables and do not automatically change things such as variable names or data types in the way traditional data frames might
+   
+# Task 2: Reading Delimited Data
+
+## Question 1: Glass Data
+
+```{r}
+library(tidyverse)
+
+glass <- read_csv(
+  "https://www4.stat.ncsu.edu/~online/datasets/glass.data",
+  col_names = c(
+    "Id",
+    "RI",
+    "Na",
+    "Mg",
+    "Al",
+    "Si",
+    "K",
+    "Ca",
+    "Ba",
+    "Fe",
+    "Type"
+  )
+)
+
+glass
+```
+
+## Question 2: Yeast Data
+
+```{r}
+yeast <- read_table(
+  "https://www4.stat.ncsu.edu/~online/datasets/yeast.data",
+  col_names = c(
+    "seq_name",
+    "mcg",
+    "gvh",
+    "alm",
+    "mit",
+    "erl",
+    "pox",
+    "vac",
+    "nuc",
+    "class"
+  )
+)
+
+yeast
+```
+---
