@@ -3,12 +3,13 @@ project:
   output-dir: docs
 
 website:
-  title: "Homework 2"
+  title: "Group 9 Homework"
   navbar:
     left:
       - href: Homework2_Combined.qmd
         text: "Homework 2 Submission"
-      
+      - href: Homework3_Grace.qmd
+        text: "Homework 3"
 
 format:
   html:

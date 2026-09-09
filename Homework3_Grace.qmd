@@ -17,7 +17,7 @@ title: "Homework 3"
 # Task 2: Reading Delimited Data
 
 ## Question 1: Glass Data
-
+I read the glass data directly from the URL using read_csv(). Since the data did not include column names, I added the variable names provided in the data description.
 ```{r}
 library(tidyverse)
 
@@ -42,7 +42,7 @@ glass
 ```
 
 ## Question 2: Yeast Data
-
+I read the yeast data directly from the URL using read_table() because the values are separated by whitespace. I also supplied the column names from the data description.
 ```{r}
 yeast <- read_table(
   "https://www4.stat.ncsu.edu/~online/datasets/yeast.data",
@@ -61,5 +61,136 @@ yeast <- read_table(
 )
 
 yeast
+```
+
+# Task 3: Combining Excel and Delimited Data
+
+## Question 3
+I imported the white wine data from the first sheet of the Excel file using the readxl package and printed the resulting tibble.
+```{r}
+library(readxl)
+
+white_wine <- read_excel("data/white-wine.xlsx", sheet = 1)
+
+white_wine
+```
+
+## Question 4
+I read the alternative variable names from the second Excel sheet and used them to replace the original column names in the white wine data.
+```{r}
+wine_names <- read_excel("data/white-wine.xlsx", sheet = 2)
+
+colnames(white_wine) <- wine_names[[1]]
+
+white_wine
+```
+
+## Question 5
+I added a type column to identify every observation in the white wine data as "white".
+```{r}
+white_wine <- white_wine |>
+  mutate(type = "white")
+
+white_wine
+```
+
+## Question 6
+I read the semicolon-delimited red wine data directly from the URL. I then replaced its column names using the same names as the white wine data and added a type column identifying the observations as "red".
+```{r}
+red_wine <- read_delim(
+  "https://www4.stat.ncsu.edu/~online/datasets/red-wine.csv",
+  delim = ";"
+)
+
+colnames(red_wine) <- wine_names[[1]]
+
+red_wine <- red_wine |>
+  mutate(type = "red")
+
+red_wine
+```
+
+## Question 7
+Since the red and white wine data now have the same columns, I combined them into one tibble using bind_rows().
+```{r}
+wine_data <- bind_rows(white_wine, red_wine)
+
+wine_data
+```
+# Task 4: Writing a Function
+
+## Question 8
+I created the getIQR() function to calculate the interquartile range by subtracting the 25th percentile from the 75th percentile. I used unname() so the returned value does not have a percentile name.
+```{r}
+getIQR <- function(x, ...) {
+  quartiles <- quantile(x, probs = c(0.25, 0.75), ...)
+  unname(quartiles[2] - quartiles[1])
+}
+```
+
+## Question 9
+I applied getIQR() to the fixed_acidity and citric_acid columns of the combined wine data.
+```{r}
+getIQR(wine_data$fixed_acidity)
+
+getIQR(wine_data$citric_acid)
+```
+
+## Question 10
+I created getCoefVar() to calculate the sample coefficient of variation by dividing the sample standard deviation by the absolute value of the sample mean.
+```{r}
+getCoefVar <- function(x, ...) {
+  sd(x, ...) / abs(mean(x, ...))
+}
+```
+
+## Question 11
+I applied getCoefVar() to the same two variables used in Question 9.
+```{r}
+getCoefVar(wine_data$fixed_acidity)
+
+getCoefVar(wine_data$citric_acid)
+```
+
+## Question 12
+I created the wrapper function getSummaries() to return both the IQR and coefficient of variation. Instead of repeating the calculations, the function calls the two functions created above.
+```{r}
+getSummaries <- function(x, ...) {
+  c(
+    IQR = getIQR(x, ...),
+    CoefVar = getCoefVar(x, ...)
+  )
+}
+```
+
+## Question 13
+I applied getSummaries() to fixed_acidity and citric_acid to return both summary measures for each variable.
+```{r}
+getSummaries(wine_data$fixed_acidity)
+
+getSummaries(wine_data$citric_acid)
+```
+## Question 14
+I created the infix function %c% as an alternative way to call cbind(). I first tested it on the two data frames and then tested it on both data frames and the vector.
+```{r}
+`%c%` <- function(x, y) {
+  cbind(x, y)
+}
+
+df1 <- data.frame(
+  unif = runif(10),
+  norm = rnorm(10)
+)
+
+df2 <- data.frame(
+  gamma = rgamma(10, shape = 1),
+  beta = rbeta(10, shape1 = 5, shape2 = 1)
+)
+
+vec1 <- rnorm(10, mean = 10)
+
+df1 %c% df2
+
+df1 %c% df2 %c% vec1
 ```
 ---
