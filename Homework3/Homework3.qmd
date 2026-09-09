@@ -1,0 +1,159 @@
+---
+title: "Homework3"
+---
+
+# Task 1
+
+Answer 1) If my working directory is myfolder/homework/ the relative path I would specify to get the file located at myfolder/MyData.csv is ../MyData.csv
+
+Answer 2) The major benefits to using R is that it keeps all files related to a project organized in one place, Makes it easier to use relative file paths instead of absolute paths and it makes it easier to share your project with others because of the consistent file structure.
+
+Answer 3) Git is a version control system that allows changes that are made to files to be tracked. It allows different versions of your work to be saved and you can also go back to previous versions if you need. Github is an online platform that has the Git repositories stored. You can upload code and collaborate with others while keeping a remote copy of your work.
+
+Answer 4) The two main differences are that one a tibble prints only the columns and rows that fit nicely on the screen while a data.frame usually prints more. Two is the subsetting, tibbles have a more strict and consistent behavior when it comes to selecting columns and handling specific data types while data.frames have older behaviors that are less predictable.
+
+# Task 2
+
+```{r}
+library(tidyverse)
+
+glass.data <- read_csv(
+  "https://www4.stat.ncsu.edu/~online/datasets/glass.data",
+  col_names = FALSE
+)
+```
+
+```{r}
+colnames(glass.data) <- c(
+  "Id", "RI", "Na", "Mg", "Al", "Si",
+  "K", "Ca", "Ba", "Fe", "Type"
+)
+```
+
+```{r}
+glass.data
+```
+
+```{r}
+yeast_data <- read_table(
+  "https://www4.stat.ncsu.edu/~online/datasets/yeast.data",
+  col_names = c(
+    "seq_name", "mcg", "gvh", "alm", "mit",
+    "erl", "pox", "vac", "nuc", "localization_site"
+  )
+)
+
+yeast_data
+
+```
+
+# Task 3
+
+```{r}
+library(tidyverse)
+library(readxl)
+
+white_wine <- read_excel("white-wine.xlsx", sheet = 1) 
+white_wine
+```
+
+```{r}
+white_names <- read_excel("white-wine.xlsx", sheet = 2)
+
+colnames(white_wine) <- white_names[[1]]
+
+white_wine
+```
+
+```{r}
+white_wine <- white_wine %>%
+  mutate(type = "white")
+
+white_wine
+```
+
+```{r}
+red_wine = read_delim(
+  "https://www4.stat.ncsu.edu/~online/datasets/red-wine.csv",
+  delim = ";",
+  show_col_types = FALSE)
+```
+
+```{r}
+colnames(red_wine) <- white_names[[1]]
+red_wine$type <- "red"
+red_wine
+```
+
+```{}
+```
+
+```{r}
+wine <- bind_rows(white_wine, red_wine)
+
+wine
+```
+
+# Task 4
+
+```{r}
+getIQR <- function(x, ...) {
+  q <- quantile(x, probs = c(0.25, 0.75), ...)
+  unname(q[2] - q[1])
+}
+```
+
+```{r}
+getIQR(wine$fixed_acidity, na.rm = TRUE)
+getIQR(wine$citric_acid, na.rm = TRUE)
+```
+
+```{r}
+getCoefVar <- function(x, ...) {
+  sd(x, ...) / abs(mean(x, ...))
+}
+```
+
+```{r}
+getCoefVar(wine$fixed_acidity, na.rm = TRUE)
+getCoefVar(wine$citric_acid, na.rm = TRUE)
+```
+
+```{r}
+getSummaries <- function(x, ...) {
+  c(
+    IQR = getIQR(x, ...),
+    CoefVar = getCoefVar(x, ...)
+  )
+}
+```
+
+```{r}
+getSummaries(wine$fixed_acidity)
+getSummaries(wine$citric_acid)
+```
+
+```{r}
+df1 <- data.frame(unif = runif(10), norm = rnorm(10))
+
+df2 <- data.frame(
+  gamma = rgamma(10, shape = 1),
+  beta = rbeta(10, shape1 = 5, shape2 = 1)
+)
+
+vec1 <- rnorm(10, mean = 10)
+```
+
+```{r}
+`%cbind%` <- function(x, y) {
+  cbind(x, y)
+}
+```
+
+```{r}
+df1 %cbind% df2
+```
+
+```{r}
+df1 %cbind% df2 %cbind% vec1
+```
