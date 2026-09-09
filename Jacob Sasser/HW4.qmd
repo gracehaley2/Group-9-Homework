@@ -91,3 +91,36 @@ wine_data
 wine_data=wine_data%>%filter(quality>6.5)%>%filter(alcohol<132)%>%arrange(desc(alcohol))%>%select(contains("acid"),quality,alcohol,type)%>%mutate(alcohol_mean=mean(alcohol),alcohol_sd=sd(alcohol))%>%ungroup()
 wine_data
 ```
+
+Task 3
+
+```{r}
+library(DBI)
+library(RSQLite)
+con =dbConnect(RSQLite::SQLite(), "lahman.db")
+
+dbListTables(con)
+
+teams_2015 =tbl(con, "Teams") %>%
+  filter(yearID == 2015) %>%
+  collect()
+
+teams_2015
+teams_2015_sql=tbl(con,sql("SELECT * FROM Teams WHERE yearID= 2015")) %>% collect()
+teams_2015_sql
+hof =tbl(con, "HallOfFame") %>%filter(inducted == "Y") %>%select(playerID, yearID, category) %>%collect()
+
+hof
+hof_names=tbl(con,"HallOfFame") %>%filter(inducted=="Y") %>% select(playerID,yearID,category) %>% left_join(tbl(con,"People")%>% select(playerID,nameFirst,nameLast),by ="playerID")%>% collect()
+hof_names
+
+
+manager_records = tbl(con, "Managers") %>%select(playerID, G, W, L) %>%group_by(playerID) %>%summarize(G_managed = sum(G, na.rm = TRUE),Total_W = sum(W, na.rm = TRUE),Total_L = sum(L, na.rm = TRUE)) %>%collect() %>%mutate(WL_pct = Total_W / G_managed) %>%arrange(desc(WL_pct))
+
+manager_records
+
+hof_managers =hof_names %>%
+  inner_join(manager_records, by = "playerID")
+
+hof_managers
+```
