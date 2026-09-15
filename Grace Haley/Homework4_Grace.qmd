@@ -1,0 +1,282 @@
+---
+title: "Homework 4"
+---
+
+## Task 1: Conceptual Questions
+
+### Question 1
+
+```{r}
+#Convert iris to a tibble, select the needed variables, filter, and sort by species
+library(tidyverse)
+
+as_tibble(iris) |>
+  select(starts_with("Petal"), Species) |>
+  filter(Petal.Length < 1.55) |>
+  arrange(Species)
+```
+
+### Question 2
+
+Long format data stores each observation in its own row, while wide format data stores multiple measurements for the same observation in separate columns. Long format is generally preferred for statistical analysis because it makes the data easier to organize, manipulate, and analyze.
+
+## Task 2
+
+### Glass Data
+
+```{r}
+glass <- read_csv(
+  "https://www4.stat.ncsu.edu/~online/datasets/glass.data",
+  col_names = c(
+    "Id", "RI", "Na", "Mg", "Al", "Si",
+    "K", "Ca", "Ba", "Fe", "Type_of_glass"
+  )
+)
+
+glass
+```
+
+### Question 3
+
+```{r}
+#Convert the numeric glass types into meaningful factor labels
+glass <- glass |>
+  mutate(
+    Type_of_glass = factor(
+      Type_of_glass,
+      levels = c(1, 2, 3, 5, 6, 7),
+      labels = c(
+        "building_windows_float_processed",
+        "building_windows_non_float_processed",
+        "vehicle_windows_float_processed",
+        "containers",
+        "tableware",
+        "headlamps"
+      )
+    )
+  )
+
+glass
+```
+
+### Question 4
+```{r}
+#Keep only tableware and headlamp observations with Fe values below 0.2
+glass <- glass |>
+  filter(
+    Fe < 0.2,
+    Type_of_glass %in% c("tableware", "headlamps")
+  )
+
+glass
+```
+
+### Yeast Data
+
+```{r}
+yeast <- read_table(
+  "https://www4.stat.ncsu.edu/~online/datasets/yeast.data",
+  col_names = c(
+    "seq_name", "mcg", "gvh", "alm", "mit",
+    "erl", "pox", "vac", "nuc", "class"
+  )
+)
+
+yeast
+```
+
+### Question 5
+```{r}
+#Remove the seq_name and nuc columns from the yeast data
+yeast <- yeast |>
+  select(-seq_name, -nuc)
+
+yeast
+```
+
+### Question 6
+```{r}
+#Calculate the mean and median of each numeric variable for each class
+yeast <- yeast |>
+  group_by(class) |>
+  mutate(
+    across(
+      c(mcg, gvh, alm, mit, erl, pox, vac),
+      list(mean = mean, median = median),
+      .names = "{.col}_{.fn}"
+    )
+  )
+
+yeast
+```
+
+### Wine Data
+
+```{r}
+library(readxl)
+
+white_wine <- read_excel("../data/white-wine.xlsx", sheet = 1)
+
+wine_names <- read_excel("../data/white-wine.xlsx", sheet = 2)
+
+colnames(white_wine) <- wine_names[[1]]
+
+white_wine <- white_wine |>
+  mutate(type = "white")
+red_wine <- read_delim(
+
+  "https://www4.stat.ncsu.edu/~online/datasets/red-wine.csv",
+
+  delim = ";"
+
+)
+
+colnames(red_wine) <- wine_names[[1]]
+
+red_wine <- red_wine |>
+
+  mutate(type = "red")
+
+wine_data <- bind_rows(white_wine, red_wine)
+
+wine_data
+
+```
+
+### Question 7
+```{r}
+#Keep high-quality wines with alcohol values below 13.2
+wine_data <- wine_data |>
+  filter(
+    quality > 6.5,
+    alcohol < 13.2
+  )
+
+wine_data
+```
+
+### Question 8
+```{r}
+#Sort the wine data from highest to lowest quality
+wine_data <- wine_data |>
+  arrange(desc(quality))
+
+wine_data
+```
+
+### Question 9
+```{r}
+#Keep the acid variables along with alcohol, type, and quality
+wine_data <- wine_data |>
+  select(contains("acid"), alcohol, type, quality)
+
+wine_data
+```
+
+### Question 10
+
+```{r}
+#Calculate the mean and standard deviation of alcohol for each quality level
+wine_data <- wine_data |>
+  group_by(quality) |>
+  mutate(
+    alcohol_mean = mean(alcohol),
+    alcohol_sd = sd(alcohol)
+  )
+
+wine_data
+```
+
+## Task 3: Database Practice
+
+### Question 11
+```{r}
+#Connect to the Lahman database and display the available tables
+library(DBI)
+library(RSQLite)
+
+con <- dbConnect(
+  SQLite(),
+  "../data/Lahman.db"
+)
+
+dbListTables(con)
+```
+
+### Question 12
+```{r}
+#Use dplyr to return all team data from 2015
+teams_2015 <- tbl(con, "Teams") |>
+  filter(yearID == 2015)
+
+teams_2015
+```
+
+### Question 13
+```{r}
+#Use SQL to return all team data from 2015
+teams_2015_sql <- tbl(
+  con,
+  sql("SELECT * FROM Teams WHERE yearID = 2015")
+)
+
+teams_2015_sql
+```
+
+### Question 14
+```{r}
+#Keep only people who were inducted into the Hall of Fame
+hall_of_fame <- tbl(con, "HallOfFame") |>
+  filter(inducted == "Y") |>
+  select(playerID, yearID, category)
+
+hall_of_fame
+```
+
+### Question 15
+
+```{r}
+#Join the Hall of Fame results with the People table to add first and last names
+hall_of_fame_names <- hall_of_fame |>
+  left_join(
+    tbl(con, "People") |>
+      select(playerID, nameFirst, nameLast),
+    by = "playerID"
+  )
+
+hall_of_fame_names
+```
+
+### Question 16
+```{r}
+# Calculate each manager's career totals and win percentage
+manager_records <- tbl(con, "Managers") |>
+  select(playerID, G, W, L) |>
+  group_by(playerID) |>
+  summarize(
+    G_managed = sum(G, na.rm = TRUE),
+    Total_W = sum(W, na.rm = TRUE),
+    Total_L = sum(L, na.rm = TRUE)
+  ) |>
+  collect() |>
+  mutate(win_percentage = Total_W / G_managed) |>
+  # Sort the managers from highest to lowest win percentage
+  arrange(desc(win_percentage))
+
+manager_records
+```
+
+### Question 17
+
+```{r}
+# Bring the Hall of Fame data into R and join it with the manager records
+hall_of_fame_managers <- hall_of_fame_names |>
+  collect() |>
+  inner_join(
+    manager_records,
+    by = "playerID"
+  )
+
+# Display people who were both managers and inducted into the Hall of Fame
+hall_of_fame_managers
+```
