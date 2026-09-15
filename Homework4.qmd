@@ -1,0 +1,243 @@
+---
+title: "Homework4"
+author: "AMJ"
+---
+
+# Task 1
+
+1.  Here, we're using the Base R pipe \|\> to take the result from the previous line and put it into the next function over and over.
+
+```{r}
+library(dplyr)
+iris |>
+  as_tibble() |>
+  select(starts_with("Petal"), Species) |>
+  filter(Petal.Length < 1.55) |>
+  arrange(Species)
+```
+
+2.  
+
+- Long format data is when repeated measurements are placed in multiple rows with one column identifying the measurement and another containing its value.
+- Wide format data is when one observational unit is represented by one row, with repeated measurements spread across multiple columns.
+- For statistical analysis, we generally prefer long format data.
+
+# Task 2
+I am just using the code from HW3 to read the glass data.
+```{r}
+library(tidyverse)
+# This code creates a tibble called glass from the specified URL for the glass data.
+# I assigned the supplied column names. The delimiter is a comma.
+# Read_csv is used since the data is separated by commas. It's an excel style file.
+glass <- read_csv(
+  "https://www4.stat.ncsu.edu/~online/datasets/glass.data",
+  col_names = c(
+    "ID", "RI", "Na", "Mg", "Al", "Si",
+    "K", "Ca", "Ba", "Fe", "TypeGlass"
+  )
+)
+```
+
+3. Here, I am starting a chain that will overwrite the TypeGlass variable using mutate.
+4. At the end, there is code to filter observations so that only ones where Fe<0.2 and TypeGlass is either 'tableware' or 'headlamp'.
+
+```{r}
+glass <- glass |>
+  mutate(
+    TypeGlass = factor(
+      TypeGlass,
+      levels = c(1, 2, 3, 4, 5, 6, 7),
+      labels = c(
+        "building_windows_float_processed",
+        "building_windows_non_float_processed",
+        "vehicle_windows_float_processed",
+        "vehicle_windows_non_float_processed",
+        "containers",
+        "tableware",
+        "headlamps"
+      )
+    )
+  ) |>
+  filter(
+    Fe < 0.2,
+    TypeGlass %in% c("tableware", "headlamps")
+  )
+glass
+```
+
+
+  
+This is code that just reads the yeast data.
+```{r}
+yeast <- read_table(
+  "https://www4.stat.ncsu.edu/~online/datasets/yeast.data",
+  col_names = c(
+    "seq_name", "mcg", "gvh", "alm",
+    "mit", "erl", "pox", "vac", "nuc", "class"
+  )
+)
+```
+
+5. I am starting a chain that removes seq_name and nuc columns.  
+6. The chain continues and I added the specified columns. There is mean and median for each numeric variable and a class grouping.
+
+```{r}
+yeast |>
+  select(-seq_name, -nuc) |>
+  group_by(class) |>
+  mutate(
+    across(
+      c(mcg, gvh, alm, mit, erl, pox, vac),
+      list(mean = mean, median = median)
+    )
+  )
+```
+
+This is just reading the wine data and combining it from HW3.  
+
+```{r}
+library(readxl)
+
+white_wine <- read_excel("white-wine.xlsx", sheet = 1)
+wine_names <- read_excel("white-wine.xlsx", sheet = 2)
+
+colnames(white_wine) <- wine_names[[1]]
+white_wine <- white_wine |>
+  mutate(type = "white")
+red_wine <- read_delim(
+  "https://www4.stat.ncsu.edu/~online/datasets/red-wine.csv",
+  delim = ";"
+)
+
+colnames(red_wine) <- wine_names[[1]]
+
+red_wine <- red_wine |>
+  mutate(type = "red")
+wine_data <- bind_rows(white_wine, red_wine)
+```
+
+7. I started a chain to look at wine records with quality > 6.5 and alcohol > 13.2   
+
+8. Now, the quality is arranged from highest to lowest (descending).
+
+9. Next, it selects from where the variables contains 'acid'. And also the alcohol, type, and quality variables.
+
+10. The chain continues with adding the mean and standard deviation of the alcohol variable to the data set of the quality variable.
+
+```{r}
+wine_data |>
+
+  filter(quality > 6.5, alcohol < 13.2) |>
+
+  arrange(desc(quality)) |>
+
+  select(contains("acid"), alcohol, type, quality) |>
+
+  group_by(quality) |>
+  mutate(
+    mean_alcohol = mean(alcohol),
+    sd_alcohol = sd(alcohol)
+  )
+```
+
+# Task 3
+
+11. I am connecting to the database and displaying the tables.
+
+```{r}
+library(DBI)
+con <- dbConnect(RSQLite::SQLite(), "lahman.db")
+dbListTables(con)
+```
+
+12. I used the tbl function to return all 2015 data from the Teams table.
+
+```{r}
+teams_2015 <- tbl(con, "Teams") |>
+  filter(yearID == 2015) |>
+  collect()
+
+teams_2015
+```
+
+13. I used the same tbl function but used SQL instead here.
+
+```{r}
+teams_2015_sql <- tbl(
+  con,
+  sql("SELECT * FROM Teams WHERE yearID = 2015")
+) |>
+  collect()
+
+teams_2015_sql
+```
+
+14. This code returns hall of fame data including playerID, yearID, and category.
+
+```{r}
+hof <- tbl(
+  con,
+  sql("
+    SELECT playerID, yearID, category
+    FROM HallOfFame
+    WHERE inducted = 'Y'
+  ")
+) |>
+  collect()
+
+hof
+```
+
+15. This code combines the previous table with the People table so we can see the player names.
+
+```{r}
+hof_names <- tbl(
+  con,
+  sql("
+    SELECT H.playerID, H.yearID, H.category,
+           P.nameFirst, P.nameLast
+    FROM HallOfFame AS H
+    LEFT JOIN People AS P
+      ON H.playerID = P.playerID
+    WHERE H.inducted = 'Y'
+  ")
+) |>
+  collect()
+
+hof_names
+```
+
+16. This code returns the playerID, and G, W, and L columns from the managers table. The chain also calculates overall win/loss records for the same records.
+
+```{r}
+manager_records <- tbl(
+  con,
+  sql("
+    SELECT playerID,
+           SUM(G) AS G_managed,
+           SUM(W) AS Total_W,
+           SUM(L) AS Total_L
+    FROM Managers
+    GROUP BY playerID
+  ")
+) |>
+  collect() |>
+  mutate(
+    Win_Loss_Percentage = Total_W / G_managed
+  ) |>
+  arrange(desc(Win_Loss_Percentage))
+
+manager_records
+```
+
+17. This code returns the people that managed a team and got a HOF induction. The category doesn't have to be Manager though.
+
+```{r}
+hof_managers <- inner_join(
+  hof_names,
+  manager_records,
+  by = "playerID"
+)
+
+hof_managers
+```
