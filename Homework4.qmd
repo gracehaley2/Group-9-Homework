@@ -1,11 +1,11 @@
 ---
-title: "Homework4"
-author: "AMJ"
+title: "Homework 4"
+author: "Group 9"
 ---
 
-# Task 1
+# Task 1: Conceptual Questions
 
-1.  Here, we're using the Base R pipe \|\> to take the result from the previous line and put it into the next function over and over.
+1.  Here, we're using the Base R pipe \|\> to take the result from the previous line and put it into the next function over and over. This is called a chain.
 
 ```{r}
 library(dplyr)
@@ -16,13 +16,16 @@ iris |>
   arrange(Species)
 ```
 
+
+
 2.  
 
 - Long format data is when repeated measurements are placed in multiple rows with one column identifying the measurement and another containing its value.
 - Wide format data is when one observational unit is represented by one row, with repeated measurements spread across multiple columns.
 - For statistical analysis, we generally prefer long format data.
 
-# Task 2
+# Task 2: Glass, Yeast, and Wine Data
+
 I am just using the code from HW3 to read the glass data.
 ```{r}
 library(tidyverse)
@@ -42,6 +45,7 @@ glass <- read_csv(
 4. At the end, there is code to filter observations so that only ones where Fe<0.2 and TypeGlass is either 'tableware' or 'headlamp'.
 
 ```{r}
+# Done using Dplyr chain.
 glass <- glass |>
   mutate(
     TypeGlass = factor(
@@ -82,9 +86,12 @@ yeast <- read_table(
 6. The chain continues and I added the specified columns. There is mean and median for each numeric variable and a class grouping.
 
 ```{r}
+# Done again using Dplyr chain.
+#5.
 yeast |>
   select(-seq_name, -nuc) |>
   group_by(class) |>
+  # 6. Using mutate now..
   mutate(
     across(
       c(mcg, gvh, alm, mit, erl, pox, vac),
@@ -93,7 +100,7 @@ yeast |>
   )
 ```
 
-This is just reading the wine data and combining it from HW3.  
+This is just reading the wine data and combining it from HW3. It's the same code.
 
 ```{r}
 library(readxl)
@@ -125,14 +132,15 @@ wine_data <- bind_rows(white_wine, red_wine)
 10. The chain continues with adding the mean and standard deviation of the alcohol variable to the data set of the quality variable.
 
 ```{r}
+# Starting Dplyr chain..
 wine_data |>
-
+  #7.
   filter(quality > 6.5, alcohol < 13.2) |>
-
+  #8.
   arrange(desc(quality)) |>
-
+  #9.
   select(contains("acid"), alcohol, type, quality) |>
-
+  #10. Using mutate now..
   group_by(quality) |>
   mutate(
     mean_alcohol = mean(alcohol),
@@ -140,17 +148,18 @@ wine_data |>
   )
 ```
 
-# Task 3
+# Task 3: Database Practice
 
 11. I am connecting to the database and displaying the tables.
 
 ```{r}
+# Code is from the online textbook.
 library(DBI)
 con <- dbConnect(RSQLite::SQLite(), "lahman.db")
 dbListTables(con)
 ```
 
-12. I used the tbl function to return all 2015 data from the Teams table.
+12. I used the tbl function to return all 2015 data from the Teams table. This was done with Dplyr.
 
 ```{r}
 teams_2015 <- tbl(con, "Teams") |>
@@ -177,6 +186,7 @@ teams_2015_sql
 ```{r}
 hof <- tbl(
   con,
+  # SQL statement
   sql("
     SELECT playerID, yearID, category
     FROM HallOfFame
@@ -193,6 +203,7 @@ hof
 ```{r}
 hof_names <- tbl(
   con,
+  # SQL Statement
   sql("
     SELECT H.playerID, H.yearID, H.category,
            P.nameFirst, P.nameLast
@@ -212,6 +223,7 @@ hof_names
 ```{r}
 manager_records <- tbl(
   con,
+  # SQL Statement
   sql("
     SELECT playerID,
            SUM(G) AS G_managed,
@@ -221,6 +233,7 @@ manager_records <- tbl(
     GROUP BY playerID
   ")
 ) |>
+  # Using Dplyr to calculate their win loss and arrange it.
   collect() |>
   mutate(
     Win_Loss_Percentage = Total_W / G_managed
@@ -233,6 +246,7 @@ manager_records
 17. This code returns the people that managed a team and got a HOF induction. The category doesn't have to be Manager though.
 
 ```{r}
+# Just reusing the objects created above! No need to rewrite everything.
 hof_managers <- inner_join(
   hof_names,
   manager_records,
