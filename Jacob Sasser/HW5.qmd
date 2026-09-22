@@ -1,0 +1,136 @@
+---
+title: "HW5"
+---
+
+```{r}
+
+```
+
+```{r}
+api_key='29ca3c43f7934c3693af03984c606422'
+resp = GET(
+  "https://newsapi.org/v2/everything",
+  query = list(
+    q        = "Iran",
+    from     = format(Sys.Date() - 28),
+    language = "en",
+    pageSize = 50,
+    apiKey   = '29ca3c43f7934c3693af03984c606422'
+  )
+)
+
+status_code(resp)
+
+parsed = fromJSON(content(resp, "text", encoding = "UTF-8"))
+
+
+articles = parsed$articles |>
+  as_tibble() |>
+  mutate(source = map(seq_len(n()), \(i) as_tibble(parsed$articles$source[i, ]))) |>
+  relocate(source)
+
+articles
+
+
+
+get_news = function(subject, from, api_key, page_size = 50) {
+  
+  stopifnot(is.character(subject), length(subject) == 1,
+            is.character(from),    length(from) == 1,
+            is.character(api_key), nzchar(api_key))
+  if (is.na(as.Date(from, optional = TRUE))) {
+    stop("`from` must be a date string like '2026-09-01'.")
+  }
+  
+  resp = GET(
+    "https://newsapi.org/v2/everything",
+    query = list(q = subject, from = from, language = "en",
+                 pageSize = page_size, apiKey = api_key)
+  )
+  if (http_error(resp)) {
+    stop("NewsAPI request failed: ", status_code(resp), " - ",
+         content(resp, "text", encoding = "UTF-8"))
+  }
+  
+  parsed = fromJSON(content(resp, "text", encoding = "UTF-8"))parsed$articles |>as_tibble() |>mutate(source = map(seq_len(n()), \(i) as_tibble(parsed$articles$source[i, ]))) |>
+    relocate(source)
+}
+
+
+iran   = get_news("Iran", from = format(Sys.Date() - 28), api_key = api_key)
+hurric = get_news("hurricane", from = format(Sys.Date() - 7), api_key = api_key)
+iran   |> select(title, publishedAt) |> head()
+hurric |> select(title, publishedAt) |> head()
+
+```
+
+TASK 2
+
+```{r}
+
+coasters_raw = read_csv(
+  "https://www4.stat.ncsu.edu/online/datasets/635USrollercoasters.csv"
+) |>
+  clean_names()
+coasters = coasters_raw |>
+  mutate(age_group = factor(age_group, levels = 1:3,labels = c("Older", "Recent", "Newest")),across(c(census_region, scale, type, design, state, make), as.factor)
+  )
+
+count(coasters_raw, age_group)
+
+
+coasters = coasters_raw |>
+  mutate(
+    age_group = factor(age_group, levels = c("1", "2", "3"),
+                       labels = c("Older", "Recent", "Newest")),
+    across(any_of(c("census_region", "scale", "type", "design",
+                    "state", "make")), as.factor)
+  )
+
+
+glimpse(coasters)
+coasters |>
+  summarize(across(everything(), \(x) sum(is.na(x)))) |>
+  pivot_longer(everything(), names_to = "variable", values_to = "n_missing") |>
+  filter(n_missing > 0) |>
+  arrange(desc(n_missing))
+
+
+# One-way
+t1 = table(coasters$type)
+t1
+
+# Two-way
+t2 = table(coasters$type, coasters$scale)
+t2
+
+# Three-way
+t3 = table(coasters$type, coasters$scale, coasters$age_group)
+t3
+
+
+
+coasters |>
+  filter(type == "Steel") |>
+  select(scale, age_group) |>
+  table()
+t3["Steel", , ]
+
+
+coasters |>
+  group_by(type, scale) |>
+  summarize(n = n(), .groups = "drop") |>
+  pivot_wider(names_from = scale, values_from = n, values_fill = 0)
+
+ggplot(coasters, aes(x = scale, fill = type)) +
+  geom_bar() +
+  labs(title = "Roller Coasters by Scale and Construction Type (Stacked)",
+       x = "Coaster Scale", y = "Number of Coasters", fill = "Type")
+
+ggplot(coasters, aes(x = scale, fill = type)) +
+  geom_bar(position = "dodge") +
+  labs(title = "Roller Coasters by Scale and Construction Type (Side-by-Side)",
+       x = "Coaster Scale", y = "Number of Coasters", fill = "Type")
+
+
+```
