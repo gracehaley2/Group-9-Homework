@@ -8,8 +8,12 @@ website:
     left:
       - href: Homework2_Combined.qmd
         text: "Homework 2 Submission"
-      - href: Homework3_Grace.qmd
+      - href: Grace Haley/Homework3_Grace.qmd
         text: "Homework 3"
+      - href: Grace Haley/Homework4_Grace.qmd
+        text: "Homework 4"
+      - href: Grace Haley/Homework5_Grace.qmd
+        text: "Homework 5"
 
 format:
   html:

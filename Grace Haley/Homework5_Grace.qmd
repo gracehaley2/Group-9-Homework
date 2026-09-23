@@ -1,0 +1,247 @@
+---
+title: "Homework 5"
+---
+
+# Task 1 - Querying an API and a Tidy-Style Function
+
+## Question 1
+
+I chose to search for recent news articles about solar energy.
+
+```{r}
+library(httr)
+
+myKey <- "e7abfa3a93544b69897a191519ae54e2"
+
+solar_news <- GET(
+  paste0(
+    "https://newsapi.org/v2/everything?q=%22solar%20energy%22",
+    "&from=2026-08-23",
+    "&language=en",
+    "&pageSize=50",
+    "&apiKey=", myKey
+  )
+)
+
+solar_news
+```
+
+## Question 2
+
+```{r}
+solar_content <- content(solar_news, as = "text")
+
+solar_content <- jsonlite::fromJSON(solar_content)
+
+solar_articles <- solar_content$articles
+
+str(solar_articles)
+```
+
+## Question 3
+
+Function that allows the user to query the News API by specifying a subject, a starting date, and an API key:
+
+```{r}
+news_search <- function(subject, start_date, api_key) {
+  
+  response <- GET(
+    "https://newsapi.org/v2/everything",
+    query = list(
+      q = subject,
+      from = start_date,
+      language = "en",
+      pageSize = 50,
+      apiKey = api_key
+    )
+  )
+  
+  news_content <- content(response, as = "text")
+  news_content <- jsonlite::fromJSON(news_content)
+  
+  return(news_content$articles)
+}
+```
+
+Using the function twice to show that it works:
+
+```{r}
+solar_results <- news_search(
+  subject = "solar energy",
+  start_date = "2026-08-23",
+  api_key = myKey
+)
+
+str(solar_results)
+```
+
+```{r}
+wind_results <- news_search(
+  subject = "wind energy",
+  start_date = "2026-08-23",
+  api_key = myKey
+)
+
+str(wind_results)
+```
+
+# Task 2 - Summarizing Roller Coaster Data
+
+Reading in the roller coaster data and converting categorical variables to factors:
+
+```{r}
+library(tidyverse)
+
+coasters <- read.csv(
+  "https://www4.stat.ncsu.edu/online/datasets/635USrollercoasters.csv"
+)
+
+coasters <- coasters |>
+  mutate(
+    AgeGroup = as.factor(AgeGroup),
+    Scale = as.factor(Scale),
+    Type = as.factor(Type),
+    Design = as.factor(Design),
+    Make = as.factor(Make),
+    State = as.factor(State),
+    Census.Region = as.factor(Census.Region),
+    Inversions. = as.factor(Inversions.)
+  )
+```
+
+## Question 4
+
+```{r}
+str(coasters)
+```
+
+The data contains 635 observations and 21 variables. The categorical variables were converted to factors, including AgeGroup, Scale, Type, Design, Make, State, Census.Region, and Inversions. The quantitative variables, such as TopSpeed, MaxHeight, Drop, Length, Duration, and the number of inversions, are stored as numeric variables. The variables appear to be stored appropriately for the analysis.
+
+## Question 5
+
+Documenting missing values in the data:
+
+```{r}
+colSums(is.na(coasters))
+
+table(coasters$Make, useNA = "ifany")
+```
+
+There are missing values in five variables. TopSpeed has 74 missing values, MaxHeight has 8, Drop has 128, Length has 33, and Duration has 66. The Make variable also contains one blank value that is not coded as NA.
+
+## Question 6
+
+### One-Way Contingency Table
+
+```{r}
+type_table <- table(coasters$Type)
+
+type_table
+```
+
+The value 530 for Steel means that 530 of the roller coasters in the dataset are steel roller coasters.
+
+### Two-Way Contingency Table
+
+```{r}
+type_scale_table <- table(coasters$Type, coasters$Scale)
+
+type_scale_table
+```
+
+The value 216 for Steel and Extreme means that 216 roller coasters are both steel coasters and classified as Extreme.
+
+### Three-Way Contingency Table
+
+```{r}
+type_scale_age_table <- table(
+  coasters$Type,
+  coasters$Scale,
+  coasters$AgeGroup
+)
+
+type_scale_age_table
+```
+
+The value 126 for Steel, Extreme, and 3:Newest means that 126 roller coasters are steel coasters, classified as Extreme, and belong to the Newest age group.
+
+## Question 7
+
+### Method 1: Filter the Data
+
+```{r}
+newest_coasters <- coasters |>
+  filter(AgeGroup == "3:Newest")
+
+newest_table <- table(
+  newest_coasters$Type,
+  newest_coasters$Scale
+)
+
+newest_table
+```
+
+### Method 2: Subset a Three-Way Table
+
+```{r}
+three_way_table <- table(
+  coasters$Type,
+  coasters$Scale,
+  coasters$AgeGroup
+)
+
+three_way_table[, , "3:Newest"]
+```
+
+## Question 8
+
+```{r}
+type_scale_summary <- coasters |>
+  group_by(Type, Scale) |>
+  summarize(
+    Count = n(),
+    .groups = "drop"
+  )
+
+print(type_scale_summary)
+```
+
+```{r}
+type_scale_wide <- type_scale_summary |>
+  pivot_wider(
+    names_from = Scale,
+    values_from = Count
+  )
+
+print(type_scale_wide)
+```
+
+## Question 9
+
+### Stacked Bar Graph
+
+```{r}
+ggplot(coasters, aes(x = Scale, fill = Type)) +
+  geom_bar() +
+  labs(
+    title = "Roller Coaster Type by Scale",
+    x = "Roller Coaster Scale",
+    y = "Number of Roller Coasters",
+    fill = "Type"
+  )
+```
+
+### Side-by-Side Bar Graph
+
+```{r}
+ggplot(coasters, aes(x = Scale, fill = Type)) +
+  geom_bar(position = "dodge") +
+  labs(
+    title = "Roller Coaster Type by Scale",
+    x = "Roller Coaster Scale",
+    y = "Number of Roller Coasters",
+    fill = "Type"
+  )
+```
+
+------------------------------------------------------------------------
