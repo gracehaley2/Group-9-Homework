@@ -1,0 +1,194 @@
+---
+title: "Homework 5"
+author: "AMJ"
+---
+
+# Task 1: Querying an API and a Tidy-Style Function
+
+1.  I'm using my API key to get information about my topic. Calling articles_df returns a tibble with the information I'm looking for like title, author, etc.
+
+```{r}
+library(httr)
+library(dplyr)
+
+key = '617117eac1654fa2a323dd9021ca4f71'
+
+
+news_response <- GET(
+  "https://newsapi.org/v2/everything",
+  query = list(
+    q = "Iran",
+    from = "2026-09-01",
+    language = "en",
+    pageSize = 50,
+    apiKey = key
+  )
+)
+
+news_content <- content(news_response)
+articles_df <- bind_rows(news_content$articles)
+#2. Below is the data frame that is generated.
+articles_df
+
+
+```
+
+3.  This function can be called with the 3 parameters to get information about a certain topic.
+
+```{r}
+get_news <- function(topic, start_date, api_key) {
+  
+  response <- GET(
+    "https://newsapi.org/v2/everything",
+    query = list(
+      q = topic,
+      from = start_date,
+      language = "en",
+      pageSize = 50,
+      apiKey = key
+    )
+  )
+  
+  news_content <- content(response)
+  articles_df <- bind_rows(news_content$articles)
+  return(articles_df)
+}
+```
+
+This object is a function call of the function I just made and it results in news about cancer.
+
+```{r}
+cancer_news <- get_news(
+  "cancer",
+  "2026-09-01",
+  key
+)
+cancer_news
+```
+
+This object is a function call of the function I just made and it results in news about Kazakhstan.
+
+```{r}
+
+kazakhstan_news <- get_news(
+  "kazakhstan",
+  "2026-09-01",
+  key
+)
+kazakhstan_news
+```
+
+# Task 2: Summarizing Roller Coaster Data
+
+```{r}
+# The csv file is being read and factors were created.
+library(tidyverse)
+coasters <- read_csv("635USrollercoasters.csv")
+coasters <- coasters |>
+  mutate(
+    Park = factor(Park),
+    City = factor(City),
+    State = factor(State),
+    `Census Region` = factor(`Census Region`),
+    AgeGroup = factor(AgeGroup),
+    Scale = factor(Scale),
+    Type = factor(Type),
+    Design = factor(Design),
+    `Inversions?` = factor(`Inversions?`),
+    Make = factor(Make)
+  )
+```
+
+```{r}
+# 4. I'm looking into the data here. There are 635 rows and 21 columns of data. Everything seems to be stored properly and the data makes sense.
+str(coasters)
+glimpse(coasters)
+```
+
+5.  This code returns the variables with missing columns and how many missing values there are.
+
+```{r}
+coasters |>
+  summarise(across(everything(), ~ sum(is.na(.)))) |>
+  pivot_longer(
+    everything(),
+    names_to = "Variable",
+    values_to = "Missing"
+  ) |>
+  filter(Missing > 0)
+```
+
+There are missing values in TopSpeed, MaxHeight, Drop, Length, Duration, and Make. The missing column shows how many missing values there are. I went ahead and looked at the Excel sheet to make sure and counted up the missing records in TopSpeed and there was exactly 74. There are a lot of blank rows in the csv file but the code skips those and doesn't count them toward the missing values.
+
+6. Here, I am creating a one-way, two-way, and three-way contingency tables using table().
+
+```{r}
+table(coasters$Type)
+```
+The first value, 530, means that there are 530 steel roller coasters in the dataset.
+```{r}
+table(coasters$Type, coasters$Scale)
+```
+The first value, 216, means that there are 216 steel roller coasters that are classified as "extreme" in the dataset.
+```{r}
+table(coasters$Type, coasters$Scale, coasters$AgeGroup)
+```
+The first value, 8, means that there are 8 steel roller coasters that are classified as "extreme" and are classified as "older" in the dataset.
+
+7. I am creating a conditional two-way table using two methods.
+
+Here, I am creating a two-way contingency table by subsetting the data using filter() and then creating the two-way table.
+```{r}
+older_coasters <- coasters |>
+  filter(AgeGroup == "1:Older")
+table(older_coasters$Type, older_coasters$Scale)
+```
+Here, I am creating a three-way table first and then subsetting it.
+```{r}
+three_way <- table(
+  coasters$Type,
+  coasters$Scale,
+  coasters$AgeGroup
+)
+three_way[, , "1:Older"]
+```
+As you can see, both resulting tables match.
+
+8. Here, I am creating a two-way contingency table using group_by() and summarize() from dplyr and using pivot_wider to change the try to match the resulting tibble to a table.
+
+```{r}
+two_way_dplyr <- coasters |>
+  group_by(Type, Scale) |>
+  summarize(Count = n(), .groups = "drop") |>
+  pivot_wider(
+    names_from = Scale,
+    values_from = Count
+  )
+
+two_way_dplyr
+```
+
+9. I am creating a stacked bar graph and a side-by-side bar graph with labels.
+
+This is the stacked bar graph.
+```{r}
+ggplot(coasters, aes(x = Type, fill = Scale)) +
+  geom_bar() +
+  labs(
+    x = "Roller Coaster Type",
+    y = "Number of Roller Coasters",
+    title = "Roller Coaster Scale by Type"
+  )
+```
+
+
+This is the side-by-side bar graph.
+```{r}
+ggplot(coasters, aes(x = Type, fill = Scale)) +
+  geom_bar(position = "dodge") +
+  labs(
+    x = "Roller Coaster Type",
+    y = "Number of Roller Coasters",
+    title = "Roller Coaster Scale by Type"
+  )
+```
