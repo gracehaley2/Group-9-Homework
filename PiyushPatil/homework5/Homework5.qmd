@@ -1,0 +1,137 @@
+---
+title: "homework5"
+---
+
+```{r}
+library(httr)
+
+api_key <- '19d146f8167d4b699ba234b57e383e32'
+
+news <- GET(paste0("https://newsapi.org/v2/everything?q=artificial%20intelligence&from=2026-09-01&language=en&pageSize=50&apiKey=", api_key))
+
+news
+```
+
+```{r}
+content(news)
+```
+
+```{r}
+news_content <- content(news, simplifyDataFrame = TRUE)
+
+news_content$articles
+```
+
+```{r}
+str(news_content$articles)
+```
+
+```{r}
+get_news <- function(subject, from_date, api_key) {
+  
+  subject <- URLencode(subject)
+  
+  url <- paste0("https://newsapi.org/v2/everything?q=", subject,
+                "&from=", from_date,
+                "&language=en&pageSize=50&apiKey=", api_key)
+  
+  news <- GET(url)
+  
+  news_content <- content(news, simplifyDataFrame = TRUE)
+  
+  news_content$articles
+}
+```
+
+```{r}
+get_news("artificial intelligence", "2026-09-01", api_key)
+
+get_news("Apple", "2026-09-01", api_key)
+```
+
+# Task 2
+
+```{r}
+library(tidyverse)
+
+coasters <- read_csv("https://www4.stat.ncsu.edu/online/datasets/635USrollercoasters.csv")
+
+coasters
+```
+
+```{r}
+str(coasters)
+```
+
+```{r}
+coasters <- coasters %>%
+  mutate(
+    `Census Region` = as.factor(`Census Region`),
+    AgeGroup = as.factor(AgeGroup),
+    Scale = as.factor(Scale),
+    Type = as.factor(Type),
+    Design = as.factor(Design),
+    `Inversions?` = as.factor(`Inversions?`),
+    Make = as.factor(Make)
+  )
+
+str(coasters)
+```
+
+```{r}
+colSums(is.na(coasters))
+```
+
+The variables with missing values are TopSpeed with 74 values, MaxHeight with 8, Drop with 128, Length with 33, Duration with 66 and Make with 36. All the other variables have no missing values.
+
+```{r}
+table(coasters$Type)
+
+table(coasters$Type, coasters$Scale)
+
+table(coasters$Type, coasters$Scale, coasters$`Census Region`)
+```
+
+For the One way table there are 530 steel roller coasters in the dataset.
+
+For the Two way table there are 216 steel roller coasters that are classified as Extreme
+
+For the Three way table there are 42 steel roller coasters classified as Extreme in the Midwest.
+
+```{r}
+south_coasters <- coasters %>%
+  filter(`Census Region` == "South")
+
+table(south_coasters$Type, south_coasters$Scale)
+
+coaster_table <- table(coasters$Type, coasters$Scale, coasters$`Census Region`)
+
+coaster_table[, , "South"]
+```
+
+```{r}
+coasters %>%
+  group_by(Type, Scale) %>%
+  summarize(Count = n()) %>%
+  pivot_wider(names_from = Scale, values_from = Count)
+```
+
+```{r}
+ggplot(coasters, aes(x = Type, fill = Scale)) +
+  geom_bar() +
+  labs(
+    title = "Roller Coaster Scale by Type",
+    x = "Type",
+    y = "Count",
+    fill = "Scale"
+  )
+
+ggplot(coasters, aes(x = Type, fill = Scale)) +
+  geom_bar(position = "dodge") +
+  labs(
+    title = "Roller Coaster Scale by Type",
+    x = "Type",
+    y = "Count",
+    fill = "Scale"
+  )
+```
