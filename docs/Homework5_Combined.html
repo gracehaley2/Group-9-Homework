@@ -1,0 +1,1854 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.25">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Homework 5 Combined – Group 9 Homework</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-5b4ad623e5705c0698d39aec6f10cf02.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="./index.html" class="navbar-brand navbar-brand-logo">
+    </a>
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">Group 9 Homework</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./Homework2_Combined.html"> 
+<span class="menu-text">Homework 2 Submission</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./Grace Haley/Homework3_Grace.html"> 
+<span class="menu-text">Homework 3</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./Grace Haley/Homework4_Grace.html"> 
+<span class="menu-text">Homework 4</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./Grace Haley/Homework5_Grace.html"> 
+<span class="menu-text">Homework 5</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#task-1---querying-an-api-and-a-tidy-style-function" id="toc-task-1---querying-an-api-and-a-tidy-style-function" class="nav-link active" data-scroll-target="#task-1---querying-an-api-and-a-tidy-style-function">Task 1 - Querying an API and a Tidy-Style Function</a>
+  <ul class="collapse">
+  <li><a href="#question-1" id="toc-question-1" class="nav-link" data-scroll-target="#question-1">Question 1</a></li>
+  <li><a href="#question-2" id="toc-question-2" class="nav-link" data-scroll-target="#question-2">Question 2</a></li>
+  <li><a href="#question-3" id="toc-question-3" class="nav-link" data-scroll-target="#question-3">Question 3</a></li>
+  </ul></li>
+  <li><a href="#task-2---summarizing-roller-coaster-data" id="toc-task-2---summarizing-roller-coaster-data" class="nav-link" data-scroll-target="#task-2---summarizing-roller-coaster-data">Task 2 - Summarizing Roller Coaster Data</a>
+  <ul class="collapse">
+  <li><a href="#question-4" id="toc-question-4" class="nav-link" data-scroll-target="#question-4">Question 4</a></li>
+  <li><a href="#question-5" id="toc-question-5" class="nav-link" data-scroll-target="#question-5">Question 5</a></li>
+  <li><a href="#question-6" id="toc-question-6" class="nav-link" data-scroll-target="#question-6">Question 6</a></li>
+  <li><a href="#question-7" id="toc-question-7" class="nav-link" data-scroll-target="#question-7">Question 7</a></li>
+  <li><a href="#question-8" id="toc-question-8" class="nav-link" data-scroll-target="#question-8">Question 8</a></li>
+  <li><a href="#question-9" id="toc-question-9" class="nav-link" data-scroll-target="#question-9">Question 9</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Homework 5 Combined</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="task-1---querying-an-api-and-a-tidy-style-function" class="level1">
+<h1>Task 1 - Querying an API and a Tidy-Style Function</h1>
+<section id="question-1" class="level2">
+<h2 class="anchored" data-anchor-id="question-1">Question 1</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(httr)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>api_key <span class="ot">&lt;-</span> <span class="fu">Sys.getenv</span>(<span class="st">"NEWS_API_KEY"</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>news <span class="ot">&lt;-</span> <span class="fu">GET</span>(</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">paste0</span>(</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"https://newsapi.org/v2/everything?q=artificial%20intelligence"</span>,</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;from=2026-09-01"</span>,</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;language=en"</span>,</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;pageSize=50"</span>,</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;apiKey="</span>, api_key</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>news</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Response [https://newsapi.org/v2/everything?q=artificial%20intelligence&amp;from=2026-09-01&amp;language=en&amp;pageSize=50&amp;apiKey=19d146f8167d4b699ba234b57e383e32]
+  Date: 2026-09-24 00:26
+  Status: 200
+  Content-Type: application/json; charset=utf-8
+  Size: 40.3 kB</code></pre>
+</div>
+</div>
+</section>
+<section id="question-2" class="level2">
+<h2 class="anchored" data-anchor-id="question-2">Question 2</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>news_content <span class="ot">&lt;-</span> <span class="fu">content</span>(news, <span class="at">simplifyDataFrame =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>news_content<span class="sc">$</span>articles</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>          source.id           source.name
+1          bbc-news              BBC News
+2         the-verge             The Verge
+3              &lt;NA&gt;           Gizmodo.com
+4              &lt;NA&gt;           Gizmodo.com
+5  business-insider      Business Insider
+6              &lt;NA&gt;                   NPR
+7      the-next-web          The Next Web
+8              &lt;NA&gt; Artificialanalysis.ai
+9              &lt;NA&gt;                   NPR
+10             &lt;NA&gt;                   NPR
+11 business-insider      Business Insider
+12         bbc-news              BBC News
+13             &lt;NA&gt;      Penny-arcade.com
+14             &lt;NA&gt;             Arxiv.org
+15             &lt;NA&gt;            Openai.com
+16            wired                 Wired
+17     the-next-web          The Next Web
+18             &lt;NA&gt;                Kotaku
+19         bbc-news              BBC News
+20             &lt;NA&gt;                  CNET
+21             &lt;NA&gt;           Gizmodo.com
+22             &lt;NA&gt;           Gizmodo.com
+23             &lt;NA&gt;   Yahoo Entertainment
+24             &lt;NA&gt;   Yahoo Entertainment
+25            wired                 Wired
+26              cnn                   CNN
+27             &lt;NA&gt;   Yahoo Entertainment
+28              cnn                   CNN
+29             &lt;NA&gt;   Yahoo Entertainment
+30             &lt;NA&gt;   Yahoo Entertainment
+31             &lt;NA&gt;   Yahoo Entertainment
+32             &lt;NA&gt;   Yahoo Entertainment
+33             &lt;NA&gt;   Yahoo Entertainment
+34             &lt;NA&gt;   Yahoo Entertainment
+35             &lt;NA&gt;   Yahoo Entertainment
+36             &lt;NA&gt;          Slashdot.org
+37             &lt;NA&gt;           Gizmodo.com
+38             &lt;NA&gt;           Gizmodo.com
+39             &lt;NA&gt;           Gizmodo.com
+40             &lt;NA&gt;   Yahoo Entertainment
+41             &lt;NA&gt;           Abcnews.com
+42     the-next-web          The Next Web
+43             &lt;NA&gt;   Scientific American
+44             &lt;NA&gt;           Abcnews.com
+45             &lt;NA&gt;           Abcnews.com
+46        the-verge             The Verge
+47             &lt;NA&gt;           Gizmodo.com
+                                                               author
+1                                                                &lt;NA&gt;
+2                                                         Robert Hart
+3                                                        AJ Dellinger
+4                                                          Mike Pearl
+5                                                    Henry Chandonnet
+6                                                          Andrea Hsu
+7                                                    Alina Maria Stan
+8                                                 Artificial Analysis
+9                                                       Scott Horsley
+10                                                    Brittney Melton
+11                                                       Insider Inc.
+12                                                               &lt;NA&gt;
+13                                                               &lt;NA&gt;
+14                                                               &lt;NA&gt;
+15                                                               &lt;NA&gt;
+16                                                       Iain Akerman
+17                                                 Ana-Maria Stanciuc
+18                                                        Zack Kotzer
+19                                                               &lt;NA&gt;
+20                                                        Gael Cooper
+21                                                         Matt Novak
+22                                                        Kyle Torpey
+23                                                         Brody Ford
+24                                By Eduardo Baptista and Laurie Chen
+25                                                        Will Knight
+26                                                  Sean Lyngaas, CNN
+27                                                                NBC
+28                                                Stephanie Yang, CNN
+29                                CHAN HO-HIM and E. EDUARDO CASTILLO
+30                                                          Tom Giles
+31                                                  By Jennifer Rigby
+32                                                          JOSH BOAK
+33                                                            Reuters
+34                       Nitasha Tiku, (c) 2026 , The Washington Post
+35                                                    Michael Hirtzer
+36                                                        EditorDavid
+37                                                         Matt Novak
+38                                                       Ece Yildirim
+39                                                         James Pero
+40                                                                AFP
+41                                                      Isabel Danzis
+42                                               Ana Maria Constantin
+43                                                         Adam Kovac
+44                                      ALEX VEIGA AP business writer
+45 E. EDUARDO CASTILLO Associated Press, CHAN HO-HIM Associated Press
+46                                              Charles Pulliam-Moore
+47                                                        Webb Wright
+                                                                                                                     title
+1                                                             Could AI pose a threat to humanity, and can it be regulated?
+2                    More than 1 in 10 chance AI ‘could kill all humans,’ says Anthropic safety lead after colleague quits
+3                                                            Trump’s Attempt to Rename AI Misunderstands the MAGA Faithful
+4                                                                        You’ll Never Guess What Trump Wants to Rename Now
+5                                       Trump wants to rebrand artificial intelligence. It was almost called these 3 names
+6                                                         Made in America: How AI is keeping this U.S. factory competitive
+7                                                                   Trump tells the UN that AI is now ‘super intelligence’
+8                                                                              Artificial Analysis Intelligence Index v4.2
+9                                                 A new Anthropic model seeks to test how AI could impact the U.S. economy
+10                                              Key leaders sound the alarm on AI. And, Iran-Gulf diplomacy hits a setback
+11                                                      Americans love AI. They don't want the data centers that power it.
+12                                                                  Gruffalo illustrator says rise of AI images 'worrying'
+13                                                                                  Artificial Intelligence, Quote Unquote
+14                                                                            The Malicious Use of Artificial Intelligence
+15                                                               Advisory Group on Mathematics and Artificial Intelligence
+16                                                               Napster Is Back, and It Wants to Digitally Clone Teachers
+17                                                        Pentagon AI chief says US allies lack the resources to keep pace
+18                                      Epic Games CEO Tim Sweeney Says The Industry Is Crashing And AI Is Making It Worse
+19                                                                        Could AI wipe out humans and how might it do it?
+20                                   Trump Says AI Is Now Super Intelligence. What’s Really Super Is the Internet Response
+21                        Trump Says He’s Changing Artificial Intelligence to ‘Super Intelligence’ on Government Documents
+22 Pentagon Investigators Say Overreliance on Palantir AI Tech Contributed to U.S. Strike That Killed 123 Iranian Children
+23                                                         Adobe Forecast Misses Estimates, Renewing Fears About AI Impact
+24                                              Explainer-How China is preparing for the risk of AI escaping human control
+25                                                       Why So Many AI Researchers Think the Machines Could Kill Everyone
+26                                   US claims Chinese AI firms are carrying out ‘industrial-scale’ theft of trade secrets
+27                                                    Mamdani announces ban on AI for young students in NYC public schools
+28                                     Asian teens race ahead of US peers for reading, science and math in global rankings
+29                                       As the world debates the risks of AI, China closes the technology gap with the US
+30                                                         Meta's Zuckerberg Favors Evaluators Over Slowdown for AI Safety
+31                                                             Governments worldwide are way behind on AI, says Bill Gates
+32                        Trump dismisses new AI guardrails, says there is a 'SICK conspiracy' against AI and data centers
+33                                                               Google to invest $15 billion AI infrastructure in Finland
+34                                              For years, they warned AI could kill all humans. Now people are listening.
+35                                                        Farmers Are Embracing AI More Than Any Other Tech, McKinsey Says
+36                                                 Fake AI Intelligence Almost Made the US Military Start a War With China
+37                            ‘Almost Started a War’: US Military Nearly Boarded a Chinese Ship Based on Bad Intel From AI
+38                                                                        First Came Space Force. Now Prepare For AI Force
+39                                                                                   Older iPhone Prices Are Going Up, Too
+40                                      Trump renames AI 'super intelligence' and dismisses safety warnings in U.N. speech
+41                                             House Democratic Leader Jeffries calls on lawmakers to 'act urgently' on AI
+42                                                              A phone maker now has the world’s top open-weight AI model
+43                                      Trump rejects AI regulation, citing parallels with climate change, in U.N. address
+44                                             New warnings about the risks of AI to humanity revive a long-running debate
+45                                                Beijing hits back at Anthropic CEO’s call to curb China's AI development
+46                                                                    Google needs Hollywood more than the studios need AI
+47                                                           Bernie Sanders Calls for Global Ban on AI ‘Superintelligence’
+                                                                                                                                                                                                                                                              description
+1                                                                                                                                       The BBC's AI correspondent Marc Cieslak explains what artificial intelligence is and whether it could cause a threat to humanity.
+2    A senior Anthropic safety researcher has said there is more than a 10 percent chance artificial intelligence "could kill all humans" by the end of the decade, just hours after a colleague resigned over fears the AI lab and its rivals are carelessly racing to …
+3                                                                                                                                                                                              No better way to reach your base than by insisting that they are inferior.
+4                                                                                                                                                                                  The President wants to give his favorite technology a rebrand, but he needs your help.
+5                                                                                                                                   President Donald Trump announced plans to rebrand artificial intelligence. It was once associated with terms like "automata studies."
+6                                                                                                                                                   GE Appliances is leaning heavily into artificial intelligence to improve quality and efficiency on the factory floor.
+7    Donald Trump used his address to the UN General Assembly in New York on Tuesday to give artificial intelligence a new name. From now on, he said, US government documents would call it ‘super intelligence’, because ‘artificial’ made the technology sound fake. …
+8                                                              We are accelerating elements of our upcoming v5 release with interim updates to keep pace with the frontier. Index v4.2 has more complex and realistic tasks, and more private test sets to prevent gaming
+9                                                                                                Will artificial intelligence nibble around the edges of the economy or upend it altogether? A new, interactive model from Anthropic lets people tests their assumptions.
+10                                                                                                     Some key leaders at artificial intelligence companies call for a slowdown in AI development. And, Iran-Gulf diplomacy hits a setback as talks in Oman are delayed.
+11                                                                                                                  Americans hate data centers and don't trust the Big Tech companies that need them. But they love using the artificial intelligence models they power.
+12                                                                                                                                                      Axel Scheffler speaks to the BBC alongside author Dame Julia Donaldson, who reads an extract from their new book.
+13  Let's go over a few things.\n1. If OpenAI or Anthropic breaches another company's systems, even if no money changed hands, these are Federal and State crimes. Currently, these narratives are being deployed essentially as a mode of advertising to "pump those nu…
+14   This report surveys the landscape of potential security threats from malicious uses of AI, and proposes ways to better forecast, prevent, and mitigate these threats. After analyzing the ways in which AI may influence the threat landscape in the digital, physi…
+15                                                                                                          OpenAI is working with an independent Advisory Group on Mathematics and Artificial Intelligence to guide the review and communication of emerging AI results.
+16                                                                                                                                                                        Once the music industry’s biggest headache, Napster’s next act is bringing AI to the classroom.
+17   The Pentagon’s most senior artificial intelligence official has said publicly what allied defence ministries have been hearing privately for the past two years: they do not have the same resources as the US, and they are unlikely to catch up anytime soon. Cam…
+18                                                                                                                                  Usually playing the cheerleader for artificial intelligence, the Epic CEO seems to have cooled on the trend and regrets humoring NFTs
+19                                                                                                                                                           Cyber Correspondent Joe Tidy looks at some of the scenarios being imagined and assesses how likely they are.
+20                                                                                                                                                                                                              When in doubt, add “super.” What could possibly go wrong?
+21                                                                                                                                                                                                                         Diesel prices hit another record high Tuesday.
+22                                                                                                                                                                                   An unreleased Pentagon probe investigated the kill chain that hit a school in Minab.
+23                                                                                                                 Adobe Inc. gave an outlook for sales that narrowly missed analysts’ estimates, renewing concerns about pressure from artificial intelligence upstarts.
+24                                                                                                       BEIJING, Sept 14 (Reuters) - Warnings from researchers at leading U. artificial intelligence developer Anthropic that increasingly powerful models could esca...
+25                                                                                                                                       A combination of rapid advances, recursive self-improvement, and agentic swarms are genuinely “spooking people” inside big labs.
+26                                                                                                       Chinese artificial intelligence firms are committing “industrial-scale” theft of their American counterparts’ trade secrets to save money and bring the covet...
+27                                                                                                       New York City Mayor Zohran Mamdani announced a one-year ban on artificial intelligence for students from 2-K through 8th grade in public schools. NBC News' T...
+28                                                                                                       High-school students across Asia are pulling ahead of their Western peers, an annual global assessment indicates, as artificial intelligence spurs a worldwid...
+29                                                                                                       As the rapid development of artificial intelligence triggers a renewed debate about its risks, the United States and China keep racing to develop increasingl...
+30                                                                                                       Meta Platforms Inc. Chief Executive Officer Mark Zuckerberg said artificial intelligence labs should rely on independent evaluators and advisers to ensure th...
+31                                                                                                       By Jennifer Rigby LONDON, Sept 15 (Reuters) - No government in the world is ready for the changes artificial intelligence will bring to society, Bill Gates s...
+32                                                                                                       President Donald Trump said Monday that he would be a sufficient guardrail against rogue artificial intelligence, claiming that any efforts to limit the tech...
+33                                                                                                       HELSINKI, Sept 9 (Reuters) - Alphabet's Google will invest at least €13 billion ($15.1 billion) in artificial intelligence infrastructure in Finland over the...
+34                                                                                                       On a summer's day, Evan Hubinger issued a stark warning about the future with a boba drink in his hand. Artificial intelligence was a threat to humanity beca...
+35                                                                                                       Artificial intelligence use is surging on farms as growers look for some high-tech help in planning and managing operations after years of scaling back on sp...
+36 U.S. military intelligence received an inaccurate report this spring that a Chinese ship in the Middle East was transporting components of a nuclear weapons program, reports CNN. \n\n"The US military swung into action with plans to intercept the vessel, accordi…
+37                                                                                                                                                       One source told CNN that the "hallucination" was part of a trend in the U.S. military, not an isolated incident.
+38                                                                                                                                                                                                Trump is forming a new "AI Force" and appointing an AI Czar to lead it.
+39                                                                                                                                                                         The iPhone Pro and Pro Max lines aren't the only iPhones that saw a $100 price increase today.
+40 Trump dismissed warnings from AI safety advocates, comparing them to warnings about climate change (Brendan SMIALOWSKI)\r\nUS President Donald Trump on Tuesday announced that the US government would rename artificial intelligence "super intelligence" in officia…
+41                                                                                                                                         On "This Week," the House Democratic Leader Jeffries said lawmakers need to "act urgently" to address artificial intelligence.
+42   Frontier intelligence, all the modalities, built in public. Xiaomi opened its MiMo-V2.6 announcement with that line on Tuesday. The phone and electric car maker released two open-weight models, Pro and Flash, under an MIT licence. The weights are on Hugging F…
+43                                                                                                                                                                            The president also said artificial intelligence should be rebranded as “super intelligence”
+44                                                                                                            New warnings from the artificial-intelligence industry have revived debate over whether advanced AI models could escape human control and threaten humanity
+45                                                                                                                China’s Ministry of Foreign Affairs has hit back at a call from the head of Anthropic for the U.S. to curb China’s artificial intelligence capabilities
+46   Google has reportedly been reaching out to a number of Hollywood's biggest studios, hoping to strike licensing agreements that would allow it to train its AI models on copyrighted material in exchange for massive piles of cash. In theory, these deals would be…
+47                                                                                                                                                                   With new legislation, Sanders wants AI ‘superintelligence’ to be as radioactive as enriched uranium.
+                                                                                                                                                     url
+1                                                                                                        https://www.bbc.co.uk/news/videos/ckgjqnz6pd2do
+2                                                                https://www.theverge.com/ai-artificial-intelligence/991927/anthropic-ai-kill-all-humans
+3                                                            https://gizmodo.com/trumps-attempt-to-rename-ai-misunderstands-the-maga-faithful-2000815001
+4                                                                        https://gizmodo.com/youll-never-guess-what-trump-wants-to-rename-now-2000814488
+5                                                                      https://www.businessinsider.com/trump-rename-ai-almost-had-3-names-2026-9#article
+6                                                                        https://www.npr.org/2026/09/01/nx-s1-5869801/ai-manufacturing-jobs-data-factory
+7                                                                       https://thenextweb.com/news/trump-tells-the-un-that-ai-is-now-super-intelligence
+8                                                                     https://artificialanalysis.ai/articles/artificial-analysis-intelligence-index-v4-2
+9                                                                                      https://www.npr.org/2026/09/09/nx-s1-5961443/ai-anthropic-economy
+10                                     https://www.npr.org/2026/09/14/g-s1-143148/up-first-newsletter-ai-anthropic-openai-midterms-trump-oman-iran-talks
+11                                                      https://www.businessinsider.com/americans-love-ai-they-dont-want-the-data-centers-2026-9#article
+12                                                                                                        https://www.bbc.co.uk/news/videos/ce9ernkxx48o
+13                                                               https://www.penny-arcade.com/news/post/2026/09/15/artificial-intelligence-quote-unquote
+14                                                                                                                      https://arxiv.org/abs/1802.07228
+15                                                                                        https://openai.com/index/advisory-group-on-mathematics-and-ai/
+16                                                                 https://www.wired.com/story/napster-is-back-and-it-wants-to-digitally-clone-teachers/
+17                                                                                  https://thenextweb.com/news/pentagon-ai-chief-allies-resources-scale
+18                                      https://kotaku.com/epic-games-ceo-tim-sweeney-says-the-industry-is-crashing-and-ai-is-making-it-worse-2000731564
+19                                                                                                       https://www.bbc.co.uk/news/videos/c8p3020ge51ko
+20                                                        https://www.cnet.com/tech/services-and-software/trump-ai-super-intelligence-internet-response/
+21                          https://gizmodo.com/trump-says-hes-changing-artificial-intelligence-to-super-intelligence-on-government-documents-2000815518
+22 https://gizmodo.com/pentagon-investigators-say-overreliance-on-palantir-ai-tech-contributed-to-u-s-strike-that-killed-123-iranian-children-2000814477
+23                                              https://finance.yahoo.com/technology/ai/articles/adobe-forecast-misses-estimates-renewing-201136315.html
+24                                                            https://www.yahoo.com/news/world/articles/explainer-china-preparing-risk-ai-085638474.html
+25                                                        https://www.wired.com/story/why-so-many-ai-researchers-think-the-machines-could-kill-everyone/
+26                                                                    https://www.cnn.com/2026/09/08/politics/us-accuses-china-of-stealing-ai-technology
+27                                                                       https://www.yahoo.com/news/videos/mamdani-announces-ban-ai-young-173740025.html
+28                                                                            https://www.cnn.com/2026/09/10/world/asia-students-test-scores-ai-intl-hnk
+29                                                              https://www.yahoo.com/news/politics/articles/world-debates-risks-ai-china-105701074.html
+30                                                https://finance.yahoo.com/technology/ai/articles/meta-zuckerberg-favors-evaluators-over-000020443.html
+31                                                          https://www.yahoo.com/news/world/articles/governments-worldwide-way-behind-ai-040647582.html
+32                                                        https://www.yahoo.com/news/politics/articles/trump-dismisses-ai-guardrails-says-141430820.html
+33                                                           https://finance.yahoo.com/technology/ai/articles/google-invest-15-billion-ai-070119247.html
+34                                                               https://finance.yahoo.com/technology/articles/years-warned-ai-could-kill-090000647.html
+35                                                       https://finance.yahoo.com/technology/ai/articles/farmers-embracing-ai-more-other-110000541.html
+36                               https://news.slashdot.org/story/26/09/19/062210/fake-ai-intelligence-almost-made-the-us-military-start-a-war-with-china
+37                              https://gizmodo.com/almost-started-a-war-us-military-nearly-boarded-a-chinese-ship-based-on-bad-intel-from-ai-2000814290
+38                                                                        https://gizmodo.com/first-came-space-force-now-prepare-for-ai-force-2000814525
+39                                                                                   https://gizmodo.com/older-iphone-prices-are-going-up-too-2000809492
+40                                                 https://www.yahoo.com/news/politics/articles/trump-rejects-international-regulation-ai-160957080.html
+41                                         https://abcnews.com/Politics/house-democratic-leader-jeffries-calls-lawmakers-act-urgently/story?id=136401544
+42                                                                 https://thenextweb.com/news/xiaomi-mimo-v2-6-open-weight-model-anthropic-distillation
+43                            https://www.scientificamerican.com/article/trump-rejects-ai-regulation-citing-parallels-with-climate-change-in-un-address/
+44                                                 https://abcnews.com/Technology/wireStory/new-warnings-risks-ai-humanity-revive-long-running-136414578
+45                                                  https://abcnews.com/Technology/wireStory/beijing-hits-back-anthropic-ceos-call-curb-chinas-136416539
+46                                                             https://www.theverge.com/tech/987429/google-needs-hollywood-more-than-the-studios-need-ai
+47                                                            https://gizmodo.com/bernie-sanders-calls-for-global-ban-on-ai-superintelligence-2000806829
+                                                                                                                                                                                                                                                                   urlToImage
+1                                                                                                                                                                 https://ichef.bbci.co.uk/ace/branded_news/1200/cpsprodpb/1279/live/c44c1290-b053-11f1-a540-61c3f7fc4e6c.jpg
+2                                                                                                    https://platform.theverge.com/wp-content/uploads/sites/2/2026/09/STK269_ANTHROPIC_2_A-1.jpg?quality=90&amp;strip=all&amp;crop=0%2C10.732984293194%2C100%2C78.534031413613&amp;w=1200
+3                                                                                                                                                                                                        https://gizmodo.com/app/uploads/2026/09/trump-rename-AI-1200x675.jpg
+4                                                                                                                                                                                                       https://gizmodo.com/app/uploads/2026/09/trump-viewfinder-1200x675.jpg
+5                                                                                                                                                                                                       https://i.insider.com/6ab2a7b1265e3f8e338f59bb?width=1200&amp;format=jpeg
+6                 https://npr.brightspotcdn.com/dims3/default/strip/false/crop/4500x2531+0+0/resize/1400/quality/85/format/jpeg/?url=http%3A%2F%2Fnpr-brightspot.s3.amazonaws.com%2F1b%2Fdc%2F018e889242328a0f4d28e37008c9%2Fge-part-time-workers-georgia-julieholder-013.jpg
+7                                                                                                                                                                                                                 https://media.thenextweb.com/2025/04/Untitled-design-26.jpg
+8                                                                                                                                                    https://cdn.sanity.io/images/6vfeftx9/articles/6f95888d7f2b11ac42c1be194ed4de6fa96571cb-1254x1254.png?w=1200&amp;auto=format
+9                                     https://npr.brightspotcdn.com/dims3/default/strip/false/crop/4822x2712+0+212/resize/1400/quality/85/format/jpeg/?url=http%3A%2F%2Fnpr-brightspot.s3.amazonaws.com%2F7d%2F0e%2Fddddeea34919b144bdcfa02b858c%2Fgettyimages-2285051730.jpg
+10                                    https://npr.brightspotcdn.com/dims3/default/strip/false/crop/5147x2895+0+431/resize/1400/quality/85/format/jpeg/?url=http%3A%2F%2Fnpr-brightspot.s3.amazonaws.com%2Ffb%2F8b%2F92f4c72b49b8aa2e1006753a4132%2Fgettyimages-2285098382.jpg
+11                                                                                                                                                                                                      https://i.insider.com/6a9889483c906e69480d5896?width=1200&amp;format=jpeg
+12                                                                                                                                                                https://ichef.bbci.co.uk/ace/branded_news/1200/cpsprodpb/9342/live/f7d0def0-ad17-11f1-b1d1-571ed4d7ff2c.jpg
+13                                                                                                                                                                                                                     https://assets.penny-arcade.com/img/logo_opengraph.jpg
+14                                                                                                                                                                                                             https://arxiv.org/static/browse/0.3.4/images/arxiv-logo-fb.png
+15                                                                                  https://images.ctfassets.net/kftzwdyauwt9/11yqmSO7D1dfYveBnOdmJt/e451277f37f82f51d6d20f2b86826590/advisory-group-on-mathematics-and-artificial-intelligence-seo.png?w=1600&amp;h=900&amp;fit=fill
+16                                                                                                                                                                            https://media.wired.com/photos/6aac1a9a4ac258f87bea84bd/191:100/w_1280,c_limit/Napster_lead.jpg
+17                                                                                                                                                                                                          https://media.thenextweb.com/2026/09/pentagon-cameron-stanley.jpg
+18                                                                                                                                                                                                       https://kotaku.com/app/uploads/2026/09/fortnitecollapse-1200x675.jpg
+19                                                                                                                                                                https://ichef.bbci.co.uk/ace/branded_news/1200/cpsprodpb/5eb7/live/29eb9d30-b362-11f1-a430-4d16ee157c41.jpg
+20                                                                                                                                                                                      https://www.cnet.com/wp-content/uploads/sites/2/AI-protest-GettyImages-2295176606.jpg
+21                                                                                                                                                                                                         https://gizmodo.com/app/uploads/2026/09/trump-shadows-1200x675.jpg
+22                                                                                                                                                                                                      https://gizmodo.com/app/uploads/2026/05/digital-pentagon-1200x675.jpg
+23 https://s.yimg.com/lo/mysterio/api/6151482a49e2986986db02a50aa1729f1b9f47c85e972943896c30e6446ca9b2/lightyear_networkapi/resizefill_w1200%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fbloomberg_holding_pen_162%2F0b759cc39877b24fdfc1cd6a4068148a.jpg
+24            https://s.yimg.com/lo/mysterio/api/5bf020dcc3caec22872eb09c7871a87b6639686a08d0b76d7bad47dd3a3acb79/lightyear_networkapi/resizefill_w800_h533%3Bquality_80%3Bformat_jpg/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Freuters.com%2F7fcd4b963d1f883357ed90d8e12c2e42.jpg
+25                                                                                                https://media.wired.com/photos/6aa1c85ef107c265a15668ae/191:100/w_1280,c_limit/Why-All-These-AI-Researchers-Freaking-Out-About-AI-Killing-Us-All-Business-MCDTETH_EC026.jpg
+26       https://s.yimg.com/lo/mysterio/api/4f649f521e2c7e535b3438d37e3d07df8fe55e71e286962deebb33042f21596d/lightyear_networkapi/resizefill_w960_h540%3Bquality_80%3Bformat_jpg/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fcnn_articles_875%2Ff6851b6013838f1fe9c2420d09b3b2a2.jpg
+27                   https://s.yimg.com/lo/mysterio/api/8186bcdc588335cd84bde62a794e6b6700d87df2504e2610b811c658ef26e463/lightyear_networkapi/resizefill_w1200%3Bquality_80%3Bformat_jpg/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fnbcu_713%2Fc0d2298e6f7d5ab18806f8c35c93eb67.jpg
+28       https://s.yimg.com/lo/mysterio/api/03a7ac70e32cf36ea4fa67ef7131853d1ee27afa784ad82f1b405ef0788d00d6/lightyear_networkapi/resizefill_w960_h540%3Bquality_80%3Bformat_jpg/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fcnn_articles_875%2F458c85f185ad023f26ee7dd5054ed390.jpg
+29                     https://s.yimg.com/lo/mysterio/api/7b03a45bbee212cd3eb28575b3841a7c0d0e329ab9cbf1d50b289c3705794926/lightyear_networkapi/resizefill_w1200%3Bquality_80%3Bformat_jpg/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fap.org%2Ff14e5ae5def08bb5ced19f9836936fda.jpg
+30 https://s.yimg.com/lo/mysterio/api/a9dd7f660a312153951cb0f7a35deeea77120edcf1084a59e6e540963bead087/lightyear_networkapi/resizefill_w1200%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fbloomberg_holding_pen_162%2Fa807f208e4c71cee8b5d34b6411344f9.jpg
+31            https://s.yimg.com/lo/mysterio/api/6564665abe0af3c0a2e6fa7cfb21857ce1d3528657ef6097b8e0ce40058ce778/lightyear_networkapi/resizefill_w800_h533%3Bquality_80%3Bformat_jpg/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Freuters.com%2F3bfda97a838e63119f51019477bba6da.jpg
+32                     https://s.yimg.com/lo/mysterio/api/56a4908cf70ec70ba9b24c7e19b8906bd28459fabc44e94bbec15e5ad962b1cb/lightyear_networkapi/resizefill_w1200%3Bquality_80%3Bformat_jpg/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fap.org%2Ff6c930c3a6fa485534a3eb1c368ec9b3.jpg
+33               https://s.yimg.com/lo/mysterio/api/599100e0f95580fd2a644665da3c0e10cd26a1dc91e4de5fdeeedfa186faf841/lightyear_networkapi/resizefill_w1200%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Freuters.com%2Fdb64807105e6fc2e442ba7dd82890ba4.jpg
+34 https://s.yimg.com/lo/mysterio/api/0f377a311862620d973ca821db9b69e64d7813f9c8bf5832b820c361eaef7e5a/lightyear_networkapi/resizefill_w1200%3Bquality_80%3Bformat_webp/https%3A%2F%2Fd29szjachogqwa.cloudfront.net%2Fimages%2F2025-08%2Ff2dc8e1a-6e0f-4f06-9224-f6057ed66a9e
+35 https://s.yimg.com/lo/mysterio/api/9da67339390d2ff7938ab151fca19eeffd18f4cc39c67cd777b13619d04d4a19/lightyear_networkapi/resizefill_w1200%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fbloomberg_holding_pen_162%2Ff8bbf631d875147b59c8552716bc3408.jpg
+36                                                                                                                                                                                                                                     https://a.fsdn.com/sd/topics/ai_64.png
+37                                                                                                                                                                                                    https://gizmodo.com/app/uploads/2026/09/US-Pacific-Command-1200x675.jpg
+38                                                                                                                                                                                                https://gizmodo.com/app/uploads/2026/09/GettyImages-2294838569-1200x675.jpg
+39                                                                                                                                                                                                   https://gizmodo.com/app/uploads/2026/03/Apple-iPhone-17e-10-1200x675.jpg
+40                https://s.yimg.com/lo/mysterio/api/5456422f50ee6a234212b369011881e29b48f2e537f3ba223c4869f931ee0e7d/lightyear_networkapi/resizefill_w768_h512%3Bquality_80%3Bformat_jpg/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fafp.com%2F6a122798f3ff55c9cf90d95eb0d1f17e.jpg
+41                                                                                                                                               https://i.abcnewsfe.com/a/f8cbc2ef-9743-4f79-bd65-7890b59face3/jeffries-2-ap-gmh-260903_1788455053969_hpMain_16x9.jpg?w=1600
+42                                                                                                                                                                                                               https://media.thenextweb.com/2026/08/xiaomi-headquarters.jpg
+43                                                                                                                                                  https://static.scientificamerican.com/dam/asset/9df7fe36-75ba-4336-b781-4b7ed583411d/Trump-UN.jpg?m=1790096253.343&amp;w=1200
+44                                                                                                                                                  https://i.abcnewsfe.com/a/a2dac9a8-1ab7-4f34-8fbb-745265a88a9c/wirestory_98316b0d64de17191f33c0fbf1d37858_16x9.jpg?w=1600
+45                                                                                                                                                  https://i.abcnewsfe.com/a/edba90b6-209a-405d-b2c9-024cf3dc0fef/wirestory_3da458d2c078da3e60900728d59f1ae8_16x9.jpg?w=1600
+46                                                                                                               https://platform.theverge.com/wp-content/uploads/sites/2/2026/09/ai-label-3.jpg?quality=90&amp;strip=all&amp;crop=0%2C12.885618424569%2C100%2C74.228763150863&amp;w=1200
+47                                                                                                                                                                                          https://gizmodo.com/app/uploads/2026/09/bernie-superintelligence-ban-1200x675.jpg
+            publishedAt
+1  2026-09-14T16:00:51Z
+2  2026-09-09T09:56:28Z
+3  2026-09-21T20:59:10Z
+4  2026-09-19T19:58:23Z
+5  2026-09-22T18:00:28Z
+6  2026-09-01T09:00:00Z
+7  2026-09-22T19:06:26Z
+8  2026-09-05T00:04:14Z
+9  2026-09-09T13:34:48Z
+10 2026-09-14T11:39:06Z
+11 2026-09-02T21:13:24Z
+12 2026-09-10T13:43:32Z
+13 2026-09-15T20:13:00Z
+14 2026-09-14T01:22:35Z
+15 2026-09-21T17:27:49Z
+16 2026-09-18T09:15:00Z
+17 2026-09-09T14:10:12Z
+18 2026-09-05T20:04:57Z
+19 2026-09-19T00:48:29Z
+20 2026-09-22T23:16:06Z
+21 2026-09-22T18:30:32Z
+22 2026-09-20T09:00:14Z
+23 2026-09-10T20:11:36Z
+24 2026-09-14T08:56:38Z
+25 2026-09-11T09:00:00Z
+26 2026-09-08T20:51:38Z
+27 2026-09-02T17:37:40Z
+28 2026-09-10T06:07:11Z
+29 2026-09-15T10:57:01Z
+30 2026-09-16T00:00:20Z
+31 2026-09-15T04:06:47Z
+32 2026-09-14T14:14:30Z
+33 2026-09-09T07:01:19Z
+34 2026-09-10T09:00:00Z
+35 2026-09-08T11:00:00Z
+36 2026-09-19T17:34:00Z
+37 2026-09-19T00:07:39Z
+38 2026-09-20T21:12:14Z
+39 2026-09-09T20:10:38Z
+40 2026-09-22T17:30:21Z
+41 2026-09-13T14:46:56Z
+42 2026-09-22T18:25:00Z
+43 2026-09-22T16:00:00Z
+44 2026-09-14T05:31:30Z
+45 2026-09-14T09:43:27Z
+46 2026-09-01T22:50:29Z
+47 2026-09-03T15:30:54Z
+                                                                                                                                                                                                                      content
+1     What is AI? Could it pose a threat to humanity? Can it be regulated or stopped? The BBC's AI correspondent Marc Cieslak answered viewers questions about the technology.\r\nCieslak warned the technology… [+458 chars]
+2  &lt;ul&gt;&lt;li&gt;&lt;/li&gt;&lt;li&gt;&lt;/li&gt;&lt;li&gt;&lt;/li&gt;&lt;/ul&gt;\r\nThe departing researcher said AI companies are gambling with our lives by racing to develop self-improving AI.\r\nThe departing researcher said AI companies are ga… [+3549 chars]
+3      Donald Trump has decided that artificial intelligence has a marketing problem. After all, nobody likes anything “artificial.” So this weekend, the branding expert who brought you such perfectly named… [+4978 chars]
+4      President Donald Trump simply has no patience for negativity around AI. He says its going to be the Greatest Economic Development Engine in History Bigger than Oil, Gold, Diamonds, or even the Intern… [+3041 chars]
+5    President Donald Trump said the term "artificial intelligence" made it sound "fake."Anna Moneymaker/Getty Images\r\n&lt;ul&gt;&lt;li&gt;President Donald Trump announced plans to rebrand artificial intelligence.&lt;/l… [+2013 chars]
+6    Sign up for alerts on breaking news and exclusive reporting from NPR\r\nLAFAYETTE, Ga. Inside Roper Corporation, a GE Appliances-owned plant in rural northwest Georgia, autonomous vehicles deliver part… [+4343 chars]
+7    TL;DR\r\nTrump told the UN General Assembly on 22 September that US documents will now call AI super intelligence. He paired the rename with a pledge to encourage the technology rather than rein it in,… [+3629 chars]
+8      We are accelerating elements of our upcoming v5 release with interim updates to keep pace with the frontier. Index v4.2 has more complex and realistic tasks, and more private test sets to prevent gam… [+5176 chars]
+9      Will artificial intelligence light a fire under the U.S. economy in the coming years? That's been a big question in the field of economics, and now Anthropic the company behind the popular Claude AI … [+2715 chars]
+10   Good morning. You're reading the Up First newsletter.&nbsp;Subscribe&nbsp;here to get it delivered to your inbox, and&nbsp;listen&nbsp;to the Up First podcast for all the news you need to start your day.\r\nToday's top st… [+4634 chars]
+11  Anti-data center protests have sprouted up across the country.Getty Images\r\n&lt;ul&gt;&lt;li&gt;More than half of Americans used an AI chatbot in July, according to new data from Morning Consult.&lt;/li&gt;&lt;li&gt;Yet 70%… [+10601 chars]
+12    The illustrator for the Gruffalo books has said images created by artificial intelligence (AI) are "worrying". \r\nAxel Scheffler said AI pictures are "a breach of copyright" and lose their charm when … [+189 chars]
+13   Let's go over a few things.\r\n1. If OpenAI or Anthropic breaches another company's systems, even if no money changed hands, these are Federal and State crimes. Currently, these narratives are being de… [+2424 chars]
+14    arXivLabs is a framework that allows collaborators to develop and share new arXiv features directly on our website.\r\nBoth individuals and organizations that work with arXivLabs have embraced and acce… [+257 chars]
+15     On August 28, we began training a new internal model. In addition to resolving the NavierStokes Millennium Prize problem, this model has now resolved more than 100 long-standing open problems across … [+2985 chars]
+16   Napster is back. The name that struck fear into the hearts of music executives in the early dotcom era may be coming to a classroom near you.\r\nIn Dubai, United Arab Emirates, it has signed a strategi… [+3541 chars]
+17     The Pentagons most senior artificial intelligence official has said publicly what allied defence ministries have been hearing privately for the past two years: they do not have the same resources as … [+3974 chars]
+18     Hardware is getting more expensive. Games are becoming pricier to make and buy. Employment numbers aint looking so hot. Also theres this lil war disrupting the economy. Its not the exact recipe we ha… [+3531 chars]
+19    Recent AI (artificial intelligence) safety concerns have been fuelled by stark warnings from AI scientists about the growing risks of the technology going rogue.\r\nSome of the most pessimistic predict… [+416 chars]
+20   If artificial intelligence isn’t called AI, does that make the technology more acceptable? \r\nSpeaking to world leaders at the United Nations General Assembly on Tuesday, President Donald Trump said h… [+4379 chars]
+21     President Donald Trump gave a completely unhinged speech at the United Nations General Assembly on Tuesday where he bragged about his supposed achievements, threatened other countries, and insisted h… [+4212 chars]
+22     Back in February, two Tomahawk missiles hit Shajarah Tayyebeh Elementary School in the southern Iranian town of Minab on the opening day of the Iran war. The blasts killed more than 150 people, inclu… [+7096 chars]
+23 (Bloomberg) -- Adobe Inc. gave an outlook for sales that narrowly missed analysts' estimates, renewing concerns about pressure from artificial intelligence upstarts.\r\nMost Read from Bloomberg\r\nRevenu… [+1420 chars]
+24   By Eduardo Baptista and Laurie Chen\r\nBEIJING, Sept 14 (Reuters) - Warnings from researchers at leading U.S. artificial intelligence developer Anthropic that increasingly powerful models could escape … [+4850 chars]
+25   Earlier this year, Rishub Jain left his position as an artificial intelligence researcher at Google DeepMind after a revelation.\r\nAs he worked on new models, he came to believe that he and everyone e… [+3612 chars]
+26     Chinese artificial intelligence firms are committing "industrial-scale" theft of their American counterparts' trade secrets to save money and bring the coveted technology to market faster, US federal… [+2920 chars]
+27                                        New York City Mayor Zohran Mamdani announced a one-year ban on artificial intelligence for students from 2-K through 8th grade in public schools. NBC News' Tyler Kingkade reports.
+28     High-school students across Asia are pulling ahead of their Western peers, an annual global assessment indicates, as artificial intelligence spurs a worldwide race for talent and reshapes how young p… [+3649 chars]
+29     HONG KONG (AP) As the rapid development of artificial intelligence triggers a renewed debate about its risks, the United States and China keep racing to develop increasingly powerful models even as t… [+5793 chars]
+30    (Bloomberg) -- Meta Platforms Inc. (META) Chief Executive Officer Mark Zuckerberg said artificial intelligence labs should rely on independent evaluators and advisers to ensure that models are safe.\r… [+1409 chars]
+31   By Jennifer Rigby\r\nLONDON, Sept 15 (Reuters) - No government in the world is ready for the changes artificial intelligence will bring to society, Bill Gates said in an interview with Reuters, as he w… [+2853 chars]
+32     WASHINGTON (AP) President Donald Trump said Monday that he would be a sufficient guardrail against rogue artificial intelligence, claiming that any efforts to limit the technology was part of a "SICK… [+3806 chars]
+33     HELSINKI, Sept 9 (Reuters) - Alphabet's Google will invest at least 13 billion ($15.1 billion) in artificial intelligence infrastructure in Finland over the next two years, it said on Wednesday, call… [+1448 chars]
+34     On a summer's day, Evan Hubinger issued a stark warning about the future with a boba drink in his hand. Artificial intelligence was a threat to humanity because it could one day learn to deceive its … [+6510 chars]
+35     (Bloomberg) -- Artificial intelligence use is surging on farms as growers look for some high-tech help in planning and managing operations after years of scaling back on spending, according to McKins… [+2045 chars]
+36     U.S. military intelligence received an inaccurate report this spring that a Chinese ship in the Middle East was transporting components of a nuclear weapons program, reports CNN."The US military swun… [+1957 chars]
+37     The U.S. military planned to board a Chinese vessel in the Middle East based on bad intelligence from an artificial intelligence tool but backed out at the last minute, according to a new report from… [+3507 chars]
+38   President Trump is sick of people “attacking” the AI industry, which is why he will be forming an “AI Force” and appointing an “AI Czar.”\r\nIn a rambling rant posted on his Truth Social account, Trump… [+3575 chars]
+39     In this week’s edition of Everything Is More Expensive All the Time: iPhones. As of today, you may have noticed that there are a few new iPhones out there in the world. At its “Surprise and Shine” an… [+1508 chars]
+40     US President Donald Trump on Tuesday announced that the US government would rename artificial intelligence "super intelligence" in official communications, as he firmly rejected calls for internation… [+3079 chars]
+41   House Democratic Leader Hakeem Jeffries said Sunday that lawmakers need to take urgent action on the growing threat of artificial intelligence (AI).&nbsp;\r\nWe certainly need to begin to act urgently to ad… [+3050 chars]
+42   Frontier intelligence, all the modalities, built in public.\r\nXiaomi opened its MiMo-V2.6 announcement with that line on Tuesday. The phone and electric car maker released two open-weight models, Pro … [+5171 chars]
+43     President Donald Trump rejected international efforts to regulate artificial intelligence during a speech to the United Nations General Assembly on Tuesday. Trump compared the apparent risks of AI to… [+2097 chars]
+44     LOS ANGELES -- New warnings from within the artificial intelligence industry have revived a long-running debate over whether advanced AI could escape human control and ultimately threaten humanitys s… [+6526 chars]
+45     BEIJING -- China's Ministry of Foreign Affairs on Monday hit back at a call from the head of Anthropic for the U.S. to curb China's artificial intelligence capabilities, which he issued as he argued … [+3409 chars]
+46 &lt;ul&gt;&lt;li&gt;&lt;/li&gt;&lt;li&gt;&lt;/li&gt;&lt;li&gt;&lt;/li&gt;&lt;/ul&gt;\r\nStriking deals with studios like Disney could help the tech giant shift the narrative about artificial intelligence.\r\nStriking deals with studios like Disney cou… [+7743 chars]
+47   Senator Bernie Sanders is calling for a global prohibition on superintelligence, with penalties on par with the illegal development of nuclear weapons.\r\nIntroduced today with U.S. Representative Greg… [+3868 chars]</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(news_content<span class="sc">$</span>articles)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>'data.frame':   47 obs. of  8 variables:
+ $ source     :'data.frame':    47 obs. of  2 variables:
+  ..$ id  : chr  "bbc-news" "the-verge" NA NA ...
+  ..$ name: chr  "BBC News" "The Verge" "Gizmodo.com" "Gizmodo.com" ...
+ $ author     : chr  NA "Robert Hart" "AJ Dellinger" "Mike Pearl" ...
+ $ title      : chr  "Could AI pose a threat to humanity, and can it be regulated?" "More than 1 in 10 chance AI ‘could kill all humans,’ says Anthropic safety lead after colleague quits" "Trump’s Attempt to Rename AI Misunderstands the MAGA Faithful" "You’ll Never Guess What Trump Wants to Rename Now" ...
+ $ description: chr  "The BBC's AI correspondent Marc Cieslak explains what artificial intelligence is and whether it could cause a t"| __truncated__ "A senior Anthropic safety researcher has said there is more than a 10 percent chance artificial intelligence \""| __truncated__ "No better way to reach your base than by insisting that they are inferior." "The President wants to give his favorite technology a rebrand, but he needs your help." ...
+ $ url        : chr  "https://www.bbc.co.uk/news/videos/ckgjqnz6pd2do" "https://www.theverge.com/ai-artificial-intelligence/991927/anthropic-ai-kill-all-humans" "https://gizmodo.com/trumps-attempt-to-rename-ai-misunderstands-the-maga-faithful-2000815001" "https://gizmodo.com/youll-never-guess-what-trump-wants-to-rename-now-2000814488" ...
+ $ urlToImage : chr  "https://ichef.bbci.co.uk/ace/branded_news/1200/cpsprodpb/1279/live/c44c1290-b053-11f1-a540-61c3f7fc4e6c.jpg" "https://platform.theverge.com/wp-content/uploads/sites/2/2026/09/STK269_ANTHROPIC_2_A-1.jpg?quality=90&amp;strip=al"| __truncated__ "https://gizmodo.com/app/uploads/2026/09/trump-rename-AI-1200x675.jpg" "https://gizmodo.com/app/uploads/2026/09/trump-viewfinder-1200x675.jpg" ...
+ $ publishedAt: chr  "2026-09-14T16:00:51Z" "2026-09-09T09:56:28Z" "2026-09-21T20:59:10Z" "2026-09-19T19:58:23Z" ...
+ $ content    : chr  "What is AI? Could it pose a threat to humanity? Can it be regulated or stopped? The BBC's AI correspondent Marc"| __truncated__ "&lt;ul&gt;&lt;li&gt;&lt;/li&gt;&lt;li&gt;&lt;/li&gt;&lt;li&gt;&lt;/li&gt;&lt;/ul&gt;\r\nThe departing researcher said AI companies are gambling with our lives "| __truncated__ "Donald Trump has decided that artificial intelligence has a marketing problem. After all, nobody likes anything"| __truncated__ "President Donald Trump simply has no patience for negativity around AI. He says its going to be the Greatest Ec"| __truncated__ ...</code></pre>
+</div>
+</div>
+</section>
+<section id="question-3" class="level2">
+<h2 class="anchored" data-anchor-id="question-3">Question 3</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>get_news <span class="ot">&lt;-</span> <span class="cf">function</span>(subject, from_date, api_key) {</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  subject <span class="ot">&lt;-</span> <span class="fu">URLencode</span>(subject)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  url <span class="ot">&lt;-</span> <span class="fu">paste0</span>(</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"https://newsapi.org/v2/everything?q="</span>, subject,</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;from="</span>, from_date,</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;language=en&amp;pageSize=50&amp;apiKey="</span>, api_key</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>  news <span class="ot">&lt;-</span> <span class="fu">GET</span>(url)</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>  news_content <span class="ot">&lt;-</span> <span class="fu">content</span>(news, <span class="at">simplifyDataFrame =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>  news_content<span class="sc">$</span>articles</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a><span class="fu">get_news</span>(<span class="st">"artificial intelligence"</span>, <span class="st">"2026-09-01"</span>, api_key)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>          source.id           source.name
+1          bbc-news              BBC News
+2         the-verge             The Verge
+3              &lt;NA&gt;           Gizmodo.com
+4              &lt;NA&gt;           Gizmodo.com
+5  business-insider      Business Insider
+6              &lt;NA&gt;                   NPR
+7      the-next-web          The Next Web
+8              &lt;NA&gt; Artificialanalysis.ai
+9              &lt;NA&gt;                   NPR
+10             &lt;NA&gt;                   NPR
+11 business-insider      Business Insider
+12         bbc-news              BBC News
+13             &lt;NA&gt;      Penny-arcade.com
+14             &lt;NA&gt;             Arxiv.org
+15             &lt;NA&gt;            Openai.com
+16            wired                 Wired
+17     the-next-web          The Next Web
+18             &lt;NA&gt;                Kotaku
+19         bbc-news              BBC News
+20             &lt;NA&gt;                  CNET
+21             &lt;NA&gt;           Gizmodo.com
+22             &lt;NA&gt;           Gizmodo.com
+23             &lt;NA&gt;   Yahoo Entertainment
+24             &lt;NA&gt;   Yahoo Entertainment
+25            wired                 Wired
+26              cnn                   CNN
+27             &lt;NA&gt;   Yahoo Entertainment
+28              cnn                   CNN
+29             &lt;NA&gt;   Yahoo Entertainment
+30             &lt;NA&gt;   Yahoo Entertainment
+31             &lt;NA&gt;   Yahoo Entertainment
+32             &lt;NA&gt;   Yahoo Entertainment
+33             &lt;NA&gt;   Yahoo Entertainment
+34             &lt;NA&gt;   Yahoo Entertainment
+35             &lt;NA&gt;   Yahoo Entertainment
+36             &lt;NA&gt;          Slashdot.org
+37             &lt;NA&gt;           Gizmodo.com
+38             &lt;NA&gt;           Gizmodo.com
+39             &lt;NA&gt;           Gizmodo.com
+40             &lt;NA&gt;   Yahoo Entertainment
+41             &lt;NA&gt;           Abcnews.com
+42     the-next-web          The Next Web
+43             &lt;NA&gt;   Scientific American
+44             &lt;NA&gt;           Abcnews.com
+45             &lt;NA&gt;           Abcnews.com
+46        the-verge             The Verge
+47             &lt;NA&gt;           Gizmodo.com
+                                                               author
+1                                                                &lt;NA&gt;
+2                                                         Robert Hart
+3                                                        AJ Dellinger
+4                                                          Mike Pearl
+5                                                    Henry Chandonnet
+6                                                          Andrea Hsu
+7                                                    Alina Maria Stan
+8                                                 Artificial Analysis
+9                                                       Scott Horsley
+10                                                    Brittney Melton
+11                                                       Insider Inc.
+12                                                               &lt;NA&gt;
+13                                                               &lt;NA&gt;
+14                                                               &lt;NA&gt;
+15                                                               &lt;NA&gt;
+16                                                       Iain Akerman
+17                                                 Ana-Maria Stanciuc
+18                                                        Zack Kotzer
+19                                                               &lt;NA&gt;
+20                                                        Gael Cooper
+21                                                         Matt Novak
+22                                                        Kyle Torpey
+23                                                         Brody Ford
+24                                By Eduardo Baptista and Laurie Chen
+25                                                        Will Knight
+26                                                  Sean Lyngaas, CNN
+27                                                                NBC
+28                                                Stephanie Yang, CNN
+29                                CHAN HO-HIM and E. EDUARDO CASTILLO
+30                                                          Tom Giles
+31                                                  By Jennifer Rigby
+32                                                          JOSH BOAK
+33                                                            Reuters
+34                       Nitasha Tiku, (c) 2026 , The Washington Post
+35                                                    Michael Hirtzer
+36                                                        EditorDavid
+37                                                         Matt Novak
+38                                                       Ece Yildirim
+39                                                         James Pero
+40                                                                AFP
+41                                                      Isabel Danzis
+42                                               Ana Maria Constantin
+43                                                         Adam Kovac
+44                                      ALEX VEIGA AP business writer
+45 E. EDUARDO CASTILLO Associated Press, CHAN HO-HIM Associated Press
+46                                              Charles Pulliam-Moore
+47                                                        Webb Wright
+                                                                                                                     title
+1                                                             Could AI pose a threat to humanity, and can it be regulated?
+2                    More than 1 in 10 chance AI ‘could kill all humans,’ says Anthropic safety lead after colleague quits
+3                                                            Trump’s Attempt to Rename AI Misunderstands the MAGA Faithful
+4                                                                        You’ll Never Guess What Trump Wants to Rename Now
+5                                       Trump wants to rebrand artificial intelligence. It was almost called these 3 names
+6                                                         Made in America: How AI is keeping this U.S. factory competitive
+7                                                                   Trump tells the UN that AI is now ‘super intelligence’
+8                                                                              Artificial Analysis Intelligence Index v4.2
+9                                                 A new Anthropic model seeks to test how AI could impact the U.S. economy
+10                                              Key leaders sound the alarm on AI. And, Iran-Gulf diplomacy hits a setback
+11                                                      Americans love AI. They don't want the data centers that power it.
+12                                                                  Gruffalo illustrator says rise of AI images 'worrying'
+13                                                                                  Artificial Intelligence, Quote Unquote
+14                                                                            The Malicious Use of Artificial Intelligence
+15                                                               Advisory Group on Mathematics and Artificial Intelligence
+16                                                               Napster Is Back, and It Wants to Digitally Clone Teachers
+17                                                        Pentagon AI chief says US allies lack the resources to keep pace
+18                                      Epic Games CEO Tim Sweeney Says The Industry Is Crashing And AI Is Making It Worse
+19                                                                        Could AI wipe out humans and how might it do it?
+20                                   Trump Says AI Is Now Super Intelligence. What’s Really Super Is the Internet Response
+21                        Trump Says He’s Changing Artificial Intelligence to ‘Super Intelligence’ on Government Documents
+22 Pentagon Investigators Say Overreliance on Palantir AI Tech Contributed to U.S. Strike That Killed 123 Iranian Children
+23                                                         Adobe Forecast Misses Estimates, Renewing Fears About AI Impact
+24                                              Explainer-How China is preparing for the risk of AI escaping human control
+25                                                       Why So Many AI Researchers Think the Machines Could Kill Everyone
+26                                   US claims Chinese AI firms are carrying out ‘industrial-scale’ theft of trade secrets
+27                                                    Mamdani announces ban on AI for young students in NYC public schools
+28                                     Asian teens race ahead of US peers for reading, science and math in global rankings
+29                                       As the world debates the risks of AI, China closes the technology gap with the US
+30                                                         Meta's Zuckerberg Favors Evaluators Over Slowdown for AI Safety
+31                                                             Governments worldwide are way behind on AI, says Bill Gates
+32                        Trump dismisses new AI guardrails, says there is a 'SICK conspiracy' against AI and data centers
+33                                                               Google to invest $15 billion AI infrastructure in Finland
+34                                              For years, they warned AI could kill all humans. Now people are listening.
+35                                                        Farmers Are Embracing AI More Than Any Other Tech, McKinsey Says
+36                                                 Fake AI Intelligence Almost Made the US Military Start a War With China
+37                            ‘Almost Started a War’: US Military Nearly Boarded a Chinese Ship Based on Bad Intel From AI
+38                                                                        First Came Space Force. Now Prepare For AI Force
+39                                                                                   Older iPhone Prices Are Going Up, Too
+40                                      Trump renames AI 'super intelligence' and dismisses safety warnings in U.N. speech
+41                                             House Democratic Leader Jeffries calls on lawmakers to 'act urgently' on AI
+42                                                              A phone maker now has the world’s top open-weight AI model
+43                                      Trump rejects AI regulation, citing parallels with climate change, in U.N. address
+44                                             New warnings about the risks of AI to humanity revive a long-running debate
+45                                                Beijing hits back at Anthropic CEO’s call to curb China's AI development
+46                                                                    Google needs Hollywood more than the studios need AI
+47                                                           Bernie Sanders Calls for Global Ban on AI ‘Superintelligence’
+                                                                                                                                                                                                                                                              description
+1                                                                                                                                       The BBC's AI correspondent Marc Cieslak explains what artificial intelligence is and whether it could cause a threat to humanity.
+2    A senior Anthropic safety researcher has said there is more than a 10 percent chance artificial intelligence "could kill all humans" by the end of the decade, just hours after a colleague resigned over fears the AI lab and its rivals are carelessly racing to …
+3                                                                                                                                                                                              No better way to reach your base than by insisting that they are inferior.
+4                                                                                                                                                                                  The President wants to give his favorite technology a rebrand, but he needs your help.
+5                                                                                                                                   President Donald Trump announced plans to rebrand artificial intelligence. It was once associated with terms like "automata studies."
+6                                                                                                                                                   GE Appliances is leaning heavily into artificial intelligence to improve quality and efficiency on the factory floor.
+7    Donald Trump used his address to the UN General Assembly in New York on Tuesday to give artificial intelligence a new name. From now on, he said, US government documents would call it ‘super intelligence’, because ‘artificial’ made the technology sound fake. …
+8                                                              We are accelerating elements of our upcoming v5 release with interim updates to keep pace with the frontier. Index v4.2 has more complex and realistic tasks, and more private test sets to prevent gaming
+9                                                                                                Will artificial intelligence nibble around the edges of the economy or upend it altogether? A new, interactive model from Anthropic lets people tests their assumptions.
+10                                                                                                     Some key leaders at artificial intelligence companies call for a slowdown in AI development. And, Iran-Gulf diplomacy hits a setback as talks in Oman are delayed.
+11                                                                                                                  Americans hate data centers and don't trust the Big Tech companies that need them. But they love using the artificial intelligence models they power.
+12                                                                                                                                                      Axel Scheffler speaks to the BBC alongside author Dame Julia Donaldson, who reads an extract from their new book.
+13  Let's go over a few things.\n1. If OpenAI or Anthropic breaches another company's systems, even if no money changed hands, these are Federal and State crimes. Currently, these narratives are being deployed essentially as a mode of advertising to "pump those nu…
+14   This report surveys the landscape of potential security threats from malicious uses of AI, and proposes ways to better forecast, prevent, and mitigate these threats. After analyzing the ways in which AI may influence the threat landscape in the digital, physi…
+15                                                                                                          OpenAI is working with an independent Advisory Group on Mathematics and Artificial Intelligence to guide the review and communication of emerging AI results.
+16                                                                                                                                                                        Once the music industry’s biggest headache, Napster’s next act is bringing AI to the classroom.
+17   The Pentagon’s most senior artificial intelligence official has said publicly what allied defence ministries have been hearing privately for the past two years: they do not have the same resources as the US, and they are unlikely to catch up anytime soon. Cam…
+18                                                                                                                                  Usually playing the cheerleader for artificial intelligence, the Epic CEO seems to have cooled on the trend and regrets humoring NFTs
+19                                                                                                                                                           Cyber Correspondent Joe Tidy looks at some of the scenarios being imagined and assesses how likely they are.
+20                                                                                                                                                                                                              When in doubt, add “super.” What could possibly go wrong?
+21                                                                                                                                                                                                                         Diesel prices hit another record high Tuesday.
+22                                                                                                                                                                                   An unreleased Pentagon probe investigated the kill chain that hit a school in Minab.
+23                                                                                                                 Adobe Inc. gave an outlook for sales that narrowly missed analysts’ estimates, renewing concerns about pressure from artificial intelligence upstarts.
+24                                                                                                       BEIJING, Sept 14 (Reuters) - Warnings from researchers at leading U. artificial intelligence developer Anthropic that increasingly powerful models could esca...
+25                                                                                                                                       A combination of rapid advances, recursive self-improvement, and agentic swarms are genuinely “spooking people” inside big labs.
+26                                                                                                       Chinese artificial intelligence firms are committing “industrial-scale” theft of their American counterparts’ trade secrets to save money and bring the covet...
+27                                                                                                       New York City Mayor Zohran Mamdani announced a one-year ban on artificial intelligence for students from 2-K through 8th grade in public schools. NBC News' T...
+28                                                                                                       High-school students across Asia are pulling ahead of their Western peers, an annual global assessment indicates, as artificial intelligence spurs a worldwid...
+29                                                                                                       As the rapid development of artificial intelligence triggers a renewed debate about its risks, the United States and China keep racing to develop increasingl...
+30                                                                                                       Meta Platforms Inc. Chief Executive Officer Mark Zuckerberg said artificial intelligence labs should rely on independent evaluators and advisers to ensure th...
+31                                                                                                       By Jennifer Rigby LONDON, Sept 15 (Reuters) - No government in the world is ready for the changes artificial intelligence will bring to society, Bill Gates s...
+32                                                                                                       President Donald Trump said Monday that he would be a sufficient guardrail against rogue artificial intelligence, claiming that any efforts to limit the tech...
+33                                                                                                       HELSINKI, Sept 9 (Reuters) - Alphabet's Google will invest at least €13 billion ($15.1 billion) in artificial intelligence infrastructure in Finland over the...
+34                                                                                                       On a summer's day, Evan Hubinger issued a stark warning about the future with a boba drink in his hand. Artificial intelligence was a threat to humanity beca...
+35                                                                                                       Artificial intelligence use is surging on farms as growers look for some high-tech help in planning and managing operations after years of scaling back on sp...
+36 U.S. military intelligence received an inaccurate report this spring that a Chinese ship in the Middle East was transporting components of a nuclear weapons program, reports CNN. \n\n"The US military swung into action with plans to intercept the vessel, accordi…
+37                                                                                                                                                       One source told CNN that the "hallucination" was part of a trend in the U.S. military, not an isolated incident.
+38                                                                                                                                                                                                Trump is forming a new "AI Force" and appointing an AI Czar to lead it.
+39                                                                                                                                                                         The iPhone Pro and Pro Max lines aren't the only iPhones that saw a $100 price increase today.
+40 Trump dismissed warnings from AI safety advocates, comparing them to warnings about climate change (Brendan SMIALOWSKI)\r\nUS President Donald Trump on Tuesday announced that the US government would rename artificial intelligence "super intelligence" in officia…
+41                                                                                                                                         On "This Week," the House Democratic Leader Jeffries said lawmakers need to "act urgently" to address artificial intelligence.
+42   Frontier intelligence, all the modalities, built in public. Xiaomi opened its MiMo-V2.6 announcement with that line on Tuesday. The phone and electric car maker released two open-weight models, Pro and Flash, under an MIT licence. The weights are on Hugging F…
+43                                                                                                                                                                            The president also said artificial intelligence should be rebranded as “super intelligence”
+44                                                                                                            New warnings from the artificial-intelligence industry have revived debate over whether advanced AI models could escape human control and threaten humanity
+45                                                                                                                China’s Ministry of Foreign Affairs has hit back at a call from the head of Anthropic for the U.S. to curb China’s artificial intelligence capabilities
+46   Google has reportedly been reaching out to a number of Hollywood's biggest studios, hoping to strike licensing agreements that would allow it to train its AI models on copyrighted material in exchange for massive piles of cash. In theory, these deals would be…
+47                                                                                                                                                                   With new legislation, Sanders wants AI ‘superintelligence’ to be as radioactive as enriched uranium.
+                                                                                                                                                     url
+1                                                                                                        https://www.bbc.co.uk/news/videos/ckgjqnz6pd2do
+2                                                                https://www.theverge.com/ai-artificial-intelligence/991927/anthropic-ai-kill-all-humans
+3                                                            https://gizmodo.com/trumps-attempt-to-rename-ai-misunderstands-the-maga-faithful-2000815001
+4                                                                        https://gizmodo.com/youll-never-guess-what-trump-wants-to-rename-now-2000814488
+5                                                                      https://www.businessinsider.com/trump-rename-ai-almost-had-3-names-2026-9#article
+6                                                                        https://www.npr.org/2026/09/01/nx-s1-5869801/ai-manufacturing-jobs-data-factory
+7                                                                       https://thenextweb.com/news/trump-tells-the-un-that-ai-is-now-super-intelligence
+8                                                                     https://artificialanalysis.ai/articles/artificial-analysis-intelligence-index-v4-2
+9                                                                                      https://www.npr.org/2026/09/09/nx-s1-5961443/ai-anthropic-economy
+10                                     https://www.npr.org/2026/09/14/g-s1-143148/up-first-newsletter-ai-anthropic-openai-midterms-trump-oman-iran-talks
+11                                                      https://www.businessinsider.com/americans-love-ai-they-dont-want-the-data-centers-2026-9#article
+12                                                                                                        https://www.bbc.co.uk/news/videos/ce9ernkxx48o
+13                                                               https://www.penny-arcade.com/news/post/2026/09/15/artificial-intelligence-quote-unquote
+14                                                                                                                      https://arxiv.org/abs/1802.07228
+15                                                                                        https://openai.com/index/advisory-group-on-mathematics-and-ai/
+16                                                                 https://www.wired.com/story/napster-is-back-and-it-wants-to-digitally-clone-teachers/
+17                                                                                  https://thenextweb.com/news/pentagon-ai-chief-allies-resources-scale
+18                                      https://kotaku.com/epic-games-ceo-tim-sweeney-says-the-industry-is-crashing-and-ai-is-making-it-worse-2000731564
+19                                                                                                       https://www.bbc.co.uk/news/videos/c8p3020ge51ko
+20                                                        https://www.cnet.com/tech/services-and-software/trump-ai-super-intelligence-internet-response/
+21                          https://gizmodo.com/trump-says-hes-changing-artificial-intelligence-to-super-intelligence-on-government-documents-2000815518
+22 https://gizmodo.com/pentagon-investigators-say-overreliance-on-palantir-ai-tech-contributed-to-u-s-strike-that-killed-123-iranian-children-2000814477
+23                                              https://finance.yahoo.com/technology/ai/articles/adobe-forecast-misses-estimates-renewing-201136315.html
+24                                                            https://www.yahoo.com/news/world/articles/explainer-china-preparing-risk-ai-085638474.html
+25                                                        https://www.wired.com/story/why-so-many-ai-researchers-think-the-machines-could-kill-everyone/
+26                                                                    https://www.cnn.com/2026/09/08/politics/us-accuses-china-of-stealing-ai-technology
+27                                                                       https://www.yahoo.com/news/videos/mamdani-announces-ban-ai-young-173740025.html
+28                                                                            https://www.cnn.com/2026/09/10/world/asia-students-test-scores-ai-intl-hnk
+29                                                              https://www.yahoo.com/news/politics/articles/world-debates-risks-ai-china-105701074.html
+30                                                https://finance.yahoo.com/technology/ai/articles/meta-zuckerberg-favors-evaluators-over-000020443.html
+31                                                          https://www.yahoo.com/news/world/articles/governments-worldwide-way-behind-ai-040647582.html
+32                                                        https://www.yahoo.com/news/politics/articles/trump-dismisses-ai-guardrails-says-141430820.html
+33                                                           https://finance.yahoo.com/technology/ai/articles/google-invest-15-billion-ai-070119247.html
+34                                                               https://finance.yahoo.com/technology/articles/years-warned-ai-could-kill-090000647.html
+35                                                       https://finance.yahoo.com/technology/ai/articles/farmers-embracing-ai-more-other-110000541.html
+36                               https://news.slashdot.org/story/26/09/19/062210/fake-ai-intelligence-almost-made-the-us-military-start-a-war-with-china
+37                              https://gizmodo.com/almost-started-a-war-us-military-nearly-boarded-a-chinese-ship-based-on-bad-intel-from-ai-2000814290
+38                                                                        https://gizmodo.com/first-came-space-force-now-prepare-for-ai-force-2000814525
+39                                                                                   https://gizmodo.com/older-iphone-prices-are-going-up-too-2000809492
+40                                                 https://www.yahoo.com/news/politics/articles/trump-rejects-international-regulation-ai-160957080.html
+41                                         https://abcnews.com/Politics/house-democratic-leader-jeffries-calls-lawmakers-act-urgently/story?id=136401544
+42                                                                 https://thenextweb.com/news/xiaomi-mimo-v2-6-open-weight-model-anthropic-distillation
+43                            https://www.scientificamerican.com/article/trump-rejects-ai-regulation-citing-parallels-with-climate-change-in-un-address/
+44                                                 https://abcnews.com/Technology/wireStory/new-warnings-risks-ai-humanity-revive-long-running-136414578
+45                                                  https://abcnews.com/Technology/wireStory/beijing-hits-back-anthropic-ceos-call-curb-chinas-136416539
+46                                                             https://www.theverge.com/tech/987429/google-needs-hollywood-more-than-the-studios-need-ai
+47                                                            https://gizmodo.com/bernie-sanders-calls-for-global-ban-on-ai-superintelligence-2000806829
+                                                                                                                                                                                                                                                                   urlToImage
+1                                                                                                                                                                 https://ichef.bbci.co.uk/ace/branded_news/1200/cpsprodpb/1279/live/c44c1290-b053-11f1-a540-61c3f7fc4e6c.jpg
+2                                                                                                    https://platform.theverge.com/wp-content/uploads/sites/2/2026/09/STK269_ANTHROPIC_2_A-1.jpg?quality=90&amp;strip=all&amp;crop=0%2C10.732984293194%2C100%2C78.534031413613&amp;w=1200
+3                                                                                                                                                                                                        https://gizmodo.com/app/uploads/2026/09/trump-rename-AI-1200x675.jpg
+4                                                                                                                                                                                                       https://gizmodo.com/app/uploads/2026/09/trump-viewfinder-1200x675.jpg
+5                                                                                                                                                                                                       https://i.insider.com/6ab2a7b1265e3f8e338f59bb?width=1200&amp;format=jpeg
+6                 https://npr.brightspotcdn.com/dims3/default/strip/false/crop/4500x2531+0+0/resize/1400/quality/85/format/jpeg/?url=http%3A%2F%2Fnpr-brightspot.s3.amazonaws.com%2F1b%2Fdc%2F018e889242328a0f4d28e37008c9%2Fge-part-time-workers-georgia-julieholder-013.jpg
+7                                                                                                                                                                                                                 https://media.thenextweb.com/2025/04/Untitled-design-26.jpg
+8                                                                                                                                                    https://cdn.sanity.io/images/6vfeftx9/articles/6f95888d7f2b11ac42c1be194ed4de6fa96571cb-1254x1254.png?w=1200&amp;auto=format
+9                                     https://npr.brightspotcdn.com/dims3/default/strip/false/crop/4822x2712+0+212/resize/1400/quality/85/format/jpeg/?url=http%3A%2F%2Fnpr-brightspot.s3.amazonaws.com%2F7d%2F0e%2Fddddeea34919b144bdcfa02b858c%2Fgettyimages-2285051730.jpg
+10                                    https://npr.brightspotcdn.com/dims3/default/strip/false/crop/5147x2895+0+431/resize/1400/quality/85/format/jpeg/?url=http%3A%2F%2Fnpr-brightspot.s3.amazonaws.com%2Ffb%2F8b%2F92f4c72b49b8aa2e1006753a4132%2Fgettyimages-2285098382.jpg
+11                                                                                                                                                                                                      https://i.insider.com/6a9889483c906e69480d5896?width=1200&amp;format=jpeg
+12                                                                                                                                                                https://ichef.bbci.co.uk/ace/branded_news/1200/cpsprodpb/9342/live/f7d0def0-ad17-11f1-b1d1-571ed4d7ff2c.jpg
+13                                                                                                                                                                                                                     https://assets.penny-arcade.com/img/logo_opengraph.jpg
+14                                                                                                                                                                                                             https://arxiv.org/static/browse/0.3.4/images/arxiv-logo-fb.png
+15                                                                                  https://images.ctfassets.net/kftzwdyauwt9/11yqmSO7D1dfYveBnOdmJt/e451277f37f82f51d6d20f2b86826590/advisory-group-on-mathematics-and-artificial-intelligence-seo.png?w=1600&amp;h=900&amp;fit=fill
+16                                                                                                                                                                            https://media.wired.com/photos/6aac1a9a4ac258f87bea84bd/191:100/w_1280,c_limit/Napster_lead.jpg
+17                                                                                                                                                                                                          https://media.thenextweb.com/2026/09/pentagon-cameron-stanley.jpg
+18                                                                                                                                                                                                       https://kotaku.com/app/uploads/2026/09/fortnitecollapse-1200x675.jpg
+19                                                                                                                                                                https://ichef.bbci.co.uk/ace/branded_news/1200/cpsprodpb/5eb7/live/29eb9d30-b362-11f1-a430-4d16ee157c41.jpg
+20                                                                                                                                                                                      https://www.cnet.com/wp-content/uploads/sites/2/AI-protest-GettyImages-2295176606.jpg
+21                                                                                                                                                                                                         https://gizmodo.com/app/uploads/2026/09/trump-shadows-1200x675.jpg
+22                                                                                                                                                                                                      https://gizmodo.com/app/uploads/2026/05/digital-pentagon-1200x675.jpg
+23 https://s.yimg.com/lo/mysterio/api/6151482a49e2986986db02a50aa1729f1b9f47c85e972943896c30e6446ca9b2/lightyear_networkapi/resizefill_w1200%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fbloomberg_holding_pen_162%2F0b759cc39877b24fdfc1cd6a4068148a.jpg
+24            https://s.yimg.com/lo/mysterio/api/5bf020dcc3caec22872eb09c7871a87b6639686a08d0b76d7bad47dd3a3acb79/lightyear_networkapi/resizefill_w800_h533%3Bquality_80%3Bformat_jpg/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Freuters.com%2F7fcd4b963d1f883357ed90d8e12c2e42.jpg
+25                                                                                                https://media.wired.com/photos/6aa1c85ef107c265a15668ae/191:100/w_1280,c_limit/Why-All-These-AI-Researchers-Freaking-Out-About-AI-Killing-Us-All-Business-MCDTETH_EC026.jpg
+26       https://s.yimg.com/lo/mysterio/api/4f649f521e2c7e535b3438d37e3d07df8fe55e71e286962deebb33042f21596d/lightyear_networkapi/resizefill_w960_h540%3Bquality_80%3Bformat_jpg/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fcnn_articles_875%2Ff6851b6013838f1fe9c2420d09b3b2a2.jpg
+27                   https://s.yimg.com/lo/mysterio/api/8186bcdc588335cd84bde62a794e6b6700d87df2504e2610b811c658ef26e463/lightyear_networkapi/resizefill_w1200%3Bquality_80%3Bformat_jpg/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fnbcu_713%2Fc0d2298e6f7d5ab18806f8c35c93eb67.jpg
+28       https://s.yimg.com/lo/mysterio/api/03a7ac70e32cf36ea4fa67ef7131853d1ee27afa784ad82f1b405ef0788d00d6/lightyear_networkapi/resizefill_w960_h540%3Bquality_80%3Bformat_jpg/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fcnn_articles_875%2F458c85f185ad023f26ee7dd5054ed390.jpg
+29                     https://s.yimg.com/lo/mysterio/api/7b03a45bbee212cd3eb28575b3841a7c0d0e329ab9cbf1d50b289c3705794926/lightyear_networkapi/resizefill_w1200%3Bquality_80%3Bformat_jpg/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fap.org%2Ff14e5ae5def08bb5ced19f9836936fda.jpg
+30 https://s.yimg.com/lo/mysterio/api/a9dd7f660a312153951cb0f7a35deeea77120edcf1084a59e6e540963bead087/lightyear_networkapi/resizefill_w1200%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fbloomberg_holding_pen_162%2Fa807f208e4c71cee8b5d34b6411344f9.jpg
+31            https://s.yimg.com/lo/mysterio/api/6564665abe0af3c0a2e6fa7cfb21857ce1d3528657ef6097b8e0ce40058ce778/lightyear_networkapi/resizefill_w800_h533%3Bquality_80%3Bformat_jpg/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Freuters.com%2F3bfda97a838e63119f51019477bba6da.jpg
+32                     https://s.yimg.com/lo/mysterio/api/56a4908cf70ec70ba9b24c7e19b8906bd28459fabc44e94bbec15e5ad962b1cb/lightyear_networkapi/resizefill_w1200%3Bquality_80%3Bformat_jpg/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fap.org%2Ff6c930c3a6fa485534a3eb1c368ec9b3.jpg
+33               https://s.yimg.com/lo/mysterio/api/599100e0f95580fd2a644665da3c0e10cd26a1dc91e4de5fdeeedfa186faf841/lightyear_networkapi/resizefill_w1200%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Freuters.com%2Fdb64807105e6fc2e442ba7dd82890ba4.jpg
+34 https://s.yimg.com/lo/mysterio/api/0f377a311862620d973ca821db9b69e64d7813f9c8bf5832b820c361eaef7e5a/lightyear_networkapi/resizefill_w1200%3Bquality_80%3Bformat_webp/https%3A%2F%2Fd29szjachogqwa.cloudfront.net%2Fimages%2F2025-08%2Ff2dc8e1a-6e0f-4f06-9224-f6057ed66a9e
+35 https://s.yimg.com/lo/mysterio/api/9da67339390d2ff7938ab151fca19eeffd18f4cc39c67cd777b13619d04d4a19/lightyear_networkapi/resizefill_w1200%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fbloomberg_holding_pen_162%2Ff8bbf631d875147b59c8552716bc3408.jpg
+36                                                                                                                                                                                                                                     https://a.fsdn.com/sd/topics/ai_64.png
+37                                                                                                                                                                                                    https://gizmodo.com/app/uploads/2026/09/US-Pacific-Command-1200x675.jpg
+38                                                                                                                                                                                                https://gizmodo.com/app/uploads/2026/09/GettyImages-2294838569-1200x675.jpg
+39                                                                                                                                                                                                   https://gizmodo.com/app/uploads/2026/03/Apple-iPhone-17e-10-1200x675.jpg
+40                https://s.yimg.com/lo/mysterio/api/5456422f50ee6a234212b369011881e29b48f2e537f3ba223c4869f931ee0e7d/lightyear_networkapi/resizefill_w768_h512%3Bquality_80%3Bformat_jpg/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fafp.com%2F6a122798f3ff55c9cf90d95eb0d1f17e.jpg
+41                                                                                                                                               https://i.abcnewsfe.com/a/f8cbc2ef-9743-4f79-bd65-7890b59face3/jeffries-2-ap-gmh-260903_1788455053969_hpMain_16x9.jpg?w=1600
+42                                                                                                                                                                                                               https://media.thenextweb.com/2026/08/xiaomi-headquarters.jpg
+43                                                                                                                                                  https://static.scientificamerican.com/dam/asset/9df7fe36-75ba-4336-b781-4b7ed583411d/Trump-UN.jpg?m=1790096253.343&amp;w=1200
+44                                                                                                                                                  https://i.abcnewsfe.com/a/a2dac9a8-1ab7-4f34-8fbb-745265a88a9c/wirestory_98316b0d64de17191f33c0fbf1d37858_16x9.jpg?w=1600
+45                                                                                                                                                  https://i.abcnewsfe.com/a/edba90b6-209a-405d-b2c9-024cf3dc0fef/wirestory_3da458d2c078da3e60900728d59f1ae8_16x9.jpg?w=1600
+46                                                                                                               https://platform.theverge.com/wp-content/uploads/sites/2/2026/09/ai-label-3.jpg?quality=90&amp;strip=all&amp;crop=0%2C12.885618424569%2C100%2C74.228763150863&amp;w=1200
+47                                                                                                                                                                                          https://gizmodo.com/app/uploads/2026/09/bernie-superintelligence-ban-1200x675.jpg
+            publishedAt
+1  2026-09-14T16:00:51Z
+2  2026-09-09T09:56:28Z
+3  2026-09-21T20:59:10Z
+4  2026-09-19T19:58:23Z
+5  2026-09-22T18:00:28Z
+6  2026-09-01T09:00:00Z
+7  2026-09-22T19:06:26Z
+8  2026-09-05T00:04:14Z
+9  2026-09-09T13:34:48Z
+10 2026-09-14T11:39:06Z
+11 2026-09-02T21:13:24Z
+12 2026-09-10T13:43:32Z
+13 2026-09-15T20:13:00Z
+14 2026-09-14T01:22:35Z
+15 2026-09-21T17:27:49Z
+16 2026-09-18T09:15:00Z
+17 2026-09-09T14:10:12Z
+18 2026-09-05T20:04:57Z
+19 2026-09-19T00:48:29Z
+20 2026-09-22T23:16:06Z
+21 2026-09-22T18:30:32Z
+22 2026-09-20T09:00:14Z
+23 2026-09-10T20:11:36Z
+24 2026-09-14T08:56:38Z
+25 2026-09-11T09:00:00Z
+26 2026-09-08T20:51:38Z
+27 2026-09-02T17:37:40Z
+28 2026-09-10T06:07:11Z
+29 2026-09-15T10:57:01Z
+30 2026-09-16T00:00:20Z
+31 2026-09-15T04:06:47Z
+32 2026-09-14T14:14:30Z
+33 2026-09-09T07:01:19Z
+34 2026-09-10T09:00:00Z
+35 2026-09-08T11:00:00Z
+36 2026-09-19T17:34:00Z
+37 2026-09-19T00:07:39Z
+38 2026-09-20T21:12:14Z
+39 2026-09-09T20:10:38Z
+40 2026-09-22T17:30:21Z
+41 2026-09-13T14:46:56Z
+42 2026-09-22T18:25:00Z
+43 2026-09-22T16:00:00Z
+44 2026-09-14T05:31:30Z
+45 2026-09-14T09:43:27Z
+46 2026-09-01T22:50:29Z
+47 2026-09-03T15:30:54Z
+                                                                                                                                                                                                                      content
+1     What is AI? Could it pose a threat to humanity? Can it be regulated or stopped? The BBC's AI correspondent Marc Cieslak answered viewers questions about the technology.\r\nCieslak warned the technology… [+458 chars]
+2  &lt;ul&gt;&lt;li&gt;&lt;/li&gt;&lt;li&gt;&lt;/li&gt;&lt;li&gt;&lt;/li&gt;&lt;/ul&gt;\r\nThe departing researcher said AI companies are gambling with our lives by racing to develop self-improving AI.\r\nThe departing researcher said AI companies are ga… [+3549 chars]
+3      Donald Trump has decided that artificial intelligence has a marketing problem. After all, nobody likes anything “artificial.” So this weekend, the branding expert who brought you such perfectly named… [+4978 chars]
+4      President Donald Trump simply has no patience for negativity around AI. He says its going to be the Greatest Economic Development Engine in History Bigger than Oil, Gold, Diamonds, or even the Intern… [+3041 chars]
+5    President Donald Trump said the term "artificial intelligence" made it sound "fake."Anna Moneymaker/Getty Images\r\n&lt;ul&gt;&lt;li&gt;President Donald Trump announced plans to rebrand artificial intelligence.&lt;/l… [+2013 chars]
+6    Sign up for alerts on breaking news and exclusive reporting from NPR\r\nLAFAYETTE, Ga. Inside Roper Corporation, a GE Appliances-owned plant in rural northwest Georgia, autonomous vehicles deliver part… [+4343 chars]
+7    TL;DR\r\nTrump told the UN General Assembly on 22 September that US documents will now call AI super intelligence. He paired the rename with a pledge to encourage the technology rather than rein it in,… [+3629 chars]
+8      We are accelerating elements of our upcoming v5 release with interim updates to keep pace with the frontier. Index v4.2 has more complex and realistic tasks, and more private test sets to prevent gam… [+5176 chars]
+9      Will artificial intelligence light a fire under the U.S. economy in the coming years? That's been a big question in the field of economics, and now Anthropic the company behind the popular Claude AI … [+2715 chars]
+10   Good morning. You're reading the Up First newsletter.&nbsp;Subscribe&nbsp;here to get it delivered to your inbox, and&nbsp;listen&nbsp;to the Up First podcast for all the news you need to start your day.\r\nToday's top st… [+4634 chars]
+11  Anti-data center protests have sprouted up across the country.Getty Images\r\n&lt;ul&gt;&lt;li&gt;More than half of Americans used an AI chatbot in July, according to new data from Morning Consult.&lt;/li&gt;&lt;li&gt;Yet 70%… [+10601 chars]
+12    The illustrator for the Gruffalo books has said images created by artificial intelligence (AI) are "worrying". \r\nAxel Scheffler said AI pictures are "a breach of copyright" and lose their charm when … [+189 chars]
+13   Let's go over a few things.\r\n1. If OpenAI or Anthropic breaches another company's systems, even if no money changed hands, these are Federal and State crimes. Currently, these narratives are being de… [+2424 chars]
+14    arXivLabs is a framework that allows collaborators to develop and share new arXiv features directly on our website.\r\nBoth individuals and organizations that work with arXivLabs have embraced and acce… [+257 chars]
+15     On August 28, we began training a new internal model. In addition to resolving the NavierStokes Millennium Prize problem, this model has now resolved more than 100 long-standing open problems across … [+2985 chars]
+16   Napster is back. The name that struck fear into the hearts of music executives in the early dotcom era may be coming to a classroom near you.\r\nIn Dubai, United Arab Emirates, it has signed a strategi… [+3541 chars]
+17     The Pentagons most senior artificial intelligence official has said publicly what allied defence ministries have been hearing privately for the past two years: they do not have the same resources as … [+3974 chars]
+18     Hardware is getting more expensive. Games are becoming pricier to make and buy. Employment numbers aint looking so hot. Also theres this lil war disrupting the economy. Its not the exact recipe we ha… [+3531 chars]
+19    Recent AI (artificial intelligence) safety concerns have been fuelled by stark warnings from AI scientists about the growing risks of the technology going rogue.\r\nSome of the most pessimistic predict… [+416 chars]
+20   If artificial intelligence isn’t called AI, does that make the technology more acceptable? \r\nSpeaking to world leaders at the United Nations General Assembly on Tuesday, President Donald Trump said h… [+4379 chars]
+21     President Donald Trump gave a completely unhinged speech at the United Nations General Assembly on Tuesday where he bragged about his supposed achievements, threatened other countries, and insisted h… [+4212 chars]
+22     Back in February, two Tomahawk missiles hit Shajarah Tayyebeh Elementary School in the southern Iranian town of Minab on the opening day of the Iran war. The blasts killed more than 150 people, inclu… [+7096 chars]
+23 (Bloomberg) -- Adobe Inc. gave an outlook for sales that narrowly missed analysts' estimates, renewing concerns about pressure from artificial intelligence upstarts.\r\nMost Read from Bloomberg\r\nRevenu… [+1420 chars]
+24   By Eduardo Baptista and Laurie Chen\r\nBEIJING, Sept 14 (Reuters) - Warnings from researchers at leading U.S. artificial intelligence developer Anthropic that increasingly powerful models could escape … [+4850 chars]
+25   Earlier this year, Rishub Jain left his position as an artificial intelligence researcher at Google DeepMind after a revelation.\r\nAs he worked on new models, he came to believe that he and everyone e… [+3612 chars]
+26     Chinese artificial intelligence firms are committing "industrial-scale" theft of their American counterparts' trade secrets to save money and bring the coveted technology to market faster, US federal… [+2920 chars]
+27                                        New York City Mayor Zohran Mamdani announced a one-year ban on artificial intelligence for students from 2-K through 8th grade in public schools. NBC News' Tyler Kingkade reports.
+28     High-school students across Asia are pulling ahead of their Western peers, an annual global assessment indicates, as artificial intelligence spurs a worldwide race for talent and reshapes how young p… [+3649 chars]
+29     HONG KONG (AP) As the rapid development of artificial intelligence triggers a renewed debate about its risks, the United States and China keep racing to develop increasingly powerful models even as t… [+5793 chars]
+30    (Bloomberg) -- Meta Platforms Inc. (META) Chief Executive Officer Mark Zuckerberg said artificial intelligence labs should rely on independent evaluators and advisers to ensure that models are safe.\r… [+1409 chars]
+31   By Jennifer Rigby\r\nLONDON, Sept 15 (Reuters) - No government in the world is ready for the changes artificial intelligence will bring to society, Bill Gates said in an interview with Reuters, as he w… [+2853 chars]
+32     WASHINGTON (AP) President Donald Trump said Monday that he would be a sufficient guardrail against rogue artificial intelligence, claiming that any efforts to limit the technology was part of a "SICK… [+3806 chars]
+33     HELSINKI, Sept 9 (Reuters) - Alphabet's Google will invest at least 13 billion ($15.1 billion) in artificial intelligence infrastructure in Finland over the next two years, it said on Wednesday, call… [+1448 chars]
+34     On a summer's day, Evan Hubinger issued a stark warning about the future with a boba drink in his hand. Artificial intelligence was a threat to humanity because it could one day learn to deceive its … [+6510 chars]
+35     (Bloomberg) -- Artificial intelligence use is surging on farms as growers look for some high-tech help in planning and managing operations after years of scaling back on spending, according to McKins… [+2045 chars]
+36     U.S. military intelligence received an inaccurate report this spring that a Chinese ship in the Middle East was transporting components of a nuclear weapons program, reports CNN."The US military swun… [+1957 chars]
+37     The U.S. military planned to board a Chinese vessel in the Middle East based on bad intelligence from an artificial intelligence tool but backed out at the last minute, according to a new report from… [+3507 chars]
+38   President Trump is sick of people “attacking” the AI industry, which is why he will be forming an “AI Force” and appointing an “AI Czar.”\r\nIn a rambling rant posted on his Truth Social account, Trump… [+3575 chars]
+39     In this week’s edition of Everything Is More Expensive All the Time: iPhones. As of today, you may have noticed that there are a few new iPhones out there in the world. At its “Surprise and Shine” an… [+1508 chars]
+40     US President Donald Trump on Tuesday announced that the US government would rename artificial intelligence "super intelligence" in official communications, as he firmly rejected calls for internation… [+3079 chars]
+41   House Democratic Leader Hakeem Jeffries said Sunday that lawmakers need to take urgent action on the growing threat of artificial intelligence (AI).&nbsp;\r\nWe certainly need to begin to act urgently to ad… [+3050 chars]
+42   Frontier intelligence, all the modalities, built in public.\r\nXiaomi opened its MiMo-V2.6 announcement with that line on Tuesday. The phone and electric car maker released two open-weight models, Pro … [+5171 chars]
+43     President Donald Trump rejected international efforts to regulate artificial intelligence during a speech to the United Nations General Assembly on Tuesday. Trump compared the apparent risks of AI to… [+2097 chars]
+44     LOS ANGELES -- New warnings from within the artificial intelligence industry have revived a long-running debate over whether advanced AI could escape human control and ultimately threaten humanitys s… [+6526 chars]
+45     BEIJING -- China's Ministry of Foreign Affairs on Monday hit back at a call from the head of Anthropic for the U.S. to curb China's artificial intelligence capabilities, which he issued as he argued … [+3409 chars]
+46 &lt;ul&gt;&lt;li&gt;&lt;/li&gt;&lt;li&gt;&lt;/li&gt;&lt;li&gt;&lt;/li&gt;&lt;/ul&gt;\r\nStriking deals with studios like Disney could help the tech giant shift the narrative about artificial intelligence.\r\nStriking deals with studios like Disney cou… [+7743 chars]
+47   Senator Bernie Sanders is calling for a global prohibition on superintelligence, with penalties on par with the illegal development of nuclear weapons.\r\nIntroduced today with U.S. Representative Greg… [+3868 chars]</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">get_news</span>(<span class="st">"Apple"</span>, <span class="st">"2026-09-01"</span>, api_key)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   source.id source.name                          author
+1  the-verge   The Verge                Stevie Bonifield
+2      wired       Wired               Boutayna Chokrane
+3      wired       Wired                           WIRED
+4  the-verge   The Verge                    John.Higgins
+5  the-verge   The Verge Victoria Song, Stevie Bonifield
+6  the-verge   The Verge                    Brad Bourque
+7  the-verge   The Verge                       Emma Roth
+8  the-verge   The Verge                     Nilay Patel
+9  the-verge   The Verge         Jennifer Pattison Tuohy
+10 the-verge   The Verge                    Brad Bourque
+11      &lt;NA&gt; Gizmodo.com                       Bruce Gil
+12 the-verge   The Verge                       Emma Roth
+13 the-verge   The Verge                    Brad Bourque
+14 the-verge   The Verge                Terrence O’Brien
+15 the-verge   The Verge                      Tom Warren
+16 the-verge   The Verge               Andrew J. Hawkins
+17     wired       Wired                Julian Chokkattu
+18 the-verge   The Verge                      Jay Peters
+19 the-verge   The Verge                   Lauren Feiner
+20 the-verge   The Verge         Jennifer Pattison Tuohy
+21 the-verge   The Verge                Stevie Bonifield
+22 the-verge   The Verge                   Victoria Song
+                                                                                      title
+1                                                      Apple launches Apple Watch Series 12
+2                 Apple Watch Series 12 and Apple Watch Ultra 4: Price, Specs, Release Date
+3           Apple Event Live Blog: Folding iPhone, Apple Watch Series 12, AirPods, and More
+4                                                             Apple announces the AirPods 5
+5                       Hands on with the new Apple Watch Series 12 and Apple Watch Ultra 4
+6                                                     Where to preorder the Apple AirPods 5
+7                                               Apple accuses OpenAI of destroying evidence
+8                                              Can John Ternus find Apple’s next big thing?
+9                          Apple Home’s new security camera features cost up to $60 a month
+10                                 How the new Apple Watches compare to the last-gen models
+11                                                                    Tim Apple Rides Again
+12                                         Tim Cook’s Apple: his 10 biggest wins and misses
+13                                            Save $30 or more on a refurbished Apple TV 4K
+14                                   Apple is reportedly working on iPhone game controllers
+15                                              Apple releases iOS 27 with Siri AI overhaul
+16                                GM can’t ‘bring back’ Apple CarPlay because it never left
+17             Got an Android Phone? Google Thinks You’ll Probably Want a Googlebook Laptop
+18                                                             The black iPhone Pro returns
+19                                       Tim Cook’s legacy isn’t just phones, it’s politics
+20                                   Why Apple’s next computer should be for the smart home
+21 Read the Apple document explaining how new listening features still protect your privacy
+22                             The Apple Watch Series 12 is the start of a new wearable era
+                                                                                                                                                                                                                                                            description
+1  Apple announced the Apple Watch Series 12 at its September 9th product launch event, coming one year after the Series 11, Ultra 3, and SE 3. Last year's Series 11, which launched at $399 with 42mm and 46mm sizes, added 5G, hypertension monitoring, a Sleep Sco…
+2                                                                                          Apple’s latest smartwatches—the Apple Watch Series 12 and Ultra 4, get a faster chip, expanded health tracking, and new capabilities made possible by a newly enhanced Siri.
+3                                                                                                                       Get all the news when it happens, as our reporters bring you live updates from Apple Park, the company’s headquarters in Cupertino, California.
+4  Today, Apple announced the AirPods 5, updates to the AirPods 4 series that was first released in 2024. The AirPods 4 series was the first time Apple's open-ear wireless earbuds came in a version with active noise cancellation (ANC) and one without. Both versi…
+5  After Apple wrapped up its "Surprise and shine" event today, we were able to get a look at the new Apple Watch Series 12 and Ultra 4. Both of the new watches launch September 18th, with preorders available starting today. The Apple Watch Series 12 once again …
+6  The Apple AirPods 5 are bringing active noise cancellation to the masses, and they're now available for preorder at a variety of retailers. They'll officially launch on September 18th, the same day as the Apple Watch Series 12 and Ultra 4, as well as the iPho…
+7  Apple is pushing for "expedited discovery" in its legal battle against OpenAI over concerns the company is actively destroying evidence, as reported earlier by Bloomberg. In a filing on Monday, Apple alleges OpenAI only just handed over a MacBook used by a fo…
+8  Today, I’m talking with Mark Gurman, who is the world’s best-sourced Apple reporter — both as Bloomberg’s chief Apple correspondent and the host of the upcoming podcast Power On.&nbsp; Earlier this month, Apple hosted its annual iPhone hardware event, virtually ev…
+9  With the public release of iOS 27 and tvOS 27, Apple Home is getting an injection of Apple Intelligence - but you'll have to pay more for it. Apple Intelligence for Home brings AI-powered video summaries to HomeKit Secure Video, so you can get short text desc…
+10 Apple rolled out the Apple Watch Series 12 and Apple Watch Ultra 4 at the "Surprise and shine" event. The new watches feature sizable improvements to the health sensors and tracking, plus the ability to recite audio transcriptions and summaries, plus a cerami…
+11                                                                                                                                                                                 Former Apple CEO Tim Cook's relationships with Trump and Xi still have some utility.
+12 Expectations for Tim Cook were almost impossibly high when he stepped in to replace Apple's visionary co-founder in 2011. He inherited a company on a blockbuster run, after Steve Jobs returned and revitalized the Mac, launched the iPod, and oversaw the launch…
+13 Most hardware prices have soared in 2026, and that includes a variety of Apple laptops, tablets, and smart devices. Thankfully, you can offset some of the increased costs on an Apple TV 4K by buying one refurbished through the company. The 64GB model is selli…
+14 Bloomberg's Mark Gurman says Apple is developing two game controllers for the iPhone and will likely sell them under the Beats brand. Rumors that Apple might enter the game controller business have circulated for some time. But last week, MacRumors reported f…
+15 Apple is now rolling out its iOS 27 update to compatible devices today, alongside the watchOS 27, iPadOS 27, and visionOS 27 updates. Siri AI is the headline feature across all four updates, the delayed AI-powered overhaul of the Siri assistant. Siri AI is av…
+16 Last week, GM announced a new software experience for its upcoming Chevy Silverado and GMC Sierra trucks, including a new look for Apple CarPlay and Android Auto, the popular phone mirroring systems that the automaker made a big deal about removing from its e…
+17                                                                                                                              Apple lovers have long enjoyed seamless connectivity between their iPhones and Macs. Now, Google’s bringing that experience to Android.
+18 Apple has seen reason: It has a black model in the iPhone Pro lineup again. Last year, Apple went bold with its colors for the iPhone 17 Pro, offering a flashy orange, a shiny silver, and a dark blue. Don't get me wrong, they looked nice. But there was no bla…
+19 As much as any Apple product released during his time as CEO, Tim Cook's tenure will be remembered for its ruthlessly efficient tight-rope walk between an autocrat in China and a would-be autocrat in the US. During his 15 years as CEO, Cook steered Apple thro…
+20 John Ternus didn't mention Apple Home once during his first keynote as Apple CEO. But he did open by describing an "intelligent personal hub" that prioritizes local processing, protects your privacy, and integrates with all your other devices, apps, and servi…
+21 At Wednesday's iPhone Duo launch event, Apple announced a handful of new Siri AI Audio Intelligence features, including Siri Recap, Live Rewind, Sound Recognition, and Music Recognition. Alongside its announcement, Apple released a document laying out how it …
+22 You wouldn't know that the Apple Watch Series 12 is a big deal just by looking at it. It has the same design, buttons, sizes, and sensor types as generations of Apple Watches before it. But under the hood, the Series 12 builds in major changes that lay the gr…
+                                                                                                    url
+1                               https://www.theverge.com/tech/991812/apple-watch-series-12-announcement
+2                                https://www.wired.com/story/apple-watch-series-12-apple-watch-ultra-4/
+3                        https://www.wired.com/live/apple-event-live-blog-september-2026-iphone-launch/
+4                https://www.theverge.com/tech/988479/apple-airpods-5-announcement-september-2026-event
+5                           https://www.theverge.com/tech/992568/apple-watch-hands-on-series-12-ultra-4
+6            https://www.theverge.com/gadgets/993637/apple-airpods-5-anc-wireless-charging-preorder-buy
+7           https://www.theverge.com/tech/987575/apple-openai-destroying-evidence-trade-secrets-lawsuit
+8  https://www.theverge.com/podcast/996874/apple-john-ternus-tim-cook-mark-gurman-future-ai-siri-iphone
+9      https://www.theverge.com/tech/994949/apple-intelligence-apple-home-icloud-plus-cost-subscription
+10                https://www.theverge.com/gadgets/990508/apple-watch-series-12-ultra-4-spec-comparison
+11                                                 https://gizmodo.com/tim-apple-rides-again-2000813272
+12                                    https://www.theverge.com/tech/987043/tim-cook-biggest-wins-misses
+13              https://www.theverge.com/gadgets/997009/refurbished-apple-tv-4k-ring-doorbell-deal-sale
+14                                   https://www.theverge.com/tech/994426/apple-iphone-game-controllers
+15                       https://www.theverge.com/news/994756/apple-ios-27-launch-iphone-siri-ai-update
+16     https://www.theverge.com/transportation/998259/gm-apple-carplay-android-auto-phone-mirror-google
+17                                      https://www.wired.com/story/google-launches-googlebook-laptops/
+18                                       https://www.theverge.com/tech/993048/iphone-18-pro-black-color
+19                                       https://www.theverge.com/policy/987356/tim-cook-apple-trump-xi
+20              https://www.theverge.com/tech/993892/apples-next-computer-smart-home-hub-airport-router
+21                        https://www.theverge.com/tech/992919/apple-siri-ai-audio-intelligence-privacy
+22               https://www.theverge.com/tech/996715/apple-watch-series-12-review-wearables-smartwatch
+                                                                                                                                                                                                               urlToImage
+1                                https://platform.theverge.com/wp-content/uploads/sites/2/2026/09/apple-event-september-2026-275-10-37-01.jpg?quality=90&amp;strip=all&amp;crop=0%2C3.159993948987%2C100%2C93.680012102026&amp;w=1200
+2                                                                                   https://media.wired.com/photos/6aa19981e7b3b4c6b868b8e4/191:100/w_1280,c_limit/Screenshot%202026-09-09%20at%2010.37.46%E2%80%AFAM.png
+3                                                                                                      https://media.wired.com/photos/6a9725dc72949d665b63352f/191:100/w_1280,c_limit/Apple-Live-Blog-Gear-1178079028.jpg
+4                                https://platform.theverge.com/wp-content/uploads/sites/2/2026/09/apple-event-september-2026-245-10-31-51.jpg?quality=90&amp;strip=all&amp;crop=0%2C3.159993948987%2C100%2C93.680012102026&amp;w=1200
+5                                                              https://platform.theverge.com/wp-content/uploads/sites/2/2026/09/IMG_2485.jpg?quality=90&amp;strip=all&amp;crop=0%2C10.732984293194%2C100%2C78.534031413613&amp;w=1200
+6                    https://platform.theverge.com/wp-content/uploads/sites/2/2026/09/268734_iPhone_2026_event_handson_ADiBenedetto_0046.jpg?quality=90&amp;strip=all&amp;crop=0%2C10.732984293194%2C100%2C78.534031413613&amp;w=1200
+7                                            https://platform.theverge.com/wp-content/uploads/sites/2/2026/08/STKS531_APPLE_V_OPEN_AI2_A.jpg?quality=90&amp;strip=all&amp;crop=0%2C9.9676601489831%2C100%2C80.064679702034&amp;w=1200
+8                                                    https://platform.theverge.com/wp-content/uploads/sites/2/2026/09/JohnTernus_Decoder.jpg?quality=90&amp;strip=all&amp;crop=0%2C10.732984293194%2C100%2C78.534031413613&amp;w=1200
+9                          https://platform.theverge.com/wp-content/uploads/sites/2/2026/06/268594_iOS_27_home_app_first_look_CVirginia2.jpg?quality=90&amp;strip=all&amp;crop=0%2C10.732984293194%2C100%2C78.534031413613&amp;w=1200
+10                   https://platform.theverge.com/wp-content/uploads/sites/2/2026/09/268734_iPhone_2026_event_handson_ADiBenedetto_0034.jpg?quality=90&amp;strip=all&amp;crop=0%2C10.732984293194%2C100%2C78.534031413613&amp;w=1200
+11                                                                                                                                 https://gizmodo.com/app/uploads/2026/01/tim-cook-donald-trump-oct-28-2025-1200x675.jpg
+12                                               https://platform.theverge.com/wp-content/uploads/sites/2/2026/07/gettyimages-2280563832.jpg?quality=90&amp;strip=all&amp;crop=0%2C14.099795843272%2C100%2C71.800408313456&amp;w=1200
+13                                                  https://platform.theverge.com/wp-content/uploads/sites/2/2026/09/Apple-TV-4K-roundup.png?quality=90&amp;strip=all&amp;crop=0%2C10.732984293194%2C100%2C78.534031413613&amp;w=1200
+14       https://platform.theverge.com/wp-content/uploads/sites/2/chorus/uploads/chorus_asset/file/24522825/4._Ultimate_2.4_Whit___iPhone.jpg?quality=90&amp;strip=all&amp;crop=0%2C10.76363770124%2C100%2C78.472724597521&amp;w=1200
+15                                                             https://platform.theverge.com/wp-content/uploads/sites/2/2026/09/DSC04248.jpg?quality=90&amp;strip=all&amp;crop=0%2C10.628272251309%2C100%2C78.743455497382&amp;w=1200
+16   https://platform.theverge.com/wp-content/uploads/sites/2/2026/09/Apple_CarPlay_Split_Home_View_Screen_Projections_Trailering_dd9a21.png?quality=90&amp;strip=all&amp;crop=8.4377612633535%2C0%2C83.124477473293%2C100&amp;w=1200
+17                                                                                                                            https://media.wired.com/photos/6ab1289a5263c12dd1677528/191:100/w_1280,c_limit/DSC_9551.jpg
+18                                     https://platform.theverge.com/wp-content/uploads/sites/2/2026/09/268735_iPhone_18_Pro_NPatel_0006.jpg?quality=90&amp;strip=all&amp;crop=0%2C10.732984293194%2C100%2C78.534031413613&amp;w=1200
+19 https://platform.theverge.com/wp-content/uploads/sites/2/chorus/uploads/chorus_asset/file/25345071/STK468_APPLE_ANTITRUST_CVIRGINIA_I.jpg?quality=90&amp;strip=all&amp;crop=0%2C10.732984293194%2C100%2C78.534031413613&amp;w=1200
+20     https://platform.theverge.com/wp-content/uploads/sites/2/chorus/uploads/chorus_asset/file/24732441/236707_Mac_Studio_AKrales_0064.jpg?quality=90&amp;strip=all&amp;crop=0%2C10.732984293194%2C100%2C78.534031413613&amp;w=1200
+21                                 https://platform.theverge.com/wp-content/uploads/sites/2/2026/09/apple-audio-intelligence-recap-wide.jpeg?quality=90&amp;strip=all&amp;crop=0%2C3.4613147178592%2C100%2C93.077370564282&amp;w=1200
+22                            https://platform.theverge.com/wp-content/uploads/sites/2/2026/09/268738_Apple_Watch_Series_12_AKrales_0059.jpg?quality=90&amp;strip=all&amp;crop=0%2C10.732984293194%2C100%2C78.534031413613&amp;w=1200
+            publishedAt
+1  2026-09-09T17:37:55Z
+2  2026-09-09T17:43:38Z
+3  2026-09-09T11:00:00Z
+4  2026-09-09T17:33:31Z
+5  2026-09-09T18:53:48Z
+6  2026-09-11T15:32:03Z
+7  2026-09-01T18:19:26Z
+8  2026-09-21T14:04:22Z
+9  2026-09-14T22:28:52Z
+10 2026-09-09T20:42:51Z
+11 2026-09-17T15:50:57Z
+12 2026-09-01T09:15:20Z
+13 2026-09-17T17:14:07Z
+14 2026-09-13T18:30:16Z
+15 2026-09-14T17:08:49Z
+16 2026-09-21T17:47:54Z
+17 2026-09-21T13:00:00Z
+18 2026-09-09T22:37:51Z
+19 2026-09-01T13:51:02Z
+20 2026-09-11T14:03:48Z
+21 2026-09-09T20:44:43Z
+22 2026-09-17T01:49:34Z
+                                                                                                                                                                                                                             content
+1         &lt;ul&gt;&lt;li&gt;&lt;/li&gt;&lt;li&gt;&lt;/li&gt;&lt;li&gt;&lt;/li&gt;&lt;/ul&gt;\r\nThe latest Apple Watch is one of the first product launches under Apples new CEO, John Ternus.\r\nThe latest Apple Watch is one of the first product launches under… [+2334 chars]
+2             Apple has unveiled the Apple Watch Series 12 and Ultra 4 today during its September hardware event. The new models retain the signature designs of their predecessors but add a faster chip, new health… [+1198 chars]
+3           Good morning everyone! Welcome to our live coverage of today's Apple media showcase.\r\nWe will have two reporters on the scene at Apple Park in Cupertino, California, to bring you live coverage. You'l… [+3432 chars]
+4             Today, Apple announced the AirPods 5, updates to the AirPods 4 series that was first released in 2024.\nThe AirPods 4 series was the first time Apple's open-ear wireless earbuds came in a version with… [+482 chars]
+5         &lt;ul&gt;&lt;li&gt;&lt;/li&gt;&lt;li&gt;&lt;/li&gt;&lt;li&gt;&lt;/li&gt;&lt;/ul&gt;\r\nApples latest watches come with some new Siri AI features and the return of ceramic cases.\r\nApples latest watches come with some new Siri AI features and the ret… [+4622 chars]
+6         &lt;ul&gt;&lt;li&gt;&lt;/li&gt;&lt;li&gt;&lt;/li&gt;&lt;li&gt;&lt;/li&gt;&lt;/ul&gt;\r\nThe Apple AirPods 5 will hit shelves on September 18th, but you can line up your purchase ahead of time.\r\nThe Apple AirPods 5 will hit shelves on September 18th,… [+2375 chars]
+7         &lt;ul&gt;&lt;li&gt;&lt;/li&gt;&lt;li&gt;&lt;/li&gt;&lt;li&gt;&lt;/li&gt;&lt;/ul&gt;\r\nA former Apple employee allegedly discussed destroying the types of forensic data Apple needs.\r\nA former Apple employee allegedly discussed destroying the types … [+3246 chars]
+8    &lt;ul&gt;&lt;li&gt;&lt;/li&gt;&lt;li&gt;&lt;/li&gt;&lt;li&gt;&lt;/li&gt;&lt;/ul&gt;\r\nBloombergs chief Apple correspondent Mark Gurman on Siri, Tim Cooks legacy, and what to expect from new CEO John Ternus.\r\nby\r\nNilay PatelClose\r\nPosts from this a… [+60476 chars]
+9     &lt;ul&gt;&lt;li&gt;&lt;/li&gt;&lt;li&gt;&lt;/li&gt;&lt;li&gt;&lt;/li&gt;&lt;/ul&gt;\r\nApple Intelligence upgrades to HomeKit Secure Video come with a steep cost.\r\nApple Intelligence upgrades to HomeKit Secure Video come with a steep cost.\r\nby\r\nJen… [+3972 chars]
+10        &lt;ul&gt;&lt;li&gt;&lt;/li&gt;&lt;li&gt;&lt;/li&gt;&lt;li&gt;&lt;/li&gt;&lt;/ul&gt;\r\nApples newest watches sport new features like audio intelligence, but how do they stack up against the older models?\r\nApples newest watches sport new features li… [+9086 chars]
+11          President Donald Trump is rounding up his tech buddies for next weeks state dinner with Chinese President Xi Jinping. The guest list reportedly includes former Apple CEO Tim Cook.\r\nBloomberg reports,… [+2469 chars]
+12 &lt;ul&gt;&lt;li&gt;&lt;/li&gt;&lt;li&gt;&lt;/li&gt;&lt;li&gt;&lt;/li&gt;&lt;/ul&gt;\r\nTim Cooks Apple: his 10 biggest wins and misses\r\nCooks 15-year tenure as Apple CEO was filled with ups and downs.\r\nby\r\nEmma RothClose\r\nPosts from this author wil… [+11634 chars]
+13        The refurbished Apple TV 4K with its voice remote. | Image: The Verge\r\n\n\nMost hardware prices have soared in 2026, and that includes a variety of Apple laptops, tablets, and smart devices. Thankfully… [+3641 chars]
+14  &lt;ul&gt;&lt;li&gt;&lt;/li&gt;&lt;li&gt;&lt;/li&gt;&lt;li&gt;&lt;/li&gt;&lt;/ul&gt;\r\nThe accessories would likely be sold under the Beats brand.\r\nThe accessories would likely be sold under the Beats brand.\r\nby\r\nTerrence O'BrienClose\r\nPosts from t… [+2486 chars]
+15  &lt;ul&gt;&lt;li&gt;&lt;/li&gt;&lt;li&gt;&lt;/li&gt;&lt;li&gt;&lt;/li&gt;&lt;/ul&gt;\r\nwatchOS 27, iPadOS 27, and visionOS 27 also debut today.\r\nwatchOS 27, iPadOS 27, and visionOS 27 also debut today.\r\nby\r\nTom WarrenClose\r\nPosts from this author w… [+2977 chars]
+16        &lt;ul&gt;&lt;li&gt;&lt;/li&gt;&lt;li&gt;&lt;/li&gt;&lt;li&gt;&lt;/li&gt;&lt;/ul&gt;\r\nThe recent reveal of GMs new software interface in its trucks has left some people confused about the automakers stance on phone mirroring.\r\nThe recent reveal of… [+6839 chars]
+17            iPhones and Macs are like two peas in a pod. Apples hardware synergy means you can launch iPhone apps right from the macOS desktop, respond to texts without picking up your iPhone, and even copy text… [+2229 chars]
+18        &lt;ul&gt;&lt;li&gt;&lt;/li&gt;&lt;li&gt;&lt;/li&gt;&lt;li&gt;&lt;/li&gt;&lt;/ul&gt;\r\nThe iPhone 18 Pro comes in four good colors, but theres only one I care about: black.\r\nThe iPhone 18 Pro comes in four good colors, but theres only one I care ab… [+2582 chars]
+19        &lt;ul&gt;&lt;li&gt;&lt;/li&gt;&lt;li&gt;&lt;/li&gt;&lt;li&gt;&lt;/li&gt;&lt;/ul&gt;\r\nCook preserved Apples supply chain by deftly appeasing Donald Trump and Xi Jinping.\r\nCook preserved Apples supply chain by deftly appeasing Donald Trump and Xi J… [+5849 chars]
+20        &lt;ul&gt;&lt;li&gt;&lt;/li&gt;&lt;li&gt;&lt;/li&gt;&lt;li&gt;&lt;/li&gt;&lt;/ul&gt;\r\nAfter the intelligent personal hub, Apple needs to build the intelligent home hub.\r\nAfter the intelligent personal hub, Apple needs to build the intelligent home… [+8025 chars]
+21        &lt;ul&gt;&lt;li&gt;&lt;/li&gt;&lt;li&gt;&lt;/li&gt;&lt;li&gt;&lt;/li&gt;&lt;/ul&gt;\r\nApple says it cant access users raw audio from its new Audio Intelligence features.\r\nApple says it cant access users raw audio from its new Audio Intelligence fe… [+3164 chars]
+22       &lt;ul&gt;&lt;li&gt;&lt;/li&gt;&lt;li&gt;&lt;/li&gt;&lt;li&gt;&lt;/li&gt;&lt;/ul&gt;\r\nA surprisingly consequential update for the worlds most popular smartwatch.\r\nIf you buy something from a Verge link, Vox Media may earn a commission. See our eth… [+16725 chars]</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="task-2---summarizing-roller-coaster-data" class="level1">
+<h1>Task 2 - Summarizing Roller Coaster Data</h1>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.2.0     ✔ readr     2.2.0
+✔ forcats   1.0.1     ✔ stringr   1.6.0
+✔ ggplot2   4.0.2     ✔ tibble    3.3.1
+✔ lubridate 1.9.4     ✔ tidyr     1.3.2
+✔ purrr     1.2.1     
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>coasters <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"https://www4.stat.ncsu.edu/online/datasets/635USrollercoasters.csv"</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 635 Columns: 21
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (12): Coaster, Park, City, State, Census Region, AgeGroup, Scale, Type, ...
+dbl  (9): Year Opened, TopSpeed, MaxHeight, Drop, Length, Duration, # of Inv...
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>coasters <span class="ot">&lt;-</span> coasters <span class="sc">%&gt;%</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Census Region</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">as.factor</span>(<span class="st">`</span><span class="at">Census Region</span><span class="st">`</span>),</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">AgeGroup =</span> <span class="fu">as.factor</span>(AgeGroup),</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">Scale =</span> <span class="fu">as.factor</span>(Scale),</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">Type =</span> <span class="fu">as.factor</span>(Type),</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">Design =</span> <span class="fu">as.factor</span>(Design),</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Inversions?</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">as.factor</span>(<span class="st">`</span><span class="at">Inversions?</span><span class="st">`</span>),</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">Make =</span> <span class="fu">as.factor</span>(Make)</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<section id="question-4" class="level2">
+<h2 class="anchored" data-anchor-id="question-4">Question 4</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(coasters)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>tibble [635 × 21] (S3: tbl_df/tbl/data.frame)
+ $ Coaster        : chr [1:635] "Adrenaline Peak" "Adventure Express" "Afterburn" "Aftershock" ...
+ $ Park           : chr [1:635] "Oaks Amusement Park" "Kings Island" "Carowinds" "Silverwood Theme Park" ...
+ $ City           : chr [1:635] "Portland" "Mason" "Charlotte" "Athol" ...
+ $ State          : chr [1:635] "Oregon" "Ohio" "North Carolina" "Idaho" ...
+ $ Census Region  : Factor w/ 4 levels "Midwest","Northeast",..: 4 1 3 4 3 3 2 1 1 3 ...
+ $ Year Opened    : num [1:635] 2018 1991 1999 2008 2010 ...
+ $ AgeGroup       : Factor w/ 3 levels "1:Older","2:Recent",..: 3 2 2 3 3 2 2 2 3 2 ...
+ $ TopSpeed       : num [1:635] 45 35 62 65.6 22 67 35 66 48 50 ...
+ $ MaxHeight      : num [1:635] 72 63 113 192 25 ...
+ $ Scale          : Factor w/ 4 levels "Extreme","Family",..: 1 4 1 1 2 1 4 1 4 1 ...
+ $ Type           : Factor w/ 2 levels "Steel","Wood": 1 1 1 1 1 1 1 2 2 1 ...
+ $ Design         : Factor w/ 7 levels "Bobsled","Flying",..: 4 4 3 3 4 3 1 4 4 4 ...
+ $ Drop           : num [1:635] 70 47 110 177 22.5 170 20 147 80 144 ...
+ $ Length         : num [1:635] 1050 2963 2956 1204 628 ...
+ $ Duration       : num [1:635] 66 140 167 92 47 190 100 143 110 110 ...
+ $ Inversions?    : Factor w/ 2 levels "No","Yes": 2 1 2 2 1 2 1 1 1 2 ...
+ $ # of Inversions: num [1:635] 3 0 6 3 0 6 0 0 0 4 ...
+ $ Make           : Factor w/ 53 levels "Allan Herschell Company",..: 15 2 5 48 53 5 21 21 18 2 ...
+ $ Latitude       : num [1:635] 45.5 39.4 35.3 47.9 28 ...
+ $ Longitude      : num [1:635] -122.7 -84.3 -80.8 -116.7 -82.6 ...
+ $ Boundary       : chr [1:635] "{\"type\":\"Feature\",\"properties\":{\"CENSUSAREA\":95988.013,\"NAME\":\"Oregon\",\"GEO_ID\":\"0400000US41\",\"| __truncated__ "{\"type\":\"Feature\",\"properties\":{\"CENSUSAREA\":40860.694,\"NAME\":\"Ohio\",\"GEO_ID\":\"0400000US39\",\"L"| __truncated__ "{\"type\":\"Feature\",\"properties\":{\"CENSUSAREA\":48617.905,\"NAME\":\"North Carolina\",\"GEO_ID\":\"0400000"| __truncated__ "{\"type\":\"Feature\",\"properties\":{\"CENSUSAREA\":82643.117,\"NAME\":\"Idaho\",\"GEO_ID\":\"0400000US16\",\""| __truncated__ ...</code></pre>
+</div>
+</div>
+<p>The data contains 635 observations and 21 variables. The categorical variables used in the analysis are stored as factors, while the quantitative variables are stored as numeric variables. The variables appear to be stored appropriately for the analysis.</p>
+</section>
+<section id="question-5" class="level2">
+<h2 class="anchored" data-anchor-id="question-5">Question 5</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colSums</span>(<span class="fu">is.na</span>(coasters))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>        Coaster            Park            City           State   Census Region 
+              0               0               0               0               0 
+    Year Opened        AgeGroup        TopSpeed       MaxHeight           Scale 
+              0               0              74               8               0 
+           Type          Design            Drop          Length        Duration 
+              0               0             128              33              66 
+    Inversions? # of Inversions            Make        Latitude       Longitude 
+              0               0              36               0               0 
+       Boundary 
+              0 </code></pre>
+</div>
+</div>
+<p>The variables with missing values are TopSpeed with 74 missing values, MaxHeight with 8, Drop with 128, Length with 33, Duration with 66, and Make with 36. All other variables have no missing values.</p>
+</section>
+<section id="question-6" class="level2">
+<h2 class="anchored" data-anchor-id="question-6">Question 6</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># One-way contingency table</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(coasters<span class="sc">$</span>Type)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Steel  Wood 
+  530   105 </code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Two-way contingency table</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(coasters<span class="sc">$</span>Type, coasters<span class="sc">$</span>Scale)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       
+        Extreme Family Kiddie Thrill
+  Steel     216    163     27    124
+  Wood       53     15      1     36</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Three-way contingency table</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(coasters<span class="sc">$</span>Type, coasters<span class="sc">$</span>Scale, coasters<span class="sc">$</span><span class="st">`</span><span class="at">Census Region</span><span class="st">`</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>, ,  = Midwest
+
+       
+        Extreme Family Kiddie Thrill
+  Steel      42     26      8     24
+  Wood       19      6      0      9
+
+, ,  = Northeast
+
+       
+        Extreme Family Kiddie Thrill
+  Steel      50     43      6     27
+  Wood       12      6      1     11
+
+, ,  = South
+
+       
+        Extreme Family Kiddie Thrill
+  Steel      79     65      6     46
+  Wood       13      3      0     11
+
+, ,  = West
+
+       
+        Extreme Family Kiddie Thrill
+  Steel      45     29      7     27
+  Wood        9      0      0      5</code></pre>
+</div>
+</div>
+<p>For the one-way table, the value 530 means that there are 530 steel roller coasters in the dataset.</p>
+<p>For the two-way table, the value 216 means that there are 216 steel roller coasters classified as Extreme.</p>
+<p>For the three-way table, the value 42 means that there are 42 steel roller coasters classified as Extreme in the Midwest.</p>
+</section>
+<section id="question-7" class="level2">
+<h2 class="anchored" data-anchor-id="question-7">Question 7</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Method 1: Filter the data first</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>south_coasters <span class="ot">&lt;-</span> coasters <span class="sc">%&gt;%</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="st">`</span><span class="at">Census Region</span><span class="st">`</span> <span class="sc">==</span> <span class="st">"South"</span>)</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(south_coasters<span class="sc">$</span>Type, south_coasters<span class="sc">$</span>Scale)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       
+        Extreme Family Kiddie Thrill
+  Steel      79     65      6     46
+  Wood       13      3      0     11</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Method 2: Create a three-way table and subset it</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>coaster_table <span class="ot">&lt;-</span> <span class="fu">table</span>(</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  coasters<span class="sc">$</span>Type,</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>  coasters<span class="sc">$</span>Scale,</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>  coasters<span class="sc">$</span><span class="st">`</span><span class="at">Census Region</span><span class="st">`</span></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>coaster_table[, , <span class="st">"South"</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       
+        Extreme Family Kiddie Thrill
+  Steel      79     65      6     46
+  Wood       13      3      0     11</code></pre>
+</div>
+</div>
+<p>Both methods produce the same conditional two way table for roller coasters in the south</p>
+</section>
+<section id="question-8" class="level2">
+<h2 class="anchored" data-anchor-id="question-8">Question 8</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>coasters <span class="sc">%&gt;%</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Type, Scale) <span class="sc">%&gt;%</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">Count =</span> <span class="fu">n</span>(), <span class="at">.groups =</span> <span class="st">"drop"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(</span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_from =</span> Scale,</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_from =</span> Count</span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 5
+  Type  Extreme Family Kiddie Thrill
+  &lt;fct&gt;   &lt;int&gt;  &lt;int&gt;  &lt;int&gt;  &lt;int&gt;
+1 Steel     216    163     27    124
+2 Wood       53     15      1     36</code></pre>
+</div>
+</div>
+</section>
+<section id="question-9" class="level2">
+<h2 class="anchored" data-anchor-id="question-9">Question 9</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Stacked bar graph</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(coasters, <span class="fu">aes</span>(<span class="at">x =</span> Type, <span class="at">fill =</span> Scale)) <span class="sc">+</span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Roller Coaster Scale by Type"</span>,</span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Type"</span>,</span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Count"</span>,</span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">"Scale"</span></span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Homework5_Combined_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Side-by-side bar graph</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(coasters, <span class="fu">aes</span>(<span class="at">x =</span> Type, <span class="at">fill =</span> Scale)) <span class="sc">+</span></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"dodge"</span>) <span class="sc">+</span></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Roller Coaster Scale by Type"</span>,</span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Type"</span>,</span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Count"</span>,</span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">"Scale"</span></span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Homework5_Combined_files/figure-html/unnamed-chunk-10-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

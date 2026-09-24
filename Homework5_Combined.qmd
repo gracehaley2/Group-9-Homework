@@ -1,0 +1,173 @@
+---
+title: "Homework 5 Combined"
+---
+
+# Task 1 - Querying an API and a Tidy-Style Function 
+
+## Question 1
+
+```{r}
+library(httr)
+
+api_key <- Sys.getenv("NEWS_API_KEY")
+
+news <- GET(
+  paste0(
+    "https://newsapi.org/v2/everything?q=artificial%20intelligence",
+    "&from=2026-09-01",
+    "&language=en",
+    "&pageSize=50",
+    "&apiKey=", api_key
+  )
+)
+
+news
+```
+
+## Question 2
+
+```{r}
+news_content <- content(news, simplifyDataFrame = TRUE)
+
+news_content$articles
+
+str(news_content$articles)
+```
+
+## Question 3
+
+```{r}
+get_news <- function(subject, from_date, api_key) {
+  
+  subject <- URLencode(subject)
+  
+  url <- paste0(
+    "https://newsapi.org/v2/everything?q=", subject,
+    "&from=", from_date,
+    "&language=en&pageSize=50&apiKey=", api_key
+  )
+  
+  news <- GET(url)
+  
+  news_content <- content(news, simplifyDataFrame = TRUE)
+  
+  news_content$articles
+}
+
+get_news("artificial intelligence", "2026-09-01", api_key)
+
+get_news("Apple", "2026-09-01", api_key)
+```
+
+# Task 2 - Summarizing Roller Coaster Data
+
+```{r}
+library(tidyverse)
+
+coasters <- read_csv(
+  "https://www4.stat.ncsu.edu/online/datasets/635USrollercoasters.csv"
+)
+
+coasters <- coasters %>%
+  mutate(
+    `Census Region` = as.factor(`Census Region`),
+    AgeGroup = as.factor(AgeGroup),
+    Scale = as.factor(Scale),
+    Type = as.factor(Type),
+    Design = as.factor(Design),
+    `Inversions?` = as.factor(`Inversions?`),
+    Make = as.factor(Make)
+  )
+```
+
+## Question 4
+
+```{r}
+str(coasters)
+```
+
+The data contains 635 observations and 21 variables. The categorical variables used in the analysis are stored as factors, while the quantitative variables are stored as numeric variables. The variables appear to be stored appropriately for the analysis.
+
+## Question 5
+
+```{r}
+colSums(is.na(coasters))
+```
+
+The variables with missing values are TopSpeed with 74 missing values, MaxHeight with 8, Drop with 128, Length with 33, Duration with 66, and Make with 36. All other variables have no missing values.
+
+## Question 6
+
+```{r}
+# One-way contingency table
+table(coasters$Type)
+
+# Two-way contingency table
+table(coasters$Type, coasters$Scale)
+
+# Three-way contingency table
+table(coasters$Type, coasters$Scale, coasters$`Census Region`)
+```
+
+For the one-way table, the value 530 means that there are 530 steel roller coasters in the dataset.
+
+For the two-way table, the value 216 means that there are 216 steel roller coasters classified as Extreme.
+
+For the three-way table, the value 42 means that there are 42 steel roller coasters classified as Extreme in the Midwest.
+
+## Question 7
+
+```{r}
+# Method 1: Filter the data first
+south_coasters <- coasters %>%
+  filter(`Census Region` == "South")
+
+table(south_coasters$Type, south_coasters$Scale)
+
+# Method 2: Create a three-way table and subset it
+coaster_table <- table(
+  coasters$Type,
+  coasters$Scale,
+  coasters$`Census Region`
+)
+
+coaster_table[, , "South"]
+```
+
+Both methods produce the same conditional two way table for roller coasters in the south
+
+## Question 8
+
+```{r}
+coasters %>%
+  group_by(Type, Scale) %>%
+  summarize(Count = n(), .groups = "drop") %>%
+  pivot_wider(
+    names_from = Scale,
+    values_from = Count
+  )
+```
+
+## Question 9
+
+```{r}
+# Stacked bar graph
+ggplot(coasters, aes(x = Type, fill = Scale)) +
+  geom_bar() +
+  labs(
+    title = "Roller Coaster Scale by Type",
+    x = "Type",
+    y = "Count",
+    fill = "Scale"
+  )
+
+# Side-by-side bar graph
+ggplot(coasters, aes(x = Type, fill = Scale)) +
+  geom_bar(position = "dodge") +
+  labs(
+    title = "Roller Coaster Scale by Type",
+    x = "Type",
+    y = "Count",
+    fill = "Scale"
+  )
+```
