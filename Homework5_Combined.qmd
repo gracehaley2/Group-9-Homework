@@ -11,6 +11,8 @@ library(httr)
 
 api_key <- Sys.getenv("NEWS_API_KEY")
 
+# Send a GET request to the NewsAPI for articles about AI 
+
 news <- GET(
   paste0(
     "https://newsapi.org/v2/everything?q=artificial%20intelligence",
@@ -27,6 +29,8 @@ news
 ## Question 2
 
 ```{r}
+# Extracting the article info from the API reponse
+
 news_content <- content(news, simplifyDataFrame = TRUE)
 
 news_content$articles
@@ -37,6 +41,8 @@ str(news_content$articles)
 ## Question 3
 
 ```{r}
+# This function searches NewsAPI using a subject and starting date 
+
 get_news <- function(subject, from_date, api_key) {
   
   subject <- URLencode(subject)
@@ -68,6 +74,7 @@ coasters <- read_csv(
   "https://www4.stat.ncsu.edu/online/datasets/635USrollercoasters.csv"
 )
 
+# Convert categorical variables to factors
 coasters <- coasters %>%
   mutate(
     `Census Region` = as.factor(`Census Region`),
@@ -83,6 +90,7 @@ coasters <- coasters %>%
 ## Question 4
 
 ```{r}
+# Checks the structure
 str(coasters)
 ```
 
@@ -91,6 +99,7 @@ The data contains 635 observations and 21 variables. The categorical variables u
 ## Question 5
 
 ```{r}
+# Counts the number of missing values in each variable
 colSums(is.na(coasters))
 ```
 
