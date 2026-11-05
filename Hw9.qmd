@@ -1,0 +1,697 @@
+---
+title: "Homework 9"
+author: "Group 9"
+---
+
+## Introduction
+
+This assignment looks at how weather, season, holidays, and day type relate to daily bike rentals in Seoul. We first performed early data exploration and cleaned the data, then aggregated it into daily observations. Then, we compared three multiple linear regression models!
+
+The data set is from <https://www4.stat.ncsu.edu/~online/datasets/SeoulBikeData.csv>.
+
+## Setup
+
+These are the packages I will use..
+
+```{r}
+library(tidyverse)
+library(lubridate)
+library(rsample)
+library(knitr)
+theme_set(theme_minimal())
+```
+
+## Reading the data
+
+The data file contains degree symbols in some column names, which causes an issue when trying to read the data the normal way. Specifying Latin1 encoding allows these characters to be read correctly.
+
+```{r}
+bikes <- read_csv(
+  "SeoulBikeData.csv",
+  locale = locale(encoding = "Latin1")
+)
+dim(bikes)
+head(bikes)
+glimpse(bikes)
+nrow(bikes)
+ncol(bikes)
+```
+
+We can see here all the variables that are measured which match the given variables on the assignment document. There are 8760 individual observations and 14 variables measured.
+
+## Check missingness, types, and values
+
+Before making changes, we check for missing values, summarize the numeric variables, and inspect the unique values of the categorical variables.
+
+```{r}
+# Check for missing values in each column
+missing_values <- tibble(
+  variable = names(bikes),
+  missing = colSums(is.na(bikes))
+)
+
+knitr::kable(missing_values)
+
+# Summary statistics for numeric columns
+bikes |>
+  select(where(is.numeric)) |>
+  summary()
+
+# Unique categorical values
+bikes |>
+  select(Seasons, Holiday, `Functioning Day`) |>
+  lapply(unique)
+```
+
+It looks like there are 0 missing values in the data. Temperature and dew point temperature seem to be the two numeric variables that go negative, but this makes sense because these values were measured in Celsius, not Fahrenheit. But variables like rented bike counts and precipitation measurements should not be negative, so the data looks good. There are three categorical variables in the data set: "Seasons", which returns one of the four seasons, "Holiday", which returns if it was a holiday or not, and "Functioning Day", which returns if it was a functioning day or not. That just means if the bike rental service was running that day.
+
+```{r}
+# Check for values outside possible/plausible ranges
+bikes |>
+  summarise(
+    invalid_rentals = sum(`Rented Bike Count` < 0),
+    invalid_hours = sum(Hour < 0 | Hour > 23),
+    invalid_humidity = sum(`Humidity(%)` < 0 | `Humidity(%)` > 100),
+    invalid_rainfall = sum(`Rainfall(mm)` < 0),
+    invalid_snowfall = sum(`Snowfall (cm)` < 0)
+  )
+```
+
+It looks like there aren't any values outside the plausible measurement ranges for these variables as well.
+
+## Clean dates, factors, and column names
+
+Dates are recorded here in day/month/year order, so we use `dmy()`. We convert the categorical variables into factors and rename the columns to make them easier to use.
+
+```{r}
+bikes <- bikes |>
+  rename(
+    date = Date,
+    bike_count = `Rented Bike Count`,
+    hour = Hour,
+    temp = `Temperature(°C)`,
+    humidity = `Humidity(%)`,
+    wind_speed = `Wind speed (m/s)`,
+    visibility = `Visibility (10m)`,
+    dew_point = `Dew point temperature(°C)`,
+    solar_radiation = `Solar Radiation (MJ/m2)`,
+    rainfall = `Rainfall(mm)`,
+    snowfall = `Snowfall (cm)`,
+    seasons = Seasons,
+    holiday = Holiday,
+    functioning_day = `Functioning Day`
+  ) |>
+  mutate(
+    date = dmy(date),
+    seasons = factor(
+      seasons,
+      levels = c("Winter", "Spring", "Summer", "Autumn")
+    ),
+    holiday = factor(
+      holiday,
+      levels = c("No Holiday", "Holiday")
+    ),
+    functioning_day = factor(functioning_day)
+  )
+
+glimpse(bikes)
+
+# Confirm that all dates were converted successfully
+sum(is.na(bikes$date))
+
+range(bikes$date)
+```
+
+The variables were renamed so that we can work with them easier and the three categorical variables from earlier were also converted to factors. And the final outputs tell us that the date variable was converted properly and everything looks ready!
+
+## Summarize hourly rentals
+
+We examine the overall distribution of hourly rentals and compare rentals across the categorical variables.
+
+```{r}
+bikes |>
+  summarise(
+    observations = n(),
+    mean_rentals = mean(bike_count),
+    median_rentals = median(bike_count),
+    sd_rentals = sd(bike_count),
+    min_rentals = min(bike_count),
+    max_rentals = max(bike_count)
+  ) |>
+  knitr::kable(digits = 2)
+
+# Summaries by each categorical variable
+hourly_groups <- bikes |>
+  mutate(across(
+    c(seasons, holiday, functioning_day),
+    as.character
+  )) |>
+  pivot_longer(
+    cols = c(seasons, holiday, functioning_day),
+    names_to = "variable",
+    values_to = "category"
+  ) |>
+  group_by(variable, category) |>
+  summarise(
+    hours = n(),
+    mean_rentals = mean(bike_count),
+    median_rentals = median(bike_count),
+    sd_rentals = sd(bike_count),
+    min_rentals = min(bike_count),
+    max_rentals = max(bike_count),
+    .groups = "drop"
+  )
+
+knitr::kable(hourly_groups, digits = 2)
+```
+
+Looking at the categorical variable summaries, we notice that the records with a "No" in the "functioning_day" variable don't have any useful data for us to investigate. It might be a good idea to only use records with a "Yes" measurement for that variable and use that as our new data set.
+
+```{r}
+bikes |>
+  group_by(functioning_day) |>
+  summarise(
+    hours = n(),
+    total_rentals = sum(bike_count),
+    nonzero_rental_hours = sum(bike_count > 0),
+    .groups = "drop"
+  ) |>
+  knitr::kable()
+
+bikes_functioning <- bikes |>
+  filter(functioning_day == "Yes")
+
+tibble(
+  original_hours = nrow(bikes),
+  retained_hours = nrow(bikes_functioning),
+  removed_hours = nrow(bikes) - nrow(bikes_functioning)
+) |>
+  knitr::kable()
+```
+
+Again, you can see that the "No" days are not worth keeping in our final data set as we can't actually gain any insights from those records.
+
+## Aggregate into daily observations
+
+We group by date, season, and holiday status. We sum rental counts, rainfall, and snowfall and calculate daily means for the remaining weather variables.
+
+```{r}
+daily <- bikes_functioning |>
+  group_by(date, seasons, holiday) |>
+  summarise(
+    bike_count = sum(bike_count),
+    rainfall = sum(rainfall),
+    snowfall = sum(snowfall),
+    across(
+      c(
+        temp, humidity, wind_speed, visibility,
+        dew_point, solar_radiation
+      ),
+      mean
+    ),
+    .groups = "drop"
+  )
+
+glimpse(daily)
+head(daily)
+nrow(daily)
+```
+
+The aggregated data set contains 353 daily observations. The response variable is now the total number of rentals recorded during functioning hours on each date.
+
+We can also check how many functioning hours contributed to each day.
+
+```{r}
+bikes_functioning |>
+  count(date, name = "functioning_hours") |>
+  count(functioning_hours, name = "number_of_days") |>
+  knitr::kable()
+```
+
+For dates containing less than 24 functioning hours like above, its rental total covers only those hours. This is a limitation when comparing daily totals.
+
+## Explore the daily data with numerical summaries
+
+```{r}
+daily |>
+  select(where(is.numeric)) |>
+  summary()
+
+daily |>
+  group_by(seasons) |>
+  summarise(
+    days = n(),
+    mean_rentals = mean(bike_count),
+    median_rentals = median(bike_count),
+    sd_rentals = sd(bike_count),
+    .groups = "drop"
+  ) |>
+  knitr::kable(digits = 2)
+
+daily |>
+  group_by(holiday) |>
+  summarise(
+    days = n(),
+    mean_rentals = mean(bike_count),
+    median_rentals = median(bike_count),
+    sd_rentals = sd(bike_count),
+    .groups = "drop"
+  ) |>
+  knitr::kable(digits = 2)
+```
+
+As expected, the number of rentals go down during the winter season since South Korea gets quite cold at that time of year. The greatest number of rentals are in the summer season, followed by the autumn season, and then the spring season. The number of rentals by season had a high mean of 24817.76 rentals per day in summer and a low mean of 5412.99 rentals per day in winter.
+
+The days when there was no holiday also had a higher mean of rentals than the days where there was a holiday. The mean rentals for "No holiday" days was 17727.44 rentals per day and the mean rentals for "Holiday" days was 12699.71 rentals per day. This makes sense because people may travel longer distances or just stay home and not have to go to work on holidays, so there could be less people out and about using the bike rental service.
+
+## Plots
+
+### Distribution of daily rentals
+
+```{r}
+ggplot(daily, aes(x = bike_count)) +
+  geom_histogram(
+    bins = 25,
+    fill = "navyblue",
+    color = "white"
+  ) +
+  labs(
+    title = "Distribution of Daily Bike Rentals",
+    x = "Daily rental count",
+    y = "Number of days"
+  )
+```
+
+The histogram has 25 bins which split up the daily rental count numbers into 25 groups. We can see that the shows the distribution of daily demand and the extent to which rental counts vary across days. The plot suggests that there are low-rental days and high-rental days with its approximately bi-modal distribution. The daily rental counts frequency peaks at about 5000-7000 rentals and 24000-25000 rentals.
+
+### Rentals by season and holiday status
+
+```{r}
+ggplot(daily, aes(x = seasons, y = bike_count, fill = seasons)) +
+  geom_boxplot(show.legend = FALSE) +
+  labs(
+    title = "Daily Bike Rentals by Season",
+    x = "Season",
+    y = "Daily rental count"
+  )
+
+ggplot(daily, aes(x = holiday, y = bike_count, fill = holiday)) +
+  geom_boxplot(show.legend = FALSE) +
+  labs(
+    title = "Daily Bike Rentals by Holiday Status",
+    x = "Holiday status",
+    y = "Daily rental count"
+  )
+```
+
+These box plots compare the median, spread, and potential outliers of daily rentals across groups. We can see that in the first plot, the summer season has the highest numerical spread of daily rental counts with autumn and spring not far behind. The winter season has quite a lot spread of daily rental counts on the other hand.
+
+The second box plot shows us that the higher numerical spread of daily rental counts are in the "No Holiday" days while the "Holiday" days still have a decent numerical spread of daily bike rental counts, though not as high. This suggests that business is best on non-holiday, summer days!
+
+### Relationships with weather
+
+```{r}
+ggplot(daily, aes(x = temp, y = bike_count, color = seasons)) +
+  geom_point(alpha = 0.7) +
+  geom_smooth(
+    aes(group = 1),
+    method = "loess",
+    se = FALSE,
+    color = "black"
+  ) +
+  labs(
+    title = "Daily Rentals and Mean Temperature",
+    x = "Mean temperature (degrees Celsius)",
+    y = "Daily rental count",
+    color = "Season"
+  )
+
+ggplot(daily, aes(x = rainfall, y = bike_count)) +
+  geom_point(alpha = 0.6, color = "navyblue") +
+  labs(
+    title = "Daily Rentals and Rainfall",
+    x = "Total rainfall (mm)",
+    y = "Daily rental count"
+  )
+
+ggplot(daily, aes(x = humidity, y = bike_count)) +
+  geom_point(alpha = 0.6, color = "darkgreen") +
+  geom_smooth(method = "loess", se = FALSE, color = "black") +
+  labs(
+    title = "Daily Rentals and Mean Humidity",
+    x = "Mean humidity (%)",
+    y = "Daily rental count"
+  )
+```
+
+The smooth curves help assess whether the relationships with temperature and humidity appear approximately linear or show curvature. The models below allow for both interactions and quadratic relationships.
+
+The first plot shows that daily rentals rise until peaking at about 23-25 degrees Celsius, and then it falls after. The curved line suggests that there is a non-linear relationship. Winter days subsequently have the lowest amount of rentals with a mix of summer, autumn, and spring days sharing the peak of the rentals.
+
+The second plot shows that the majority of days had no rainfall, seeing how concentrated the points are at x=0 (0mm of rainfall). The highest points with the most daily bike rentals also were on days with zero or low amount of rainfall. As rainfall increased, there were less and less bike rentals. Although, there were still a decent amount of people renting bikes on days with rain.
+
+The third plot shows us that the number of daily bike rentals rises from a medium amount and peaks at about 55% to 65% mean humidity. Bike rentals slowly decrease after that and go down sharply past 70% mean humidity. This suggests that people more open to riding bikes up until only a certain % of mean humidity and then when it gets too humid, the number of bike rentals decrease. People could be more open to staying indoors or traveling by car or bus or any other vehicle with air conditioning rather than bikes.
+
+### Correlations
+
+```{r}
+correlations <- daily |>
+  select(where(is.numeric)) |>
+  cor()
+
+knitr::kable(correlations, digits = 2)
+
+rental_correlations <- tibble(
+  variable = setdiff(colnames(correlations), "bike_count"),
+  correlation = correlations[
+    "bike_count",
+    setdiff(colnames(correlations), "bike_count")
+  ]
+) |>
+  arrange(desc(abs(correlation)))
+
+knitr::kable(rental_correlations, digits = 3)
+```
+
+A positive value in the correlation indicates that two variables tend to increase together and a negative value indicates that one tends to decrease as the other increases.
+
+It looks like temperature, solar radiation, and dew point have strong, positive relationships with number of bike rentals. This makes sense as warmer days have more bike rentals. Snowfall, rainfall, and wind speed have weak negative relationships with the number of bike rentals. This makes sense because snowfall, rainfall, and increased wind speeds go together and are weather patterns that don't promote outdoor biking. Visibility has a weak positive relationship with bike rental rates which means that an increase in visibility has a small positive effect on bike rentals. Humidity has a nonexistent relationships with regards to the number of bike rentals, meaning there isn't much of a correlation between the two.
+
+## Split into training and test sets
+
+We use approximately 75% of the daily observations for training and 25% for testing. Stratifying by season helps preserve the seasonal composition in both sets. A fixed seed makes the split reproducible.
+
+```{r}
+set.seed(123)
+
+bike_split <- initial_split(
+  daily,
+  prop = 0.75,
+  strata = seasons
+)
+
+train <- training(bike_split)
+test <- testing(bike_split)
+
+tibble(
+  dataset = c("Training", "Test"),
+  days = c(nrow(train), nrow(test))
+) |>
+  knitr::kable()
+
+bind_rows(
+  train |> mutate(dataset = "Training"),
+  test |> mutate(dataset = "Test")
+) |>
+  count(dataset, seasons) |>
+  group_by(dataset) |>
+  mutate(proportion = n / sum(n)) |>
+  ungroup() |>
+  knitr::kable(digits = 3)
+```
+
+The table shows the split between the seasons.
+
+## Create weekday/weekend variables
+
+With `week_start = 1`, Monday is 1 and Sunday is 7. Values 6 and 7 are the weekend days. Weekday is the reference category.
+
+```{r}
+train <- train |>
+  mutate(
+    day_type = factor(
+      if_else(
+        wday(date, week_start = 1) >= 6,
+        "Weekend",
+        "Weekday"
+      ),
+      levels = c("Weekday", "Weekend")
+    )
+  )
+
+test <- test |>
+  mutate(
+    day_type = factor(
+      if_else(
+        wday(date, week_start = 1) >= 6,
+        "Weekend",
+        "Weekday"
+      ),
+      levels = c("Weekday", "Weekend")
+    )
+  )
+
+train |> count(day_type)
+test |> count(day_type)
+```
+
+The training data is shown split up by weekday or weekend.
+
+## Standardize the weather predictors
+
+For each weather predictor, we subtract its training mean and divide by its training standard deviation.
+
+The test data must use the same training means and standard deviations, which prevents test set information from influencing preprocessing.
+
+We keep the original variables and create standardized versions with the ending `_z`. We don't need to standardize the rental count.
+
+```{r}
+weather_vars <- c(
+  "temp", "humidity", "wind_speed", "visibility",
+  "dew_point", "solar_radiation", "rainfall", "snowfall"
+)
+
+training_means <- sapply(train[weather_vars], mean)
+training_sds <- sapply(train[weather_vars], sd)
+
+# Standardization requires nonzero standard deviations.
+stopifnot(all(training_sds > 0))
+
+for (variable in weather_vars) {
+  new_name <- paste0(variable, "_z")
+
+  train[[new_name]] <- (
+    train[[variable]] - training_means[[variable]]
+  ) / training_sds[[variable]]
+
+  test[[new_name]] <- (
+    test[[variable]] - training_means[[variable]]
+  ) / training_sds[[variable]]
+}
+
+tibble(
+  variable = weather_vars,
+  training_mean = unname(training_means),
+  training_sd = unname(training_sds)
+) |>
+  knitr::kable(digits = 3)
+
+# Training standardized means should be approximately 0,
+# and training standardized standard deviations should be 1.
+train |>
+  summarise(
+    across(
+      ends_with("_z"),
+      list(mean = mean, sd = sd)
+    )
+  )
+```
+
+## Fit three multiple linear regression models
+
+### Model 1: Main effects
+
+The first model includes all eight standardized weather predictors, season, holiday status, and weekday/weekend status. The date itself is excluded.
+
+```{r}
+model1 <- lm(
+  bike_count ~
+    temp_z + humidity_z + wind_speed_z + visibility_z +
+    dew_point_z + solar_radiation_z + rainfall_z + snowfall_z +
+    seasons + holiday + day_type,
+  data = train
+)
+
+summary(model1)
+```
+
+Model 1 explains about 83.84% of the variation in daily rentals in the training data as R^2^ is 0.8384 and the adjusted R^2^ is 0.8299. The p-value is really small (and is under an alpha of 0.05), so the model is statistically significant, indicating that the predictors collectively explain bike rental counts. This model does well.
+
+### Model 2: Add interactions
+
+The second model includes all the terms in Model 1 plus interactions between season and holiday status, season and temperature, and temperature and rainfall.
+
+These terms allow the holiday association to differ by season, the temperature slope to differ by season, and the rainfall slope to depend on temperature.
+
+```{r}
+model2 <- update(
+  model1,
+  . ~ . +
+    seasons:holiday +
+    seasons:temp_z +
+    temp_z:rainfall_z
+)
+
+summary(model2)
+```
+
+Model 2 explains about 91.84% of the variation in daily rentals in the training data as R^2^ is 0.9184 and the adjusted R^2^ is 0.9117. The p-value is really small (and is under an alpha of 0.05), so the model is statistically significant, indicating that the predictors collectively explain bike rental counts. This model does even better than model 1!
+
+### Model 3: Add quadratic terms
+
+The third model includes all the terms in Model 2 and squared standardized temperature and humidity terms. These terms allow curvature in their relationships with daily rentals.
+
+```{r}
+model3 <- update(
+  model2,
+  . ~ . + I(temp_z^2) + I(humidity_z^2)
+)
+
+summary(model3)
+```
+
+Model 3 explains about 91.96% of the variation in daily rentals in the training data as R^2^ is 0.9196 and the adjusted R^2^ is 0.9122. The p-value is really small (and is under an alpha of 0.05), so the model is statistically significant, indicating that the predictors collectively explain bike rental counts. This model does better than model 1 andd slightly better than model 2.
+
+## Compare test-set RMSE
+
+We predict rental counts for the same test observations using each model.
+
+Lower RMSE indicates better predictive performance on this test set. RMSE is measured in rentals per day and gives greater weight to larger prediction errors. So, the best model is the model with the lowest RMSE.
+
+```{r}
+pred1 <- predict(model1, newdata = test)
+pred2 <- predict(model2, newdata = test)
+pred3 <- predict(model3, newdata = test)
+
+rmse <- function(actual, predicted) {
+  sqrt(mean((actual - predicted)^2))
+}
+
+results <- tibble(
+  model = c("Model 1", "Model 2", "Model 3"),
+  description = c(
+    "Main effects",
+    "Main effects + interactions",
+    "Main effects + interactions + quadratic terms"
+  ),
+  test_rmse = c(
+    rmse(test$bike_count, pred1),
+    rmse(test$bike_count, pred2),
+    rmse(test$bike_count, pred3)
+  )
+)
+
+knitr::kable(results, digits = 2)
+
+ggplot(results, aes(x = model, y = test_rmse, fill = model)) +
+  geom_col(show.legend = FALSE) +
+  geom_text(
+    aes(label = round(test_rmse, 1)),
+    vjust = -0.4
+  ) +
+  scale_y_continuous(
+    expand = expansion(mult = c(0, 0.12))
+  ) +
+  labs(
+    title = "Test RMSE by Model",
+    x = "Model Number",
+    y = "RMSE (rentals per day)"
+  )
+```
+
+Model 3 performs the best with an RMSE of 3048.2 (rentals per day) but model 2 has a pretty low RMSE as well at 3080.8 (rentals per day). Model 1 performed poorly compared to the other models with an RMSE of 4046.3 (rentals per day). Adding the interactions in model 2 greatly improved the model but adding the quadratic terms to model 3 only very slightly improved the model. Model 3 is the best choice moving forward!
+
+```{r}
+best_index <- which.min(results$test_rmse)
+best_name <- results$model[best_index]
+best_rmse <- results$test_rmse[best_index]
+best_name
+round(best_rmse,2)
+```
+
+Model 3 has the lowest test RMSE at 3048.16 rentals per day. We are going to select this model for the final fit!
+
+### Observed versus predicted rentals
+
+```{r}
+prediction_list <- list(pred1, pred2, pred3)
+
+prediction_check <- tibble(
+  actual = test$bike_count,
+  predicted = prediction_list[[best_index]]
+)
+
+ggplot(prediction_check, aes(x = actual, y = predicted)) +
+  geom_point(alpha = 0.7, color = "navyblue") +
+  geom_abline(
+    intercept = 0,
+    slope = 1,
+    linetype = "dashed",
+    color = "red"
+  ) +
+  coord_equal() +
+  labs(
+    title = paste("Observed vs. Predicted Rentals:", best_name),
+    x = "Observed daily rentals",
+    y = "Predicted daily rentals"
+  )
+```
+
+Points near the dashed, red line indicate accurate predictions. Points below the line indicate underprediction (when the predicted value is less than the true value of rentals), while points above it indicate overprediction (when the predicted value is more than the true value of rentals).
+
+## Refit the selected model using all daily observations
+
+After selecting model 3, we refit it using the entire daily data set. We now calculate standardization means and standard deviations from all daily observations.
+
+The earlier test RMSE belongs to the model trained on the training set. It is not an independent evaluation of this final model, which uses all observations.
+
+```{r}
+full_data <- daily |>
+  mutate(
+    day_type = factor(
+      if_else(
+        wday(date, week_start = 1) >= 6,
+        "Weekend",
+        "Weekday"
+      ),
+      levels = c("Weekday", "Weekend")
+    )
+  )
+
+full_means <- sapply(full_data[weather_vars], mean)
+full_sds <- sapply(full_data[weather_vars], sd)
+
+stopifnot(all(full_sds > 0))
+
+for (variable in weather_vars) {
+  new_name <- paste0(variable, "_z")
+
+  full_data[[new_name]] <- (
+    full_data[[variable]] - full_means[[variable]]
+  ) / full_sds[[variable]]
+}
+
+models <- list(model1, model2, model3)
+best_formula <- formula(models[[best_index]])
+
+best_formula
+
+final_model <- lm(
+  best_formula,
+  data = full_data
+)
+
+summary(final_model)
+```
+
+These are the summary statistics of our final, fitted model. We can see that the R^2^ value is 0.9224 and the adjusted R^2^ value is 0.9172. This means that this model explains about 92.24% of the variation in daily rentals in the full data. The p-value is very small (under our alpha of 0.05 as well) so the model is statistically significant. Overall, this final, fitted model does quite well in predicting bike rental rates.
+
+### Final fitted coefficients
+
+```{r}
+coefficient_matrix <- coef(summary(final_model))
+coefficient_matrix
+knitr::kable(coefficient_matrix, digits = 2)
+```
+
+These are the coefficients for the final, fitted model. You can see that a high coefficient is summer with 25768.71. This means that on non-holiday days at the average temperature, summer is associated with \~25768 more rentals than winter. A low coefficient is temperature at -3254.42. This means that in winter, at average temperature and rainfall, the model's temperature slope is \~(-3254) per standard deviation, meaning that there would be around 3254 fewer rentals per one standard deviation of temperature.

@@ -16,8 +16,6 @@ iris |>
   arrange(Species)
 ```
 
-
-
 2.  
 
 - Long format data is when repeated measurements are placed in multiple rows with one column identifying the measurement and another containing its value.
@@ -27,6 +25,7 @@ iris |>
 # Task 2: Glass, Yeast, and Wine Data
 
 I am just using the code from HW3 to read the glass data.
+
 ```{r}
 library(tidyverse)
 # This code creates a tibble called glass from the specified URL for the glass data.
@@ -41,8 +40,8 @@ glass <- read_csv(
 )
 ```
 
-3. Here, I am starting a chain that will overwrite the TypeGlass variable using mutate.
-4. At the end, there is code to filter observations so that only ones where Fe<0.2 and TypeGlass is either 'tableware' or 'headlamp'.
+3.  Here, I am starting a chain that will overwrite the TypeGlass variable using mutate.
+4.  At the end, there is code to filter observations so that only ones where Fe\<0.2 and TypeGlass is either 'tableware' or 'headlamp'.
 
 ```{r}
 # Done using Dplyr chain.
@@ -69,9 +68,8 @@ glass <- glass |>
 glass
 ```
 
-
-  
 This is code that just reads the yeast data.
+
 ```{r}
 yeast <- read_table(
   "https://www4.stat.ncsu.edu/~online/datasets/yeast.data",
@@ -82,8 +80,8 @@ yeast <- read_table(
 )
 ```
 
-5. I am starting a chain that removes seq_name and nuc columns.  
-6. The chain continues and I added the specified columns. There is mean and median for each numeric variable and a class grouping.
+5.  I am starting a chain that removes seq_name and nuc columns.\
+6.  The chain continues and I added the specified columns. There is mean and median for each numeric variable and a class grouping.
 
 ```{r}
 # Done again using Dplyr chain.
@@ -123,11 +121,11 @@ red_wine <- red_wine |>
 wine_data <- bind_rows(white_wine, red_wine)
 ```
 
-7. I started a chain to look at wine records with quality > 6.5 and alcohol > 13.2   
+7.  I started a chain to look at wine records with quality \> 6.5 and alcohol \> 13.2
 
-8. Now, the quality is arranged from highest to lowest (descending).
+8.  Now, the quality is arranged from highest to lowest (descending).
 
-9. Next, it selects from where the variables contains 'acid'. And also the alcohol, type, and quality variables.
+9.  Next, it selects from where the variables contains 'acid'. And also the alcohol, type, and quality variables.
 
 10. The chain continues with adding the mean and standard deviation of the alcohol variable to the data set of the quality variable.
 
