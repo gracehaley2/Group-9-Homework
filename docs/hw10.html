@@ -1543,11 +1543,6 @@ $ solar_radiation &lt;dbl&gt; 0.24875000, 0.26375000, 0.12541667, 0.28291667, 0.
  9 &lt;split [238/25]&gt; Fold09
 10 &lt;split [239/24]&gt; Fold10</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb93"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb93-1"><a href="#cb93-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Namespace qualification avoids a conflict with HW9's custom rmse().</span></span>
-<span id="cb93-2"><a href="#cb93-2" aria-hidden="true" tabindex="-1"></a>reg_metrics <span class="ot">&lt;-</span> yardstick<span class="sc">::</span><span class="fu">metric_set</span>(yardstick<span class="sc">::</span>rmse, yardstick<span class="sc">::</span>mae)</span>
-<span id="cb93-3"><a href="#cb93-3" aria-hidden="true" tabindex="-1"></a>cv_control <span class="ot">&lt;-</span> <span class="fu">control_resamples</span>(<span class="at">save_pred =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb93-4"><a href="#cb93-4" aria-hidden="true" tabindex="-1"></a>grid_control <span class="ot">&lt;-</span> <span class="fu">control_grid</span>(<span class="at">save_pred =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
 </section>
 <section id="create-recipes" class="level2">
 <h2 class="anchored" data-anchor-id="create-recipes">Create recipes</h2>
