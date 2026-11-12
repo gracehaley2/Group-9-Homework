@@ -1,0 +1,785 @@
+---
+title: "Homework 10"
+author: "Group 9"
+---
+
+## Introduction
+
+This assignment continues our analysis of daily bike rentals in Seoul. We reuse the data reading and EDA from Homework 9, then use tidymodels to compare three multiple linear regression specifications, a regression tree, bagged trees, and a random forest. We select model configurations with 10-fold cross-validation, compare the selected models on test RMSE and MAE, and refit the overall winner on all daily observations.
+
+The data set is from <https://www4.stat.ncsu.edu/~online/datasets/SeoulBikeData.csv>.
+
+## Setup
+
+These are the packages I will be using.
+
+```{r}
+library(tidyverse)
+library(lubridate)
+library(tidymodels)
+library(knitr)
+library(ranger)
+library(rpart.plot)
+tidymodels_prefer()
+theme_set(theme_minimal())
+```
+
+## Reading the data
+
+The data file contains degree symbols in some column names, which causes an issue when trying to read the data the normal way. Specifying Latin1 encoding allows these characters to be read correctly.
+
+```{r}
+bikes <- read_csv(
+  "SeoulBikeData.csv",
+  locale = locale(encoding = "Latin1")
+)
+dim(bikes)
+head(bikes)
+glimpse(bikes)
+nrow(bikes)
+ncol(bikes)
+```
+
+We can see here all the variables that are measured which match the given variables on the assignment document. There are 8760 individual observations and 14 variables measured.
+
+## Check missingness, types, and values
+
+Before making changes, we check for missing values, summarize the numeric variables, and inspect the unique values of the categorical variables.
+
+```{r}
+# Check for missing values in each column
+missing_values <- tibble(
+  variable = names(bikes),
+  missing = colSums(is.na(bikes))
+)
+
+knitr::kable(missing_values)
+
+# Summary statistics for numeric columns
+bikes |>
+  select(where(is.numeric)) |>
+  summary()
+
+# Unique categorical values
+bikes |>
+  select(Seasons, Holiday, `Functioning Day`) |>
+  lapply(unique)
+```
+
+It looks like there are 0 missing values in the data. Temperature and dew point temperature seem to be the two numeric variables that go negative, but this makes sense because these values were measured in Celsius, not Fahrenheit. But variables like rented bike counts and precipitation measurements should not be negative, so the data looks good. There are three categorical variables in the data set: "Seasons", which returns one of the four seasons, "Holiday", which returns if it was a holiday or not, and "Functioning Day", which returns if it was a functioning day or not. That just means if the bike rental service was running that day.
+
+```{r}
+# Check for values outside possible/plausible ranges
+bikes |>
+  summarise(
+    invalid_rentals = sum(`Rented Bike Count` < 0),
+    invalid_hours = sum(Hour < 0 | Hour > 23),
+    invalid_humidity = sum(`Humidity(%)` < 0 | `Humidity(%)` > 100),
+    invalid_rainfall = sum(`Rainfall(mm)` < 0),
+    invalid_snowfall = sum(`Snowfall (cm)` < 0)
+  )
+```
+
+It looks like there aren't any values outside the plausible measurement ranges for these variables as well.
+
+## Clean dates, factors, and column names
+
+Dates are recorded here in day/month/year order, so we use `dmy()`. We convert the categorical variables into factors and rename the columns to make them easier to use.
+
+```{r}
+bikes <- bikes |>
+  rename(
+    date = Date,
+    bike_count = `Rented Bike Count`,
+    hour = Hour,
+    temp = `Temperature(°C)`,
+    humidity = `Humidity(%)`,
+    wind_speed = `Wind speed (m/s)`,
+    visibility = `Visibility (10m)`,
+    dew_point = `Dew point temperature(°C)`,
+    solar_radiation = `Solar Radiation (MJ/m2)`,
+    rainfall = `Rainfall(mm)`,
+    snowfall = `Snowfall (cm)`,
+    seasons = Seasons,
+    holiday = Holiday,
+    functioning_day = `Functioning Day`
+  ) |>
+  mutate(
+    date = dmy(date),
+    seasons = factor(
+      seasons,
+      levels = c("Winter", "Spring", "Summer", "Autumn")
+    ),
+    holiday = factor(
+      holiday,
+      levels = c("No Holiday", "Holiday")
+    ),
+    functioning_day = factor(functioning_day)
+  )
+
+glimpse(bikes)
+
+# Confirm that all dates were converted successfully
+sum(is.na(bikes$date))
+
+range(bikes$date)
+```
+
+The variables were renamed so that we can work with them easier and the three categorical variables from earlier were also converted to factors. And the final outputs tell us that the date variable was converted properly and everything looks ready!
+
+## Summarize hourly rentals
+
+We examine the overall distribution of hourly rentals and compare rentals across the categorical variables.
+
+```{r}
+bikes |>
+  summarise(
+    observations = n(),
+    mean_rentals = mean(bike_count),
+    median_rentals = median(bike_count),
+    sd_rentals = sd(bike_count),
+    min_rentals = min(bike_count),
+    max_rentals = max(bike_count)
+  ) |>
+  knitr::kable(digits = 2)
+
+# Summaries by each categorical variable
+hourly_groups <- bikes |>
+  mutate(across(
+    c(seasons, holiday, functioning_day),
+    as.character
+  )) |>
+  pivot_longer(
+    cols = c(seasons, holiday, functioning_day),
+    names_to = "variable",
+    values_to = "category"
+  ) |>
+  group_by(variable, category) |>
+  summarise(
+    hours = n(),
+    mean_rentals = mean(bike_count),
+    median_rentals = median(bike_count),
+    sd_rentals = sd(bike_count),
+    min_rentals = min(bike_count),
+    max_rentals = max(bike_count),
+    .groups = "drop"
+  )
+
+knitr::kable(hourly_groups, digits = 2)
+```
+
+Looking at the categorical variable summaries, we notice that the records with a "No" in the "functioning_day" variable don't have any useful data for us to investigate. It might be a good idea to only use records with a "Yes" measurement for that variable and use that as our new data set.
+
+```{r}
+bikes |>
+  group_by(functioning_day) |>
+  summarise(
+    hours = n(),
+    total_rentals = sum(bike_count),
+    nonzero_rental_hours = sum(bike_count > 0),
+    .groups = "drop"
+  ) |>
+  knitr::kable()
+
+bikes_functioning <- bikes |>
+  filter(functioning_day == "Yes")
+
+tibble(
+  original_hours = nrow(bikes),
+  retained_hours = nrow(bikes_functioning),
+  removed_hours = nrow(bikes) - nrow(bikes_functioning)
+) |>
+  knitr::kable()
+```
+
+Again, you can see that the "No" days are not worth keeping in our final data set as we can't actually gain any insights from those records.
+
+## Aggregate into daily observations
+
+We group by date, season, and holiday status. We sum rental counts, rainfall, and snowfall and calculate daily means for the remaining weather variables.
+
+```{r}
+daily <- bikes_functioning |>
+  group_by(date, seasons, holiday) |>
+  summarise(
+    bike_count = sum(bike_count),
+    rainfall = sum(rainfall),
+    snowfall = sum(snowfall),
+    across(
+      c(
+        temp, humidity, wind_speed, visibility,
+        dew_point, solar_radiation
+      ),
+      mean
+    ),
+    .groups = "drop"
+  )
+
+glimpse(daily)
+head(daily)
+nrow(daily)
+```
+
+The aggregated data set contains 353 daily observations. The response variable is now the total number of rentals recorded during functioning hours on each date.
+
+We can also check how many functioning hours contributed to each day.
+
+```{r}
+bikes_functioning |>
+  count(date, name = "functioning_hours") |>
+  count(functioning_hours, name = "number_of_days") |>
+  knitr::kable()
+```
+
+For dates containing less than 24 functioning hours like above, its rental total covers only those hours. This is a limitation when comparing daily totals.
+
+## Explore the daily data with numerical summaries
+
+```{r}
+daily |>
+  select(where(is.numeric)) |>
+  summary()
+
+daily |>
+  group_by(seasons) |>
+  summarise(
+    days = n(),
+    mean_rentals = mean(bike_count),
+    median_rentals = median(bike_count),
+    sd_rentals = sd(bike_count),
+    .groups = "drop"
+  ) |>
+  knitr::kable(digits = 2)
+
+daily |>
+  group_by(holiday) |>
+  summarise(
+    days = n(),
+    mean_rentals = mean(bike_count),
+    median_rentals = median(bike_count),
+    sd_rentals = sd(bike_count),
+    .groups = "drop"
+  ) |>
+  knitr::kable(digits = 2)
+```
+
+As expected, the number of rentals go down during the winter season since South Korea gets quite cold at that time of year. The greatest number of rentals are in the summer season, followed by the autumn season, and then the spring season. The number of rentals by season had a high mean of 24817.76 rentals per day in summer and a low mean of 5412.99 rentals per day in winter.
+
+The days when there was no holiday also had a higher mean of rentals than the days where there was a holiday. The mean rentals for "No holiday" days was 17727.44 rentals per day and the mean rentals for "Holiday" days was 12699.71 rentals per day. This makes sense because people may travel longer distances or just stay home and not have to go to work on holidays, so there could be less people out and about using the bike rental service.
+
+## Plots
+
+### Distribution of daily rentals
+
+```{r}
+ggplot(daily, aes(x = bike_count)) +
+  geom_histogram(
+    bins = 25,
+    fill = "navyblue",
+    color = "white"
+  ) +
+  labs(
+    title = "Distribution of Daily Bike Rentals",
+    x = "Daily rental count",
+    y = "Number of days"
+  )
+```
+
+The histogram has 25 bins which split up the daily rental count numbers into 25 groups. We can see that the shows the distribution of daily demand and the extent to which rental counts vary across days. The plot suggests that there are low-rental days and high-rental days with its approximately bi-modal distribution. The daily rental counts frequency peaks at about 5000-7000 rentals and 24000-25000 rentals.
+
+### Rentals by season and holiday status
+
+```{r}
+ggplot(daily, aes(x = seasons, y = bike_count, fill = seasons)) +
+  geom_boxplot(show.legend = FALSE) +
+  labs(
+    title = "Daily Bike Rentals by Season",
+    x = "Season",
+    y = "Daily rental count"
+  )
+
+ggplot(daily, aes(x = holiday, y = bike_count, fill = holiday)) +
+  geom_boxplot(show.legend = FALSE) +
+  labs(
+    title = "Daily Bike Rentals by Holiday Status",
+    x = "Holiday status",
+    y = "Daily rental count"
+  )
+```
+
+These box plots compare the median, spread, and potential outliers of daily rentals across groups. We can see that in the first plot, the summer season has the highest numerical spread of daily rental counts with autumn and spring not far behind. The winter season has quite a lot spread of daily rental counts on the other hand.
+
+The second box plot shows us that the higher numerical spread of daily rental counts are in the "No Holiday" days while the "Holiday" days still have a decent numerical spread of daily bike rental counts, though not as high. This suggests that business is best on non-holiday, summer days!
+
+### Relationships with weather
+
+```{r}
+ggplot(daily, aes(x = temp, y = bike_count, color = seasons)) +
+  geom_point(alpha = 0.7) +
+  geom_smooth(
+    aes(group = 1),
+    method = "loess",
+    se = FALSE,
+    color = "black"
+  ) +
+  labs(
+    title = "Daily Rentals and Mean Temperature",
+    x = "Mean temperature (degrees Celsius)",
+    y = "Daily rental count",
+    color = "Season"
+  )
+
+ggplot(daily, aes(x = rainfall, y = bike_count)) +
+  geom_point(alpha = 0.6, color = "navyblue") +
+  labs(
+    title = "Daily Rentals and Rainfall",
+    x = "Total rainfall (mm)",
+    y = "Daily rental count"
+  )
+
+ggplot(daily, aes(x = humidity, y = bike_count)) +
+  geom_point(alpha = 0.6, color = "darkgreen") +
+  geom_smooth(method = "loess", se = FALSE, color = "black") +
+  labs(
+    title = "Daily Rentals and Mean Humidity",
+    x = "Mean humidity (%)",
+    y = "Daily rental count"
+  )
+```
+
+The smooth curves help assess whether the relationships with temperature and humidity appear approximately linear or show curvature. The models below allow for both interactions and quadratic relationships.
+
+The first plot shows that daily rentals rise until peaking at about 23-25 degrees Celsius, and then it falls after. The curved line suggests that there is a non-linear relationship. Winter days subsequently have the lowest amount of rentals with a mix of summer, autumn, and spring days sharing the peak of the rentals.
+
+The second plot shows that the majority of days had no rainfall, seeing how concentrated the points are at x=0 (0mm of rainfall). The highest points with the most daily bike rentals also were on days with zero or low amount of rainfall. As rainfall increased, there were less and less bike rentals. Although, there were still a decent amount of people renting bikes on days with rain.
+
+The third plot shows us that the number of daily bike rentals rises from a medium amount and peaks at about 55% to 65% mean humidity. Bike rentals slowly decrease after that and go down sharply past 70% mean humidity. This suggests that people more open to riding bikes up until only a certain % of mean humidity and then when it gets too humid, the number of bike rentals decrease. People could be more open to staying indoors or traveling by car or bus or any other vehicle with air conditioning rather than bikes.
+
+### Correlations
+
+```{r}
+correlations <- daily |>
+  select(where(is.numeric)) |>
+  cor()
+
+knitr::kable(correlations, digits = 2)
+
+rental_correlations <- tibble(
+  variable = setdiff(colnames(correlations), "bike_count"),
+  correlation = correlations[
+    "bike_count",
+    setdiff(colnames(correlations), "bike_count")
+  ]
+) |>
+  arrange(desc(abs(correlation)))
+
+knitr::kable(rental_correlations, digits = 3)
+```
+
+A positive value in the correlation indicates that two variables tend to increase together and a negative value indicates that one tends to decrease as the other increases.
+
+It looks like temperature, solar radiation, and dew point have strong, positive relationships with number of bike rentals. This makes sense as warmer days have more bike rentals. Snowfall, rainfall, and wind speed have weak negative relationships with the number of bike rentals. This makes sense because snowfall, rainfall, and increased wind speeds go together and are weather patterns that don't promote outdoor biking. Visibility has a weak positive relationship with bike rental rates which means that an increase in visibility has a small positive effect on bike rentals. Humidity has a nonexistent relationships with regards to the number of bike rentals, meaning there isn't much of a correlation between the two.
+
+## Split the data and create cross-validation folds
+
+We split the daily observations into approximately 75% training and 25% testing, stratified by season. We create 10 folds within the training set.
+
+```{r}
+set.seed(123)
+bike_split <- initial_split(daily, prop = 0.75, strata = seasons)
+train <- training(bike_split)
+test <- testing(bike_split)
+
+set.seed(456)
+bike_folds <- vfold_cv(train, v = 10, strata = seasons)
+
+tibble(dataset = c("Training", "Test"),
+       days = c(nrow(train), nrow(test))) |>
+  knitr::kable()
+
+bind_rows(train |> mutate(dataset = "Training"),
+          test |> mutate(dataset = "Test")) |>
+  count(dataset, seasons) |>
+  group_by(dataset) |>
+  mutate(proportion = n / sum(n)) |>
+  ungroup() |>
+  knitr::kable(digits = 3)
+
+bike_folds
+
+# Namespace qualification avoids a conflict with HW9's custom rmse().
+reg_metrics <- yardstick::metric_set(yardstick::rmse, yardstick::mae)
+cv_control <- control_resamples(save_pred = TRUE)
+grid_control <- control_grid(save_pred = TRUE)
+```
+
+## Create recipes
+
+### Recipe 1: Main effects
+
+We extract the day of the week and convert it into a weekday/weekend factor. With numeric output from `step_date()`, Sunday is 1 and Saturday is 7. We remove the original date and intermediate day-of-week variable, standardize the eight numeric weather predictors, and then create dummy variables for the categorical predictors.
+
+```{r}
+recipe1 <- recipe(bike_count ~ ., data = train) |>
+  step_date(date, features = "dow", label = FALSE) |>
+  step_mutate(
+    day_type = factor(
+      if_else(date_dow %in% c(1, 7), "Weekend", "Weekday"),
+      levels = c("Weekday", "Weekend")
+    )
+  ) |>
+  step_rm(date, date_dow) |>
+  step_normalize(all_numeric_predictors()) |>
+  step_dummy(all_nominal_predictors())
+
+recipe1
+```
+
+The reference groups are winter, non-holiday, and weekday. Dummy variables are created after normalization, so the dummy variables are not standardized. However, the standardized weather columns keep their original names.
+
+### Recipe 2: Add interactions
+
+We add season-by-holiday, season-by-temperature, and temperature-by-rainfall interactions. 
+
+```{r}
+recipe2 <- recipe1 |>
+  step_interact(terms = ~
+    starts_with("seasons_"):starts_with("holiday_") +
+    starts_with("seasons_"):temp +
+    temp:rainfall
+  )
+recipe2
+```
+
+### Recipe 3: Add quadratic terms
+
+We square temperature and humidity after normalization.
+
+```{r}
+recipe3 <- recipe2 |>
+  step_mutate(temp_squared = temp^2, humidity_squared = humidity^2)
+recipe3
+```
+
+### Check the recipe output
+
+This check prepares the first recipe only to inspect its output and count the predictors for bagging. Cross-validation below still receives the unprepared recipes and estimates pre processing within each fold.
+
+```{r}
+recipe_check <- prep(recipe1, training = train)
+processed_train <- bake(recipe_check, new_data = train)
+glimpse(processed_train)
+
+# Verify weekend coding against lubridate independently.
+expected_weekend <- as.integer(lubridate::wday(train$date, week_start = 1) >= 6)
+stopifnot(all(processed_train$day_type_Weekend == expected_weekend))
+
+# Eight weather predictors, three season dummies,
+# one holiday dummy, and one weekend dummy.
+p <- ncol(select(processed_train, -bike_count))
+p
+```
+
+## Fit the three linear models using 10-fold cross-validation
+
+```{r}
+lm_spec <- linear_reg() |>
+  set_engine("lm") |>
+  set_mode("regression")
+
+lm_workflows <- list(
+  "MLR 1" = workflow() |> add_recipe(recipe1) |> add_model(lm_spec),
+  "MLR 2" = workflow() |> add_recipe(recipe2) |> add_model(lm_spec),
+  "MLR 3" = workflow() |> add_recipe(recipe3) |> add_model(lm_spec)
+)
+
+set.seed(100)
+lm_cv <- purrr::map(lm_workflows, function(wf) {
+  fit_resamples(wf, resamples = bike_folds,
+                metrics = reg_metrics, control = cv_control)
+})
+
+lm_cv_results <- purrr::imap_dfr(lm_cv, function(result, model_name) {
+  collect_metrics(result) |> mutate(model = model_name)
+}) |>
+  select(model, .metric, mean, n, std_err)
+
+knitr::kable(lm_cv_results, digits = 2)
+
+best_lm_row <- lm_cv_results |>
+  filter(.metric == "rmse") |>
+  arrange(mean) |>
+  slice(1)
+
+best_lm_name <- best_lm_row$model
+best_lm_workflow <- lm_workflows[[best_lm_name]]
+
+ggplot(filter(lm_cv_results, .metric == "rmse"),
+       aes(model, mean, fill = model)) +
+  geom_col(show.legend = FALSE) +
+  geom_errorbar(aes(ymin = mean - std_err, ymax = mean + std_err),
+                width = 0.15) +
+  labs(title = "Linear Models: Cross-Validation RMSE",
+       subtitle = "Error bars show one standard error",
+       x = "Model", y = "Mean CV RMSE (rentals per day)")
+```
+
+Model 3 has the lowest mean CV RMSE, at about 3030.72 rentals per day. And so it's selected as the best linear specification. We choose it using training-set CV rather than reusing HW9's test-based selection. Model 2, however, has a very similar CV RMSE, so it works well too.
+
+## Tune a regression tree
+
+We use Recipe 1 and tune the complexity penalty, maximum tree depth, and minimum node size. The candidate combinations are evaluated with the same 10 training folds.
+
+```{r}
+tree_spec <- decision_tree(cost_complexity = tune(),
+                           tree_depth = tune(), min_n = tune()) |>
+  set_engine("rpart") |>
+  set_mode("regression")
+
+tree_workflow <- workflow() |>
+  add_recipe(recipe1) |>
+  add_model(tree_spec)
+
+tree_grid <- expand_grid(
+  cost_complexity = c(0.0001, 0.001, 0.01),
+  tree_depth = c(3L, 6L, 10L),
+  min_n = c(5L, 15L, 30L)
+)
+
+set.seed(200)
+tree_tuning <- tune_grid(tree_workflow, resamples = bike_folds,
+                         grid = tree_grid, metrics = reg_metrics,
+                         control = grid_control)
+
+show_best(tree_tuning, metric = "rmse", n = 5) |>
+  knitr::kable(digits = 4)
+
+best_tree_parameters <- select_best(tree_tuning, metric = "rmse")
+knitr::kable(best_tree_parameters)
+best_tree_workflow <- finalize_workflow(tree_workflow, best_tree_parameters)
+```
+
+We select the parameter combination with the lowest mean CV RMSE. This would be 'pre0_mod07_post0' with a mean of 3808.808. It uses a cost complexity of .0001, a maximum tree depth of 10, and a min_n of 5.
+
+## Tune bagged trees
+
+We implement bagging using `rand_forest()`, making every processed predictor available at every split. We tune the number of trees and minimum node size.
+
+```{r}
+bag_spec <- rand_forest(mtry = p, trees = tune(), min_n = tune()) |>
+  set_engine("ranger", importance = "permutation",
+             replace = TRUE, sample.fraction = 1, num.threads = 1) |>
+  set_mode("regression")
+
+bag_workflow <- workflow() |>
+  add_recipe(recipe1) |>
+  add_model(bag_spec)
+
+bag_grid <- expand_grid(trees = c(300L, 700L),
+                        min_n = c(2L, 5L, 10L, 20L))
+
+set.seed(300)
+bag_tuning <- tune_grid(bag_workflow, resamples = bike_folds,
+                        grid = bag_grid, metrics = reg_metrics,
+                        control = grid_control)
+
+show_best(bag_tuning, metric = "rmse", n = 5) |>
+  knitr::kable(digits = 2)
+
+best_bag_parameters <- select_best(bag_tuning, metric = "rmse")
+knitr::kable(best_bag_parameters)
+best_bag_workflow <- finalize_workflow(bag_workflow, best_bag_parameters)
+```
+
+The selected configuration has the lowest mean CV RMSE among the bagging candidates. This would be 'pre0_mod1_post0' with a mean of 2780.11. This configuration uses 300 trees with a min_n of 2.
+
+## Tune a random forest
+
+Random forests also average bootstrap-trained trees, but consider only a random subset of predictors at each split. We tune `mtry`, the number of trees, and minimum node size. The recipe is the same as the one used for the other tree models.
+
+```{r}
+rf_spec <- rand_forest(mtry = tune(), trees = tune(), min_n = tune()) |>
+  set_engine("ranger", importance = "permutation",
+             replace = TRUE, sample.fraction = 1, num.threads = 1) |>
+  set_mode("regression")
+
+rf_workflow <- workflow() |>
+  add_recipe(recipe1) |>
+  add_model(rf_spec)
+
+mtry_values <- unique(as.integer(pmax(1, pmin(p - 1, c(2, 4, 8)))))
+rf_grid <- expand_grid(mtry = mtry_values,
+                       trees = c(300L, 700L), min_n = c(2L, 5L, 10L))
+
+set.seed(400)
+rf_tuning <- tune_grid(rf_workflow, resamples = bike_folds,
+                       grid = rf_grid, metrics = reg_metrics,
+                       control = grid_control)
+
+show_best(rf_tuning, metric = "rmse", n = 5) |>
+  knitr::kable(digits = 2)
+
+best_rf_parameters <- select_best(rf_tuning, metric = "rmse")
+knitr::kable(best_rf_parameters)
+best_rf_workflow <- finalize_workflow(rf_workflow, best_rf_parameters)
+```
+
+We select the best random forest configuration using mean CV RMSE. This would be 'pre0_mod16_post0' with a mean of 2850.18, 700 trees and a min_n of 2.
+
+## Fit the selected models on the entire training set
+
+`last_fit()` trains each selected workflow using the full training portion of our split and predicts the held-out test observations. Its recipe learns normalization values only from the training set.
+
+```{r}
+selected_workflows <- list(
+  "MLR" = best_lm_workflow,
+  "Regression tree" = best_tree_workflow,
+  "Bagged trees" = best_bag_workflow,
+  "Random forest" = best_rf_workflow
+)
+
+set.seed(500)
+last_fits <- purrr::map(selected_workflows, function(wf) {
+  last_fit(wf, split = bike_split, metrics = reg_metrics)
+})
+```
+
+## Compare test RMSE and MAE
+
+RMSE gives greater weight to large errors, while MAE is the average absolute error. Both are measured in rentals per day, so lower values are better. We use test RMSE as the main measurement when looking for the overall winner, and this is useful when RMSE and MAE rankings are different.
+
+```{r}
+test_results <- purrr::imap_dfr(last_fits, function(result, model_name) {
+  collect_metrics(result) |> mutate(model = model_name)
+}) |>
+  select(model, .metric, .estimate)
+
+test_table <- test_results |>
+  pivot_wider(names_from = .metric, values_from = .estimate) |>
+  arrange(rmse)
+
+knitr::kable(test_table, digits = 2)
+
+ggplot(test_results, aes(model, .estimate, fill = model)) +
+  geom_col(show.legend = FALSE) +
+  geom_text(aes(label = round(.estimate, 1)), vjust = -0.3, size = 3) +
+  facet_wrap(~ .metric, scales = "free_y") +
+  scale_y_continuous(expand = expansion(mult = c(0, 0.15))) +
+  labs(title = "Selected Models: Test Performance", x = NULL,
+       y = "Error (rentals per day)") +
+  theme(axis.text.x = element_text(angle = 30, hjust = 1))
+
+best_overall_name <- test_table$model[1]
+best_overall_rmse <- test_table$rmse[1]
+best_mae_name <- test_table |> arrange(mae) |> slice(1) |> pull(model)
+```
+
+Bagged trees has the lowest test RMSE at about 2631.5 rentals per day. The model with the lowest test MAE is also bagged trees. It seems that our bagged tree model is performing the best. It's good to note though that the random forest model's MAE and RMSE errors are quite close to the bagged trees model metrics too.
+
+## Extract model fits and summaries
+
+These are the selected models fitted on the entire training set.
+
+```{r}
+fitted_workflows <- purrr::map(last_fits, extract_workflow)
+lm_engine <- extract_fit_engine(fitted_workflows[["MLR"]])
+tree_engine <- extract_fit_engine(fitted_workflows[["Regression tree"]])
+bag_engine <- extract_fit_engine(fitted_workflows[["Bagged trees"]])
+rf_engine <- extract_fit_engine(fitted_workflows[["Random forest"]])
+```
+
+### Linear model coefficients
+
+```{r}
+summary(lm_engine)
+broom::tidy(lm_engine, conf.int = TRUE) |>
+  knitr::kable(digits = 4)
+```
+
+The weather predictors are standardized, and the reference groups are winter, non-holiday, and weekday. For predictors without interactions or quadratic terms, a coefficient gives the predicted change in daily rentals for a one-standard-deviation increase, holding other predictors constant.
+
+### Regression tree summary and plot
+
+```{r}
+tree_engine
+printcp(tree_engine)
+```
+
+```{r}
+#| fig-width: 12
+#| fig-height: 8
+rpart.plot(tree_engine, type = 2, extra = 101,
+           fallen.leaves = TRUE, box.palette = "Blues",
+           main = "Selected Regression Tree")
+```
+
+The tree groups days by predictor thresholds and assigns a predicted rental count to each terminal group. Weather thresholds use standardized units. A threshold of zero represents the training mean, while a threshold of one represents one training standard deviation above that mean.
+
+### Bagged trees: summary and variable importance
+
+```{r}
+bag_engine
+bag_importance <- tibble(
+  variable = names(bag_engine$variable.importance),
+  importance = as.numeric(bag_engine$variable.importance)
+) |> arrange(desc(importance))
+
+knitr::kable(bag_importance, digits = 2)
+ggplot(bag_importance, aes(reorder(variable, importance), importance)) +
+  geom_col(fill = "navyblue") + coord_flip() +
+  labs(title = "Bagged Trees: Permutation Importance", x = NULL,
+       y = "Permutation importance (increase in OOB MSE)")
+```
+The bagged-tree model uses 300 trees trained on 263 daily observations, considering all 13 predictors at each split, with a minimum node size setting of 2. Its out-of-bag R^2^ of 0.9168 indicates that its OOB predictions explain approximately 91.7% of the variation in daily bike rentals. The OOB mean squared error of 8,111,773 corresponds to an RMSE of approximately 2,848 rentals per day.
+
+Temperature is the most important predictor of daily bike rentals in the bagged-tree model, followed by solar radiation and the autumn indicator. Randomly shuffling these variables increases prediction error the most, indicating that the model relies heavily on them. Rainfall and dew point contribute less, while wind speed, the summer indicator, and snowfall have the lowest importance.
+
+### Random forest: summary and variable importance
+
+```{r}
+rf_engine
+rf_importance <- tibble(
+  variable = names(rf_engine$variable.importance),
+  importance = as.numeric(rf_engine$variable.importance)
+) |> arrange(desc(importance))
+
+knitr::kable(rf_importance, digits = 2)
+ggplot(rf_importance, aes(reorder(variable, importance), importance)) +
+  geom_col(fill = "darkgreen") + coord_flip() +
+  labs(title = "Random Forest: Permutation Importance", x = NULL,
+       y = "Permutation importance (increase in OOB MSE)")
+```
+The random forest uses 700 trees trained on 263 daily observations, randomly considering 8 of the 13 predictors at each split, with a minimum node size setting of 2. Its out-of-bag R^2^ of 0.9158 indicates that its OOB predictions explain approximately 91.6% of the variation in daily bike rentals. The OOB MSE of 8,206,544 corresponds to an RMSE of approximately 2,865 rentals per day. This is slightly higher than the bagged-tree model’s OOB RMSE of 2,848, indicating that it has similar predictive performance.
+
+Temperature is the most important predictor of daily bike rentals in the random forest, followed by solar radiation and dew point. Shuffling these variables produces the largest increases in out-of-bag prediction error, indicating that the model relies heavily on them. The autumn indicator and rainfall also contribute, while holiday status, snowfall, and wind speed have relatively little importance.
+
+## Observed versus predicted test rentals
+
+```{r}
+test_predictions <- purrr::imap_dfr(last_fits, function(result, model_name) {
+  collect_predictions(result) |> mutate(model = model_name)
+})
+
+ggplot(test_predictions, aes(bike_count, .pred)) +
+  geom_point(alpha = 0.65, color = "navyblue") +
+  geom_abline(slope = 1, intercept = 0, linetype = "dashed", color = "red") +
+  facet_wrap(~ model) + coord_equal() +
+  labs(title = "Observed vs. Predicted Test Rentals",
+       x = "Observed daily rentals", y = "Predicted daily rentals")
+```
+
+Points above the line represent overpredictions, while points below it represent underpredictions.
+
+All four models have the general pattern of daily bike rentals, with many predictions close to the dashed line representing perfect predictions. Bagged trees and random forest are similar with their observed counts, although they tend to underpredict some high-rental days. MLR also performs decently well but has several larger errors, including a negative prediction. The regression tree appears less accurate too. 
+
+## Refit the overall best model on all daily observations
+
+We refit the selected workflow on the entire daily dataset. Its recipe now estimates normalization values from all daily observations.
+
+```{r}
+set.seed(600)
+final_full_fit <- fit(selected_workflows[[best_overall_name]], data = daily)
+best_overall_name
+final_full_fit
+```
+The final bagged-tree model uses 300 trees fitted on all 353 daily observations, with all 13 predictors considered at each split. Its out-of-bag R^2^ of ~0.9254 indicates that its out-of-bag predictions explain approximately 92.5% of the variation in daily rentals. The out-of-bag MSE is 7,548,894, equivalent to an RMSE of approximately 2,748 rentals per day.
